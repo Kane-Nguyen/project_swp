@@ -1,3 +1,8 @@
-controller\UserController.class
-dao\MysqlConnect.class
+dao\ProductsDAO.class
+model\Products.class
 model\Users.class
+controller\UserController.class
+controller\createProducts.class
+controller\editProducts.class
+dao\MysqlConnect.class
+controller\deleteProducts.class
