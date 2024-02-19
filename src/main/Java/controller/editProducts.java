@@ -73,7 +73,7 @@ public class editProducts extends HttpServlet {
 // Get the product information from the form submission
         String productID = request.getParameter("product_id");
         String productName = request.getParameter("product_name");
-        float productPrice = Float.parseFloat(request.getParameter("product_price"));
+        double productPrice = Double.parseDouble(request.getParameter("product_price"));
         String imageUrl = request.getParameter("image_url");
         int stockQuantity = Integer.parseInt(request.getParameter("stock_quantity"));
         int categoryId = Integer.parseInt(request.getParameter("category_id"));
@@ -81,10 +81,10 @@ public class editProducts extends HttpServlet {
         
         // Update the product using DAO
         ProductsDAO productDAO = new ProductsDAO();
-        boolean isUpdated = productDAO.editProduct(productID, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+        boolean edit = productDAO.editProduct(productID, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
 
         // Redirect or report error based on the update operation result
-        if (isUpdated) {
+        if (edit) {
             response.sendRedirect("showProducts.jsp"); // Redirect to the product list page
         } else {
             // Set error message and forward to edit page

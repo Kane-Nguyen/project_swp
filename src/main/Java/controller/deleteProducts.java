@@ -74,9 +74,8 @@ public class deleteProducts extends HttpServlet {
             return;
         }
 
-        // Perform the delete operation using your data access object (DAO)
-        ProductsDAO p = new ProductsDAO(); // Instantiate your DAO class
-        boolean isDeleted = p.deleteProduct(productId); // Assume that this method returns a boolean
+        ProductsDAO p = new ProductsDAO(); 
+        boolean isDeleted = p.deleteProduct(productId); 
 
         if (isDeleted) {
             // If deletion was successful, redirect to the list of products

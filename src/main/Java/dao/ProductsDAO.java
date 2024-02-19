@@ -35,7 +35,7 @@ public class ProductsDAO {
                 Products p = new Products(
                         rs.getString("product_id"),
                         rs.getString("product_name"),
-                        rs.getFloat("product_price"),
+                        rs.getDouble("product_price"),
                         rs.getString("image_url"),
                         rs.getInt("stock_quantity"),
                         rs.getInt("category_id"),
@@ -57,7 +57,7 @@ public class ProductsDAO {
         return list;
     }
 
-    public boolean createProduct(String productId, String productName, float productPrice, String imageUrl, int stockQuantity,int categoryId, String productBranch) {
+    public boolean createProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         String sql = "INSERT INTO products (product_id, product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = MysqlConnect.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productId);
@@ -75,34 +75,33 @@ public class ProductsDAO {
             return false;
         }
     }
-    
+
     public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
-    String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
-    try (Connection connection = MysqlConnect.getConnection();
-         PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setString(1, productName);
-        st.setDouble(2, productPrice);
-        st.setString(3, imageUrl);
-        st.setInt(4, stockQuantity);
-        st.setInt(5, categoryId);
-        st.setString(6, productBranch);
-        st.setString(7, productId);
-        
-        int affectedRows = st.executeUpdate();
-        return affectedRows > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+        String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
+        try (Connection connection = MysqlConnect.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, productName);
+            st.setDouble(2, productPrice);
+            st.setString(3, imageUrl);
+            st.setInt(4, stockQuantity);
+            st.setInt(5, categoryId);
+            st.setString(6, productBranch);
+            st.setString(7, productId);
+
+            int affectedRows = st.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
-    
-}
-public Products getProductById(String productId) {
+
+    public Products getProductById(String productId) {
         Products product = null;
         String sql = "SELECT * FROM products WHERE product_id = ?";
 
-        try (Connection connection = MysqlConnect.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-             
+        try (Connection connection = MysqlConnect.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
             preparedStatement.setString(1, productId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -110,7 +109,7 @@ public Products getProductById(String productId) {
                 product = new Products();
                 product.setProduct_id(resultSet.getString("product_id"));
                 product.setProduct_name(resultSet.getString("product_name"));
-                product.setProduct_price(resultSet.getFloat("product_price"));
+                product.setProduct_price(resultSet.getDouble("product_price"));
                 product.setImage_url(resultSet.getString("image_url"));
                 product.setStock_quantity(resultSet.getInt("stock_quantity"));
                 product.setCategory_id(resultSet.getInt("category_id"));
@@ -136,6 +135,33 @@ public Products getProductById(String productId) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Products> searchProducts(String keyword) {
+        List<Products> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE product_name LIKE ?";
+
+        try (Connection connection = MysqlConnect.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, "%" + keyword + "%");
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Products p = new Products(
+                        rs.getString("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getString("image_url"),
+                        rs.getInt("stock_quantity"),
+                        rs.getInt("category_id"),
+                        rs.getString("product_branch"),
+                        rs.getDate("date_added"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public static void main(String[] args) {

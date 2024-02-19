@@ -10,12 +10,25 @@
     </head>
     <body>
         <h2>Product List</h2>
+        <!-- Search Form -->
+        <form action="searchProducts" method="get"> <!-- Adjust the action to point to your search handling servlet -->
+            <input type="text" name="query" placeholder="Search products">
+            <input type="submit" value="Search">
+        </form>
 
         <%
-            ProductsDAO p = new ProductsDAO();
-            List<Products> productList = p.getAll();
-            if (productList != null && !productList.isEmpty()) {
+       List<Products> productList = null;
+       if (request.getAttribute("productList") != null) {
+           // If productList is set by the servlet (search results)
+           productList = (List<Products>) request.getAttribute("productList");
+       } else {
+           // If productList is not set by the servlet (fetch all products)
+           ProductsDAO p = new ProductsDAO();
+           productList = p.getAll();
+       }
+       if (productList != null && !productList.isEmpty()) {
         %>
+
 
         <a href="addProduct.jsp"><button type="button">Add New Product</button></a>
         <table border="1">

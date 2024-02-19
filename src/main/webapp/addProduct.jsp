@@ -13,6 +13,9 @@
     </head>
     <body>
         <h2>Add New Product</h2>
+        <div id="success-alert" class="alert alert-success" style="display:none;">
+            Sản phẩm đã được thêm thành công!
+        </div>
 
         <!-- Form for adding a new product -->
         <form action="createProducts" method="POST">
@@ -48,8 +51,20 @@
                 <input type="submit" value="Add Product">
             </p>
         </form>
+        
 
         <a href="showProducts.jsp">Back to Product List</a>
+        
+        <script>
+            window.onload = function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const success = urlParams.get('success');
+
+                if(success === "true") {
+                    document.getElementById('success-alert').style.display = 'block';
+                }
+            };
+        </script>
     </body>
 </html>
 

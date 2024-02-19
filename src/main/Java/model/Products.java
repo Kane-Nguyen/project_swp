@@ -13,7 +13,7 @@ import java.util.Date;
 public class Products {
     private String product_id;
     private String  product_name;
-    private float product_price;
+    private double product_price;
     private String image_url;
     private int stock_quantity;
     private int category_id;
@@ -23,7 +23,7 @@ public class Products {
     public Products() {
     }
 
-    public Products(String product_id, String product_name, float product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date DateAdded) {
+    public Products(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date DateAdded) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;
@@ -54,7 +54,7 @@ public class Products {
         return product_price;
     }
 
-    public void setProduct_price(float product_price) {
+    public void setProduct_price(double product_price) {
         this.product_price = product_price;
     }
 

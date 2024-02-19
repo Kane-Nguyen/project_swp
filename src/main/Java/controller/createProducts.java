@@ -72,21 +72,25 @@ public class createProducts extends HttpServlet {
             throws ServletException, IOException {
         String productId = request.getParameter("product_id");
         String productName = request.getParameter("product_name");
-        float productPrice = Float.parseFloat(request.getParameter("product_price"));
+        double productPrice = Double.parseDouble(request.getParameter("product_price"));
         String imageUrl = request.getParameter("image_url");
         int stockQuantity = Integer.parseInt(request.getParameter("stock_quantity"));
         int categoryId = Integer.parseInt(request.getParameter("category_id"));
         String productBranch = request.getParameter("product_branch");
+        String error_mess = request.getParameter("error");
 
         // Creating the product
         ProductsDAO dao = new ProductsDAO();
+        
         boolean success = dao.createProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+        
 
         // Redirecting to the product list page or an error page based on the result
         if (success) {
-            response.sendRedirect("showProducts.jsp");
+            response.sendRedirect("addProduct.jsp");
         } else {
-            response.sendRedirect("errorPage.jsp"); // Replace with your actual error page
+            response.sendRedirect("addProduct.jsp"); // Replace with your actual error page
+            request.setAttribute("Loi error", error_mess);
         }
     }
 

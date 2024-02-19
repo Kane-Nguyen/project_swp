@@ -12,6 +12,14 @@
         <servlet-name>editProducts</servlet-name>
         <servlet-class>controller.editProducts</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchProducts</servlet-name>
+        <servlet-class>controller.searchProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CrudProducts</servlet-name>
+        <servlet-class>controller.CrudProducts</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deleteProducts</servlet-name>
         <url-pattern>/deleteProducts</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>editProducts</servlet-name>
         <url-pattern>/editProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchProducts</servlet-name>
+        <url-pattern>/searchProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrudProducts</servlet-name>
+        <url-pattern>/CrudProducts</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

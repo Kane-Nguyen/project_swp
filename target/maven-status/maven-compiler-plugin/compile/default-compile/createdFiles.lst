@@ -1,8 +1,8 @@
 dao\ProductsDAO.class
 model\Products.class
 model\Users.class
-controller\UserController.class
 controller\createProducts.class
 controller\editProducts.class
 dao\MysqlConnect.class
+controller\searchProducts.class
 controller\deleteProducts.class
