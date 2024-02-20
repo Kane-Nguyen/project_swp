@@ -1,7 +1,6 @@
 dao\ProductsDAO.class
 model\Products.class
 model\Users.class
-controller\CrudProducts.class
 controller\createProducts.class
 controller\editProducts.class
 dao\MysqlConnect.class

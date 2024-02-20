@@ -126,6 +126,8 @@ public class ProductsDAO {
 
     // Delete a product
     public boolean deleteProduct(String productId) {
+        // These tables have foreign key references to the products table
+        String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
         String deleteFromCartSql = "DELETE FROM cart WHERE product_id = ?";
         String deleteFromImagesSql = "DELETE FROM images WHERE product_id = ?";
         String deleteFromProductDescriptionSql = "DELETE FROM productdescription WHERE product_id = ?";
@@ -137,14 +139,15 @@ public class ProductsDAO {
             // Disable auto-commit to start the transaction
             connection.setAutoCommit(false);
 
-            // Delete from dependent tables first
+            // Delete from dependent tables first, starting with the ones that have a foreign key reference
+            deleteFromTable(connection, deleteFromReplyCommentsSql, productId);  // Delete any related reply comments
             deleteFromTable(connection, deleteFromCartSql, productId);
             deleteFromTable(connection, deleteFromImagesSql, productId);
             deleteFromTable(connection, deleteFromProductDescriptionSql, productId);
             deleteFromTable(connection, deleteFromInventoryTransactionsSql, productId);
             deleteFromTable(connection, deleteFromFeedbacksSql, productId);
 
-            // Finally, delete from products table
+            // Finally, delete from the products table
             deleteFromTable(connection, deleteFromProductsSql, productId);
 
             // Commit the transaction
@@ -152,6 +155,12 @@ public class ProductsDAO {
 
             return true;
         } catch (SQLException e) {
+            // If there is an exception, try to rollback the transaction
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
             return false;
         }
@@ -196,7 +205,7 @@ public class ProductsDAO {
         List<Products> lp = p.getAll();
         System.out.println(lp.get(0).getProduct_branch());
         p.editProduct("123", "Ok", 9, "ok", 9, 9, "Iphone");
-        p.deleteProduct("a");
+        p.deleteProduct("P001");
     }
 
 }
