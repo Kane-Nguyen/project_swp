@@ -15,7 +15,7 @@
             <input type="text" name="query" placeholder="Search products">
             <input type="submit" value="Search">
         </form>
-
+        <a href="addProduct.jsp"><button type="button">Add New Product</button></a>
         <%
        List<Products> productList = null;
        if (request.getAttribute("productList") != null) {
@@ -30,7 +30,7 @@
         %>
 
 
-        <a href="addProduct.jsp"><button type="button">Add New Product</button></a>
+        
         <table border="1">
             <thead>
                 <tr>

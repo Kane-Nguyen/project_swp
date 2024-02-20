@@ -126,14 +126,41 @@ public class ProductsDAO {
 
     // Delete a product
     public boolean deleteProduct(String productId) {
-        String sql = "DELETE FROM products WHERE product_id = ?";
-        try (Connection connection = MysqlConnect.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, productId);
-            int affectedRows = st.executeUpdate();
-            return affectedRows > 0;
+        String deleteFromCartSql = "DELETE FROM cart WHERE product_id = ?";
+        String deleteFromImagesSql = "DELETE FROM images WHERE product_id = ?";
+        String deleteFromProductDescriptionSql = "DELETE FROM productdescription WHERE product_id = ?";
+        String deleteFromInventoryTransactionsSql = "DELETE FROM inventory_transactions WHERE product_id = ?";
+        String deleteFromFeedbacksSql = "DELETE FROM feedbacks WHERE product_id = ?";
+        String deleteFromProductsSql = "DELETE FROM products WHERE product_id = ?";
+
+        try (Connection connection = MysqlConnect.getConnection()) {
+            // Disable auto-commit to start the transaction
+            connection.setAutoCommit(false);
+
+            // Delete from dependent tables first
+            deleteFromTable(connection, deleteFromCartSql, productId);
+            deleteFromTable(connection, deleteFromImagesSql, productId);
+            deleteFromTable(connection, deleteFromProductDescriptionSql, productId);
+            deleteFromTable(connection, deleteFromInventoryTransactionsSql, productId);
+            deleteFromTable(connection, deleteFromFeedbacksSql, productId);
+
+            // Finally, delete from products table
+            deleteFromTable(connection, deleteFromProductsSql, productId);
+
+            // Commit the transaction
+            connection.commit();
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void deleteFromTable(Connection connection, String sql, String productId) throws SQLException {
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, productId);
+            st.executeUpdate();
         }
     }
 
@@ -169,6 +196,7 @@ public class ProductsDAO {
         List<Products> lp = p.getAll();
         System.out.println(lp.get(0).getProduct_branch());
         p.editProduct("123", "Ok", 9, "ok", 9, 9, "Iphone");
+        p.deleteProduct("a");
     }
 
 }
