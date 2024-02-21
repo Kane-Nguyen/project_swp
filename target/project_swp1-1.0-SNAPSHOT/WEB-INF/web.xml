@@ -1,45 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    <servlet>
-        <servlet-name>deleteProducts</servlet-name>
-        <servlet-class>controller.deleteProducts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>createProducts</servlet-name>
-        <servlet-class>controller.createProducts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>editProducts</servlet-name>
-        <servlet-class>controller.editProducts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>searchProducts</servlet-name>
-        <servlet-class>controller.searchProducts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CrudProducts</servlet-name>
-        <servlet-class>controller.CrudProducts</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>deleteProducts</servlet-name>
-        <url-pattern>/deleteProducts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>createProducts</servlet-name>
-        <url-pattern>/createProducts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>editProducts</servlet-name>
-        <url-pattern>/editProducts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>searchProducts</servlet-name>
-        <url-pattern>/searchProducts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CrudProducts</servlet-name>
-        <url-pattern>/CrudProducts</url-pattern>
-    </servlet-mapping>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+   version="6.0">
     <session-config>
         <session-timeout>
             30
