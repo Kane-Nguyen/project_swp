@@ -57,7 +57,41 @@ public class ProductDAO {
         return list;
     }
 
+    public boolean createCategoryIfNotExists(int categoryId, String categoryName) {
+        if (!categoryExists(categoryId)) {
+            String sql = "INSERT INTO categories (category_id, category_name) VALUES (?, ?)";
+            try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+                st.setInt(1, categoryId);
+                st.setString(2, categoryName);
+                int affectedRows = st.executeUpdate();
+                return affectedRows > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean categoryExists(int categoryId) {
+        String sql = "SELECT COUNT(*) FROM categories WHERE category_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean createProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+        if (!createCategoryIfNotExists(categoryId, "Default Category")) {
+            return false; // Could not create category
+        }
+
         String sql = "INSERT INTO products (product_id, product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productId);
@@ -77,6 +111,12 @@ public class ProductDAO {
     }
 
     public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+        // Ensure the category exists, or create it
+        if (!createCategoryIfNotExists(categoryId, "Default Category")) {
+            return false; // Could not create category
+        }
+
+        // SQL statement for updating the product
         String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productName);
@@ -93,7 +133,6 @@ public class ProductDAO {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public Product getProductById(String productId) {
@@ -221,6 +260,7 @@ public class ProductDAO {
         System.out.println(lp.get(0).getProduct_branch());
         p.editProduct("P004", "Ok", 9, "ok", 9, 9, "Iphone");
         p.deleteProduct("aaa");
+        p.createProduct("p043", "ok", 1, "ok", 3, 3, "Sámun");
     }
 
 }

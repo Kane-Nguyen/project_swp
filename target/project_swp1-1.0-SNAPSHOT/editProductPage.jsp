@@ -24,34 +24,35 @@
         if (product != null) {
     %>
         <form action="CrudProduct" method="post">
-            <input type="hidden" name="action" value="edit"> <!-- Action to add product -->
+            <input type="hidden" name="action" value="edit">
+
             <div class="input-field">
-                <label for="product_id">Product ID:</label>
-                <input type="text" name="product_id" id="product_id" value="<%= product.getProduct_id() %>" readonly>
+                <label for="productId">Product ID:</label>
+                <input type="text" name="productId" id="productId" value="<%= product.getProduct_id() %>" readonly>
             </div>
             <div class="input-field">
-                <label for="product_name">Product Name:</label>
-                <input type="text" name="product_name" id="product_name" value="<%= product.getProduct_name() %>">
+                <label for="productName">Product Name:</label>
+                <input type="text" name="productName" id="productName" value="<%= product.getProduct_name() %>">
             </div>
             <div class="input-field">
-                <label for="product_price">Price:</label>
-                <input type="number" step="0.01" name="product_price" id="product_price" value="<%= product.getProduct_price() %>">
+                <label for="productPrice">Price:</label>
+                <input type="number" step="0.01" name="productPrice" id="productPrice" value="<%= product.getProduct_price() %>">
             </div>
             <div class="input-field">
-                <label for="image_url">Image URL:</label>
-                <input type="file" name="image_url" id="image_url" value="<%= product.getImage_url() %>">
+                <label for="image">Image URL:</label>
+                <input type="text" name="image" id="image" value="<%= product.getImage_url() %>">
             </div>
             <div class="input-field">
-                <label for="stock_quantity">Stock Quantity:</label>
-                <input type="number" name="stock_quantity" id="stock_quantity" value="<%= product.getStock_quantity() %>">
+                <label for="stockQuantity">Stock Quantity:</label>
+                <input type="number" name="stockQuantity" id="stockQuantity" value="<%= product.getStock_quantity() %>">
             </div>
             <div class="input-field">
-                <label for="category_id">Category ID:</label>
-                <input type="number" name="category_id" id="category_id" value="<%= product.getCategory_id() %>">
+                <label for="categoryId">Category ID:</label>
+                <input type="number" name="categoryId" id="categoryId" value="<%= product.getCategory_id() %>">
             </div>
             <div class="input-field">
-                <label for="product_branch">Branch:</label>
-                <input type="text" name="product_branch" id="product_branch" value="<%= product.getProduct_branch() %>">
+                <label for="productBranch">Branch:</label>
+                <input type="text" name="productBranch" id="productBranch" value="<%= product.getProduct_branch() %>">
             </div>
             <input type="submit" value="Update Product">
         </form>

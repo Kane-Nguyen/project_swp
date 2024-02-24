@@ -93,50 +93,62 @@ public class CrudProduct extends HttpServlet {
         }
     }
 
-    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get parameters from the request
-        String productId = request.getParameter("productId");
-        String productName = request.getParameter("productName");
-        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-        String imageUrl = request.getParameter("imageUrl");
-        int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-        String productBranch = request.getParameter("productBranch");
+    private void addProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        // Create a new product
-        ProductDAO productDAO = new ProductDAO();
-        boolean success = productDAO.createProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+        try {
+            String productId = request.getParameter("productId");
+            String productName = request.getParameter("productName");
+            double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+            String imageUrl = request.getParameter("image"); // Assuming image upload is handled correctly and returns a URL
+            int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            String productBranch = request.getParameter("productBranch");
 
-        // Redirect to the product list page
-        if (success) {
-            response.sendRedirect("showProducts.jsp");
-        } else {
-            // Handle error
-            // You can forward to an error page or display an error message
-            response.getWriter().println("Failed to add product.");
+            ProductDAO productDAO = new ProductDAO();
+            boolean success = productDAO.createProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+
+            if (success) {
+                response.sendRedirect("showProducts.jsp"); // Redirect to product list page on success
+            } else {
+                response.getWriter().println("Failed to add product."); // Display error message
+            }
+        } catch (NumberFormatException e) {
+            // Handle number format exceptions for double and integer parsing
+            response.getWriter().println("Error in number format: " + e.getMessage());
+        } catch (NullPointerException e) {
+            // Handle null pointer exceptions, likely due to missing form data
+            response.getWriter().println("Missing form data: " + e.getMessage());
+        } catch (Exception e) {
+            // Handle other exceptions
+            response.getWriter().println("An error occurred: " + e.getMessage());
         }
     }
 
     private void editProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Lấy thông tin sản phẩm từ form
-        String productId = request.getParameter("product_id");
-        String productName = request.getParameter("product_name");
-        double productPrice = Double.parseDouble(request.getParameter("product_price"));
-        String imageUrl = request.getParameter("images[]");
-        int stockQuantity = Integer.parseInt(request.getParameter("stock_quantity"));
-        int categoryId = Integer.parseInt(request.getParameter("category_id"));
-        String productBranch = request.getParameter("product_branch");
+        try {
+            String productId = request.getParameter("productId");
+            String productName = request.getParameter("productName");
+            double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+            String imageUrl = request.getParameter("image");
+            int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            String productBranch = request.getParameter("productBranch");
 
-        // Tạo đối tượng ProductDAO và cập nhật sản phẩm
-        ProductDAO dao = new ProductDAO();
-        boolean success = dao.editProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+            ProductDAO productDAO = new ProductDAO();
+            boolean success = productDAO.editProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
 
-        // Kiểm tra kết quả và chuyển hướng
-        if (success) {
-            response.sendRedirect("showProducts.jsp");
-        } else {
-            // Xử lý trường hợp cập nhật thất bại
-            response.sendRedirect("showProducts.jsp"); // Trang thông báo lỗi
+            if (success) {
+                response.sendRedirect("showProducts.jsp"); // Redirect to a page that shows the product list
+            } else {
+                response.getWriter().println("Failed to edit product."); // Display error message
+            }
+        } catch (NumberFormatException e) {
+            // Handle number format exceptions
+            response.getWriter().println("Number format error: " + e.getMessage());
+        } catch (Exception e) {
+            // Handle other exceptions
+            response.getWriter().println("An error occurred: " + e.getMessage());
         }
     }
 

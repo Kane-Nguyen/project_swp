@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ page import="model.Product" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +26,8 @@
     <body>
 
         <h2>Product List</h2>
-        <a href="createProductPage.jsp">Add Product</a> <!-- Link to Add Product Page -->
+        <a href="createProductPage.jsp">Add Product</a>
+
         <table>
             <tr>
                 <th>Product ID</th>
