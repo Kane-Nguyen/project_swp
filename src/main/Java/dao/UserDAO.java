@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import model.User;
 
-public class userDAO {
+public class UserDAO {
 
     private Connection connection;
     private Statement statement;
@@ -48,7 +48,7 @@ public class userDAO {
     }
     
     public static void main(String[] args) {
-		userDAO uDAO = new userDAO();
+		UserDAO uDAO = new UserDAO();
 		List<Map<String, Object>> list = uDAO.getList();
 		for(Map<String, Object> obj: list) {
 			System.out.println(obj.get("id") + obj.toString());

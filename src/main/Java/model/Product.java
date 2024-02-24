@@ -1,86 +1,85 @@
 package model;
 
-
-import java.sql.Date;
-
+import java.util.Date;
 
 public class Product {
-    private String productId;
-    private String productName;
-    private double productPrice;
-    private String imageUrl;
-    private int stockQuantity;
-    private int categoryId;
-    private String productBranch;
+    private String product_id;
+    private String product_name;
+    private double product_price;
+    private String image_url;
+    private int stock_quantity;
+    private int category_id;
+    private String product_branch;
     private Date dateAdded;
 
-    public Product(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch, Date dateAdded) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.imageUrl = imageUrl;
-        this.stockQuantity = stockQuantity;
-        this.categoryId = categoryId;
-        this.productBranch = productBranch;
+    public Product() {
+    }
+
+    public Product(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.product_price = product_price;
+        this.image_url = image_url;
+        this.stock_quantity = stock_quantity;
+        this.category_id = category_id;
+        this.product_branch = product_branch;
         this.dateAdded = dateAdded;
     }
 
-    // Getters and Setters for all fields
-
-    public String getProductId() {
-        return productId;
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
-    public double getProductPrice() {
-        return productPrice;
+    public double getProduct_price() {
+        return product_price;
     }
 
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public void setProduct_price(double product_price) {
+        this.product_price = product_price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public int getStock_quantity() {
+        return stock_quantity;
     }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setStock_quantity(int stock_quantity) {
+        this.stock_quantity = stock_quantity;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
-    public String getProductBranch() {
-        return productBranch;
+    public String getProduct_branch() {
+        return product_branch;
     }
 
-    public void setProductBranch(String productBranch) {
-        this.productBranch = productBranch;
+    public void setProduct_branch(String product_branch) {
+        this.product_branch = product_branch;
     }
 
     public Date getDateAdded() {
