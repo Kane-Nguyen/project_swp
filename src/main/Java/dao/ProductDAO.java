@@ -258,7 +258,7 @@ public class ProductDAO {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
         System.out.println(lp.get(0).getProduct_branch());
-        p.editProduct("P004", "Ok", 9, "ok", 9, 9, "Iphone");
+        p.editProduct("P004", "Ok", 9,"ok", 9, 9, "Iphone");
         p.deleteProduct("aaa");
         p.createProduct("p043", "ok", 1, "ok", 3, 3, "Sámun");
     }

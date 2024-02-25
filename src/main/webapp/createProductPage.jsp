@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Create New Product</h2>
-    <form action="CrudProduct" method="post">
+    <form action="CrudProduct" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="add">
 
         <label for="productId">Product ID:</label><br>
@@ -18,8 +18,8 @@
         <label for="productPrice">Product Price:</label><br>
         <input type="number" id="productPrice" name="productPrice" min="0.01" step="0.01" required><br>
 
-        <label for="image">Image URL:</label><br>
-        <input type="text" id="image" name="image" required><br>
+        <label for="image">Product Image:</label><br>
+        <input type="file" id="image" name="image" required><br>
 
         <label for="stockQuantity">Stock Quantity:</label><br>
         <input type="number" id="stockQuantity" name="stockQuantity" min="1" step="1" required><br>

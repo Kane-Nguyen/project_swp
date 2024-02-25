@@ -8,16 +8,29 @@ import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.InputStream;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Product;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Lenovo
  */
 @WebServlet(name = "CrudProduct", urlPatterns = {"/CrudProduct"})
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024, // 1 MB
+    maxFileSize = 1024 * 1024 * 10,  // 10 MB
+    maxRequestSize = 1024 * 1024 * 15 // 15 MB
+)
 public class CrudProduct extends HttpServlet {
 
     /**
@@ -96,41 +109,58 @@ public class CrudProduct extends HttpServlet {
     private void addProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+       try {
+            // Extract product details from request
             String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-            String imageUrl = request.getParameter("image"); // Assuming image upload is handled correctly and returns a URL
+            Part imagePart = request.getPart("image"); // Retrieve the image part
+            String imageUrl = convertImageToBase64(imagePart); // Convert image to base64
             int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             String productBranch = request.getParameter("productBranch");
 
+            // Database operation
             ProductDAO productDAO = new ProductDAO();
             boolean success = productDAO.createProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
 
             if (success) {
-                response.sendRedirect("showProducts.jsp"); // Redirect to product list page on success
+                response.sendRedirect("showProducts.jsp"); // Redirect on success
             } else {
-                response.getWriter().println("Failed to add product."); // Display error message
+                response.getWriter().println("Failed to add product."); // Error message
             }
         } catch (NumberFormatException e) {
-            // Handle number format exceptions for double and integer parsing
             response.getWriter().println("Error in number format: " + e.getMessage());
-        } catch (NullPointerException e) {
-            // Handle null pointer exceptions, likely due to missing form data
-            response.getWriter().println("Missing form data: " + e.getMessage());
-        } catch (Exception e) {
-            // Handle other exceptions
-            response.getWriter().println("An error occurred: " + e.getMessage());
+        } catch (NullPointerException | ServletException e) {
+            response.getWriter().println("Error processing form: " + e.getMessage());
+        } catch (IOException e) {
+            response.getWriter().println("IO Error: " + e.getMessage());
         }
     }
 
-    private void editProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
+    
+
+    private void editProduct(HttpServletRequest request, HttpServletResponse response) 
+        throws ServletException, IOException {
+
         try {
             String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-            String imageUrl = request.getParameter("image");
+            Part imagePart = request.getPart("image");
+            String imageUrl;
+
+            if (imagePart != null && imagePart.getSize() > 0) {
+                imageUrl = convertImageToBase64(imagePart); // Convert new image to base64
+          
+            } else {
+                ProductDAO productDAO = new ProductDAO();
+                Product existingProduct = productDAO.getProductById(productId);
+                imageUrl = existingProduct.getImage_url(); // Keep existing image
+            
+            }
+
             int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             String productBranch = request.getParameter("productBranch");
@@ -139,18 +169,34 @@ public class CrudProduct extends HttpServlet {
             boolean success = productDAO.editProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
 
             if (success) {
-                response.sendRedirect("showProducts.jsp"); // Redirect to a page that shows the product list
+                response.sendRedirect("showProducts.jsp"); // Redirect to the product list page
+       
             } else {
                 response.getWriter().println("Failed to edit product."); // Display error message
+  
             }
         } catch (NumberFormatException e) {
-            // Handle number format exceptions
+  
             response.getWriter().println("Number format error: " + e.getMessage());
         } catch (Exception e) {
-            // Handle other exceptions
+
             response.getWriter().println("An error occurred: " + e.getMessage());
         }
+}
+
+  private String convertImageToBase64(Part imagePart) throws IOException {
+        if (!isValidImageType(imagePart.getContentType())) {
+            throw new IOException("Invalid image type.");
+        }
+        InputStream inputStream = imagePart.getInputStream();
+        byte[] bytes = IOUtils.toByteArray(inputStream);
+        return Base64.getEncoder().encodeToString(bytes);
     }
+
+    private boolean isValidImageType(String contentType) {
+        return contentType.equals("image/jpeg") || contentType.equals("image/png");
+    }
+
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get productId parameter from the request
