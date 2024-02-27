@@ -24,7 +24,7 @@
                 List<product> p = pdModel.getProduct();
                 for (product product : p) {
             %>
-            <a href="productDetail.jsp?id=<%= product.getProduct_id()%>">
+            <a href="test.jsp?id=<%= product.getProduct_id()%>">
                 <img  src="<%= product.getImage_url()%>" style="width: 50%; height: 100%  ;">
             </a>
             <%

@@ -1,6 +1,6 @@
 package dao;
 
-import dao.MysqlConnect;
+import connect.MysqlConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +35,7 @@ public class productDescriptionDAO {
                 description.setBattery(rs.getString("battery"));
                 description.setOsystem(rs.getString("osystem"));
                 description.setCamera(rs.getString("camera"));
-                description.setProductId(rs.getString("product_id"));
+                description.setProductId(rs.getInt("product_id"));
                 description.setSim(rs.getString("sim"));
                 pDescriptions.add(description);
             }
@@ -52,7 +52,7 @@ public class productDescriptionDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 product p = new product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -74,18 +74,17 @@ public class productDescriptionDAO {
         return list;
     }
 
-    public List<product> getIMG(String id1, String id2, String id3) {
+    public List<product> getIMG(String id1, String id2) {
         List<product> list = new ArrayList<>();
-        String sql = "SELECT * from products WHERE product_id IN (?, ?, ?);";
+        String sql = "SELECT * from products WHERE product_id IN (?, ?);";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             st.setString(1, id1);
             st.setString(2, id2);
-            st.setString(3, id3);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 product p = new product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -100,19 +99,18 @@ public class productDescriptionDAO {
         return list;
     }
 
-    public List<productDescription> getProductDescription(String id1, String id2, String id3) {
+    public List<productDescription> getProductDescription(String id1, String id2) {
         List<productDescription> ProductDescription = new ArrayList<>();
-        String sql = "select * from productdescription WHERE product_id IN (?, ?, ?);";
+        String sql = "select * from productdescription WHERE product_id IN (?, ?);";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             st.setString(1, id1);
             st.setString(2, id2);
-            st.setString(3, id3);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 productDescription description = new productDescription(
                         rs.getInt("description_id"), rs.getString("size_display"), rs.getString("chipset"),
-                        rs.getString("battery"), rs.getString("osystem"), rs.getString("camera"), rs.getString("sim"), rs.getString("product_id"));
+                        rs.getString("battery"), rs.getString("osystem"), rs.getString("camera"), rs.getString("sim"), rs.getInt("product_id"));
                 ProductDescription.add(description);
             }
         } catch (SQLException e) {
@@ -135,9 +133,9 @@ public class productDescriptionDAO {
             System.out.println("anh " + description.getProductId());
         }
 //        List<product> p = pdModel.getProduct();
-        List<product> p1 = pdModel.getIMG("PROD1", "PROD2", "PROD3");
-        List<productDescription> p2 = pdModel.getProductDescription("PROD1", "PROD2", "PROD3");
-        System.out.println(p2.size());
+        List<product> p1 = pdModel.getIMG("1", "");
+        List<productDescription> p2 = pdModel.getProductDescription("1", "2");
+        System.out.println(p1.size());
  
 
     }

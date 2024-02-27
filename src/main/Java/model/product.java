@@ -11,7 +11,7 @@ import java.sql.Date;
  * @author THANHVINH
  */
 public class product {
-      private String product_id;
+      private int product_id;
     private String  product_name;
     private double product_price;
     private String image_url;
@@ -23,7 +23,7 @@ public class product {
     public product() {
     }
 
-    public product(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date DateAdded) {
+    public product(int product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date DateAdded) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;
@@ -34,11 +34,11 @@ public class product {
         this.DateAdded = DateAdded;
     }
 
-    public String getProduct_id() {
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 

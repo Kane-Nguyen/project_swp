@@ -17,12 +17,12 @@ public class productDescription {
     private String osystem;
     private String camera;
     private String sim;
-    private String productId;
+    private int productId;
 
     public productDescription() {
     }
 
-    public productDescription(int descriptionId, String sizeDisplay, String chipset, String battery, String osystem, String camera, String sim, String productId) {
+    public productDescription(int descriptionId, String sizeDisplay, String chipset, String battery, String osystem, String camera, String sim, int productId) {
         this.descriptionId = descriptionId;
         this.sizeDisplay = sizeDisplay;
         this.chipset = chipset;
@@ -89,11 +89,11 @@ public class productDescription {
         this.sim = sim;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     } 
 }

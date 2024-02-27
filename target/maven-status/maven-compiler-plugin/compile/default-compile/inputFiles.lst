@@ -1,8 +1,7 @@
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\MysqlConnect.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\AddUser.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\controller\update.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\productDescription.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\productDescriptionDAO.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\compareProductServlet.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\controller\dataProductServlet.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\connect\MysqlConnect.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\controller\compareProductServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\product.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\UserDAO.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\User.java
