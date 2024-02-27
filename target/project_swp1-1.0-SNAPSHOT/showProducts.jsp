@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Product" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,11 +50,14 @@
             for (Product product : productList) {
                 String base64Image = product.getImage_url();
                 String imageDataURL = "data:image/png;base64," + base64Image; // Assuming PNG format
+                 // Formatting the price
+                NumberFormat formatter = NumberFormat.getNumberInstance(Locale.forLanguageTag("vi-VN")); // Vietnamese locale for dot as thousand separator
+                String formattedPrice = formatter.format(product.getProduct_price());
         %>
         <tr>
             <td><%= product.getProduct_id() %></td>
             <td><%= product.getProduct_name() %></td>
-            <td><%= product.getProduct_price() %></td>
+            <td><%= formattedPrice %> VNĐ</td>
             <td><img src="<%= imageDataURL %>" alt="Product Image"/></td>
             <td><%= product.getStock_quantity() %></td>
             <td><%= product.getCategory_id() %></td>

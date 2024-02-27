@@ -5,6 +5,7 @@ Controller\Order\createOrder.class
 model\image.class
 Controller\Order\editOrder.class
 Controller\Product\CrudProduct.class
+dao\CategoryDAO.class
 dao\orderDAO.class
 Controller\Image\UploadServlet.class
 dao\cartDAO.class
@@ -13,6 +14,7 @@ Controller\Order\CRUDOrderController.class
 dao\DBConnection.class
 Controller\Cart\CRUDCart.class
 model\Product.class
+model\Category.class
 dao\UserDAO.class
 Controller\Image\DeleteServlet.class
 dao\ProductDAO.class

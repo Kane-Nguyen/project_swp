@@ -14,6 +14,8 @@ D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\UserDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\User.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Product.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\cartDAO.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Category.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\CategoryDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\imageDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Order.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\image.java

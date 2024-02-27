@@ -2,6 +2,8 @@
 <%@ page import="model.Product" %>
 <%@ page import="dao.ProductDAO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,7 @@
         }
         .product-card .price {
             color: red;
-            font-size: 20px;
+            font-size: 15px;
             font-weight: bold;
         }
         .product-card .discount {
@@ -46,6 +48,10 @@
             for (Product product : productList) {
                 String base64Image = product.getImage_url();
                 String imageDataURL = "data:image/png;base64," + base64Image; // Adjust if using different image types
+
+                // Formatting the price
+                NumberFormat formatter = NumberFormat.getNumberInstance(Locale.forLanguageTag("vi-VN")); // Vietnamese locale for dot as thousand separator
+                String formattedPrice = formatter.format(product.getProduct_price());
         %>
         <div class="col-md-4 col-lg-3">
             <div class="product-card mt-3">
@@ -54,7 +60,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= product.getProduct_name() %></h5>
                     <p class="card-text">
-                        <span class="price"><%= product.getProduct_price() %> VNĐ</span>
+                        <span class="price"><%= formattedPrice %> VNĐ</span>
                     </p>
                 </div>
             </div>

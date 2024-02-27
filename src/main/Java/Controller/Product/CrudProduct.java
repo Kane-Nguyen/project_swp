@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Product;
@@ -27,9 +28,9 @@ import org.apache.commons.io.IOUtils;
  */
 @WebServlet(name = "CrudProduct", urlPatterns = {"/CrudProduct"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024, // 1 MB
-    maxFileSize = 1024 * 1024 * 10,  // 10 MB
-    maxRequestSize = 1024 * 1024 * 15 // 15 MB
+        fileSizeThreshold = 1024 * 1024, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 15 // 15 MB
 )
 public class CrudProduct extends HttpServlet {
 
@@ -71,7 +72,10 @@ public class CrudProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> productList = productDAO.getAll();
+        request.setAttribute("productList", productList);
+        request.getRequestDispatcher("showProducts").forward(request, response);
     }
 
     /**
@@ -100,7 +104,6 @@ public class CrudProduct extends HttpServlet {
                     deleteProduct(request, response);
                     break;
                 default:
-                    // Handle unknown action
                     break;
             }
         }
@@ -109,9 +112,7 @@ public class CrudProduct extends HttpServlet {
     private void addProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       try {
-            // Extract product details from request
-            String productId = request.getParameter("productId");
+        try {
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             Part imagePart = request.getPart("image"); // Retrieve the image part
@@ -122,7 +123,8 @@ public class CrudProduct extends HttpServlet {
 
             // Database operation
             ProductDAO productDAO = new ProductDAO();
-            boolean success = productDAO.createProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
+
+            boolean success = productDAO.createProduct(productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
 
             if (success) {
                 response.sendRedirect("showProducts.jsp"); // Redirect on success
@@ -138,11 +140,8 @@ public class CrudProduct extends HttpServlet {
         }
     }
 
-  
-    
-
-    private void editProduct(HttpServletRequest request, HttpServletResponse response) 
-        throws ServletException, IOException {
+    private void editProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         try {
             String productId = request.getParameter("productId");
@@ -153,12 +152,12 @@ public class CrudProduct extends HttpServlet {
 
             if (imagePart != null && imagePart.getSize() > 0) {
                 imageUrl = convertImageToBase64(imagePart); // Convert new image to base64
-          
+
             } else {
                 ProductDAO productDAO = new ProductDAO();
                 Product existingProduct = productDAO.getProductById(productId);
                 imageUrl = existingProduct.getImage_url(); // Keep existing image
-            
+
             }
 
             int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
@@ -170,21 +169,21 @@ public class CrudProduct extends HttpServlet {
 
             if (success) {
                 response.sendRedirect("showProducts.jsp"); // Redirect to the product list page
-       
+
             } else {
                 response.getWriter().println("Failed to edit product."); // Display error message
-  
+
             }
         } catch (NumberFormatException e) {
-  
+
             response.getWriter().println("Number format error: " + e.getMessage());
         } catch (Exception e) {
 
             response.getWriter().println("An error occurred: " + e.getMessage());
         }
-}
+    }
 
-  private String convertImageToBase64(Part imagePart) throws IOException {
+    private String convertImageToBase64(Part imagePart) throws IOException {
         if (!isValidImageType(imagePart.getContentType())) {
             throw new IOException("Invalid image type.");
         }
@@ -197,20 +196,26 @@ public class CrudProduct extends HttpServlet {
         return contentType.equals("image/jpeg") || contentType.equals("image/png");
     }
 
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            // Get productId parameter from the request
+            String productId = request.getParameter("product_id");
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get productId parameter from the request
-        String productId = request.getParameter("product_id");
+            // Delete the product
+            ProductDAO productDAO = new ProductDAO();
+            boolean success = productDAO.deleteProduct(productId);
 
-        // Delete the product
-        ProductDAO productDAO = new ProductDAO();
-        boolean success = productDAO.deleteProduct(productId);
-
-        // Redirect to the product list page
-        if (success) {
-            response.sendRedirect("showProducts.jsp");
-        } else {
-            response.getWriter().println("Failed to delete product.");
+            // Redirect to the product list page or handle failure
+            if (success) {
+                response.sendRedirect("showProducts.jsp");
+            } else {
+                response.getWriter().println("Failed to delete product.");
+            }
+        } catch (NumberFormatException e) {
+            response.getWriter().println("Number format error: " + e.getMessage());
+        } catch (Exception e) {
+            response.getWriter().println("An error occurred in deleteProduct: " + e.getMessage());
         }
     }
 

@@ -3,36 +3,36 @@
 <%@ page import="model.Product" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Product</title>
-    <style>
-        .input-field {
-            margin-bottom: 10px;
-        }
-        .input-field label {
-            display: block;
-        }
-        img.current-image {
-            max-width: 200px; /* Adjust as necessary */
-            max-height: 200px; /* Adjust as necessary */
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Edit Product</h2>
-    <%
-        String productId = request.getParameter("productId");
-        ProductDAO dao = new ProductDAO();
-        Product product = dao.getProductById(productId);
-        if (product != null) {
-            // Assuming the image URL is a direct link to the image
-            // If it's a base64 string, prepend "data:image/png;base64," to the string
-            String imageUrl = product.getImage_url(); 
-            // Adjust MIME type and encoding prefix as needed if using base64
-            String imageDataURL = imageUrl.startsWith("data:") ? imageUrl : "data:image/png;base64," + imageUrl;
-    %>
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit Product</title>
+        <style>
+            .input-field {
+                margin-bottom: 10px;
+            }
+            .input-field label {
+                display: block;
+            }
+            img.current-image {
+                max-width: 200px; /* Adjust as necessary */
+                max-height: 200px; /* Adjust as necessary */
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Edit Product</h2>
+        <%
+            String productId = request.getParameter("productId");
+            ProductDAO dao = new ProductDAO();
+            Product product = dao.getProductById(productId);
+            if (product != null) {
+                // Assuming the image URL is a direct link to the image
+                // If it's a base64 string, prepend "data:image/png;base64," to the string
+                String imageUrl = product.getImage_url(); 
+                // Adjust MIME type and encoding prefix as needed if using base64
+                String imageDataURL = imageUrl.startsWith("data:") ? imageUrl : "data:image/png;base64," + imageUrl;
+        %>
         <form action="CrudProduct" method="post" enctype="multipart/form-data">
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="productId" value="<%= product.getProduct_id() %>">
@@ -58,10 +58,14 @@
                 <input type="number" name="stockQuantity" id="stockQuantity" value="<%= product.getStock_quantity() %>">
             </div>
 
-            <div class="input-field">
-                <label for="categoryId">Category ID:</label>
-                <input type="number" name="categoryId" id="categoryId" value="<%= product.getCategory_id() %>">
-            </div>
+            <label for="categoryId">Category:</label><br>
+            <select id="categoryId" name="categoryId" required>
+                <!-- Example static options, replace with dynamic content -->
+                <option value="1" <%= product.getCategory_id() == 1 ? "selected" : "" %>>Electronics</option>
+                <option value="2" <%= product.getCategory_id() == 2 ? "selected" : "" %>>Clothing</option>
+                <option value="3" <%= product.getCategory_id() == 3 ? "selected" : "" %>>Home & Garden</option>
+                <!-- Add more options based on your categories -->
+            </select><br>
 
             <div class="input-field">
                 <label for="productBranch">Branch:</label>
@@ -70,10 +74,10 @@
 
             <input type="submit" value="Update Product">
         </form>
-    <% 
-        } else {
-            out.println("<p>Product not found!</p>");
-        }
-    %>
-</body>
+        <% 
+            } else {
+                out.println("<p>Product not found!</p>");
+            }
+        %>
+    </body>
 </html>
