@@ -5,6 +5,7 @@
 package Controller.Product;
 
 import dao.ProductDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -113,19 +114,25 @@ public class CrudProduct extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             Part imagePart = request.getPart("image"); // Retrieve the image part
             String imageUrl = convertImageToBase64(imagePart); // Convert image to base64
+            Part imagePart1 = request.getPart("imageadd"); // Retrieve the image part
+            String imageUrl1 = convertImageToBase64(imagePart1); // Convert image to base64
             int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             String productBranch = request.getParameter("productBranch");
+            
 
             // Database operation
             ProductDAO productDAO = new ProductDAO();
 
             boolean success = productDAO.createProduct(productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
-
+            
+            
+            
             if (success) {
                 response.sendRedirect("showProducts.jsp"); // Redirect on success
             } else {

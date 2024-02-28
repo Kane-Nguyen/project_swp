@@ -10,13 +10,13 @@ package model;
  */
 public class image {
     private int image_id;
-    private String product_id;
+    private int product_id;
     private String image_url;
 
     public image() {
     }
 
-    public image(int image_id, String product_id, String image_url) {
+    public image(int image_id, int product_id, String image_url) {
         this.image_id = image_id;
         this.product_id = product_id;
         this.image_url = image_url;
@@ -30,11 +30,11 @@ public class image {
         this.image_id = image_id;
     }
 
-    public String getProduct_id() {
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
@@ -45,6 +45,6 @@ public class image {
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
-    
-    
+
+  
 }
