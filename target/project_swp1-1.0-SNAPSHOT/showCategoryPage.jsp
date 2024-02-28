@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>Categories</title>
-    <!-- Add any necessary CSS or JS references here -->
 </head>
 <body>
     <h2>Category List</h2>

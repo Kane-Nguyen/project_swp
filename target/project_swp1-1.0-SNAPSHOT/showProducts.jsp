@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
+
 <!DOCTYPE html>
 <html>
 <head>

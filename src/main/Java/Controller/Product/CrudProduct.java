@@ -114,7 +114,6 @@ public class CrudProduct extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             Part imagePart = request.getPart("image"); // Retrieve the image part

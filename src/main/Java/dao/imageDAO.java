@@ -13,7 +13,7 @@ import model.image;
 
 public class imageDAO {
 
-    private Connection connection; // Ensure appropriate resource management with try-with-resources
+    private Connection connection; 
 
     public List<image> getImgList() throws SQLException {
         List<image> list = new ArrayList<>();
