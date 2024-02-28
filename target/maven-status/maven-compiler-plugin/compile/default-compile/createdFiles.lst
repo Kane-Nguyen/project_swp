@@ -1,5 +1,6 @@
 Controller\Order\orderController.class
 model\Cart.class
+model\ProductDetails.class
 dao\imageDAO.class
 model\image.class
 Controller\Order\editOrder.class

@@ -16,11 +16,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import model.Product;
+import model.image;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -96,8 +100,15 @@ public class CrudProduct extends HttpServlet {
         if (action != null) {
             switch (action) {
                 case "add":
-                    addProduct(request, response);
+                {
+                    try {
+                        addProduct(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CrudProduct.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                     break;
+
                 case "edit":
                     editProduct(request, response);
                     break;
@@ -111,40 +122,55 @@ public class CrudProduct extends HttpServlet {
     }
 
     private void addProduct(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException, SQLException {
 
-        try {
-            String productName = request.getParameter("productName");
-            double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-            Part imagePart = request.getPart("image"); // Retrieve the image part
-            String imageUrl = convertImageToBase64(imagePart); // Convert image to base64
-            Part imagePart1 = request.getPart("imageadd"); // Retrieve the image part
-            String imageUrl1 = convertImageToBase64(imagePart1); // Convert image to base64
-            int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-            String productBranch = request.getParameter("productBranch");
-            
+    try {
+        // Extract product information
+        String productName = request.getParameter("productName");
+        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+        int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        String productBranch = request.getParameter("productBranch");
 
-            // Database operation
-            ProductDAO productDAO = new ProductDAO();
+        // Handle main image
+        Part mainImagePart = request.getPart("image");
+        String mainImageBase64 = convertImageToBase64((Part) mainImagePart.getInputStream());
 
-            boolean success = productDAO.createProduct(productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
-            
-            
-            
-            if (success) {
-                response.sendRedirect("showProducts.jsp"); // Redirect on success
-            } else {
-                response.getWriter().println("Failed to add product."); // Error message
-            }
-        } catch (NumberFormatException e) {
-            response.getWriter().println("Error in number format: " + e.getMessage());
-        } catch (NullPointerException | ServletException e) {
-            response.getWriter().println("Error processing form: " + e.getMessage());
-        } catch (IOException e) {
-            response.getWriter().println("IO Error: " + e.getMessage());
+        // Create product
+        ProductDAO productDAO = new ProductDAO();
+        int productId = productDAO.createProduct(productName, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
+
+        // Check if product is created
+        if (productId == -1) {
+            response.getWriter().println("Failed to add product.");
+            return;
         }
+
+        // Handle additional images
+        Collection<Part> additionalImageParts = request.getParts().stream()
+            .filter(part -> "additionalImages".equals(part.getName()) && part.getSize() > 0)
+            .collect(Collectors.toList());
+
+        imageDAO imageDAO = new imageDAO();
+        for (Part imagePart : additionalImageParts) {
+            String imageBase64 = convertImageToBase64((Part) imagePart.getInputStream());
+            image img = new image();
+            img.setProduct_id(productId);
+            img.setImage_url(imageBase64);
+            imageDAO.addImage(img);
+        }
+
+        response.sendRedirect("showProducts.jsp"); // Redirect on success
+
+    } catch (NumberFormatException e) {
+        response.getWriter().println("Error in number format: " + e.getMessage());
+    } catch (NullPointerException | ServletException e) {
+        response.getWriter().println("Error processing form: " + e.getMessage());
+    } catch (IOException e) {
+        response.getWriter().println("IO Error: " + e.getMessage());
     }
+}
+
 
     private void editProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

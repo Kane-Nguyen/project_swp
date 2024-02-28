@@ -57,24 +57,34 @@ public class ProductDAO {
         return list;
     }
 
-    public boolean createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+   public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+    String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
+    int productId = -1;
 
-        String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, productName);
-            st.setDouble(2, productPrice);
-            st.setString(3, imageUrl);
-            st.setInt(4, stockQuantity);
-            st.setInt(5, categoryId);
-            st.setString(6, productBranch);
+    try (Connection connection = DBConnection.getConnection(); 
+         PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        st.setString(1, productName);
+        st.setDouble(2, productPrice);
+        st.setString(3, imageUrl);
+        st.setInt(4, stockQuantity);
+        st.setInt(5, categoryId);
+        st.setString(6, productBranch);
 
-            int affectedRows = st.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        int affectedRows = st.executeUpdate();
+
+        if (affectedRows > 0) {
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    productId = generatedKeys.getInt(1);
+                }
+            }
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return productId;
+}
+
 
     public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         // Ensure the category exists, or create it
