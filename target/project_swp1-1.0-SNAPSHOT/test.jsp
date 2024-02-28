@@ -4,7 +4,7 @@
 <%@page import="dao.productDescriptionDAO"%>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,7 +26,7 @@
             background: #fff;
             border-top: 1px solid #e5e5e5;
             box-shadow: 0 -2px 10px rgba(0,0,0,.12);
-            z-index: 1000000000;
+            z-index: 10000;
             max-width: 1050px; /* Max width or adjust as necessary */
             margin: auto; /* Center if max-width is less than 100% */
             left: 50%;
@@ -81,17 +81,6 @@
             }
         }
 
-        /* Styles for the container */
-        .container {
-            padding: 15px; /* Padding inside the container */
-            box-sizing: border-box; /* Include padding in the width and height */
-            max-width: 100%; /* Full width by default */
-        }
-
-        /* Styles for the row */
-        .row {
-            width: 100%; /* Full width */
-        }
 
         /* Styles for the accordion items */
         .compare-container .accordion-item {
@@ -103,102 +92,96 @@
     </style>
     <body>
         <%
-
-            String productId2 = (String) session.getAttribute("productId2");
-
-            String productId = request.getParameter("id");
+            String productId2Check = (String) session.getAttribute("productId2");
+            String productId2 = "0";
             String productName2 = (String) session.getAttribute("productName");
-            productDescriptionDAO pdModel = new productDescriptionDAO();
-            List<product> p = pdModel.getProduct();
-            // lấy giữ liệu nhanh bằng stream().filter
-            String imageUrl1 = p.stream().filter(elem -> elem.getProduct_id() == Integer.parseInt(productId)).findFirst().map(product::getImage_url).orElse("");
             String imageUrl2 = "";
-            if (productId2 != null) {
-                 imageUrl2 = p.stream().filter(elem -> elem.getProduct_id() == Integer.parseInt(productId2)).findFirst().map(product::getImage_url).orElse("");
+            productDescriptionDAO pdModel = new productDescriptionDAO();
+            if(productId2Check != null) {
+                productId2 = productId2Check;
             }
-
-            String productName = p.stream()
-                    .filter(elem -> elem.getProduct_id() == Integer.parseInt(productId))
-                    .findFirst()
-                    .map(product::getProduct_name)
-                    .orElse("");
+            List<product> p = pdModel.getProductWhereId(Integer.parseInt(productId2));
+             for (product object : p) {
+                imageUrl2 = object.getImage_url();
+            }
         %>
-        <!-- Nút để mở modal -->
-        <button id="open-modal" class="btn btn-primary">So sánh sản phẩm</button>
-        <div class="container">
-            <div class="modal fade" id="productListModal" tabindex="-1" aria-labelledby="productListModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg"> <!-- Sử dụng modal-lg để tăng kích thước modal nếu cần -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="productListModalLabel">Chọn Sản Phẩm</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="row">
-                            <% for (product prod : p) {
-                                    if (prod.getProduct_id() != Integer.parseInt(productId)) {
-                            %>
-                            <div class="col-md-4 text-center">
-                                <img src="<%= prod.getImage_url()%>" alt="Product Image" class="img-fluid">
-                                <p><%= prod.getProduct_name()%></p>
-                                <button  class="btn btn-primary selectProductButton" id="<%= prod.getProduct_id()%>" >So sánh</button>
-                            </div>
-                            <% }
-                                }%>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    </div>
-                </div>
-
+        <div>
+            <!-- Tilse -->
+            <div id="nameProduct" style="display: flex">
+                <h1>${listWhId}</h1>
+                <h1>${productId}</h1>
+                <button id="open-modal" class="btn btn-primary">So sánh sản phẩm</button>
             </div>
-        </div>
-        <!-- Modal -->
-        <div id="compare-modal" class="pdp-compare-modal">
-            <div class="pdp-compare-modal-box">
-                <!-- Nội dung modal của bạn ở đây -->
-                <div class="compare-header d-flex justify-content-end">
-                    <!-- Header của modal -->
-                    <button id="close-modal" class="btn btn-secondary">Thu gọn</button>
+            <!-- Nút để mở modal -->
+            <div class="container" style="position: fixed; z-index: 100000;">
+                <div class="modal fade" id="productListModal" tabindex="-1" aria-labelledby="productListModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg"> <!-- Sử dụng modal-lg để tăng kích thước modal nếu cần -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productListModalLabel">Chọn Sản Phẩm</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="row">
+                                <c:forEach items="${listPout}" var="o">
+                                    <div class="col-md-4 text-center">
+                                        <img src="${o.image_url}" alt="Product Image" class="img-fluid">
+                                        <p>${o.product_name}</p>
+                                        <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}%>" >So sánh</button>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="compare-content">
-                    <div class="compare-container-inner">
-                        <div class="row">
-                            <div class="col-4" ">
-                                <a>
-                                    <img src="<%= imageUrl1%>" alt="Product Image 1" style="width:150px; height: 150px"/>
-                                    <p><%= productName%></p>
-                                </a>
-                            </div>
-                            <% if (productId2 != null) {%>
-                            <div class="col-4" data-toggle="modal" data-target="#productListModal">
-                                <a>
-                                    <img src="<%= imageUrl2%>" alt="Product Image 2" id="productImage" style="width:150px; height: 150px"/>
-                                    <p id="productName"><%= productName2%></p>
-                                </a>
-                            </div>
-                            <% } else { %>
-                            <div class=col-4" data-toggle="modal" data-target="#productListModal">
-                                <a>
-                                    <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="width:150px; height: 150px"/>
-                                    <p id="productName">Chọn Sản Phẩm 2</p>
-                                </a>
-                            </div>
-                            <% }%>
+            </div>
+            <!-- Modal -->
+            <div id="compare-modal" class="pdp-compare-modal">
+                <div class="pdp-compare-modal-box">
+                    <!-- Nội dung modal của bạn ở đây -->
+                    <div class="compare-header d-flex justify-content-end">
+                        <!-- Header của modal -->
+                        <button id="close-modal" class="btn btn-secondary">Thu gọn</button>
+                    </div>
+                    <div class="compare-content">
+                        <div class="compare-container-inner">
+                            <div class="row">
+                                <c:forEach items="${listWhereId}" var="i">
+                                    <div class="col-4" ">
+                                        <a>
+                                            <img src="${i.image_url}" alt="Product Image 1" style="width:150px; height: 150px"/>
+                                            <p>${i.product_name}</p>
+                                        </a>
+                                    </div>
+                                </c:forEach>
+                                <% if (productId2 != null) {%>
+                                <div class="col-4" data-toggle="modal" data-target="#productListModal">
+                                    <a>
+                                        <img src="<%= imageUrl2%>" alt="Product Image 2" id="productImage" style="width:150px; height: 150px"/>
+                                        <p id="productName"><%= productName2%></p>
+                                    </a>
+                                </div>
+                                <% } else { %>
+                                <div class=col-4" data-toggle="modal" data-target="#productListModal">
+                                    <a>
+                                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="width:150px; height: 150px"/>
+                                        <p id="productName">Chọn Sản Phẩm 2</p>
+                                    </a>
+                                </div>
+                                <% }%>
 
-                            <div class="col-4" id="placeholderForProduct2">
-                                <form action="compareProducts.jsp" >
-                                    <input type="hidden"  name="productId" value="<%= productId%>">
-                                    <input type="hidden" id="productID2" name="productId2" value="">
-                                    <button type="submit" class="btn btn-primary" >
-                                        So sánh sản phẩm
-                                    </button>
-                                </form>
-                            </div>
+                                <div class="col-4" id="placeholderForProduct2">
+                                    <form action="compareProductServlet" >
+                                        <input type="hidden"  name="productId" value="${productId}">
+                                        <input type="hidden"  name="productId2" id="productId2" value="<%= productId2 %>">
+                                        <button type="submit" class="btn btn-primary" >
+                                            So sánh sản phẩm
+                                        </button>
+                                    </form>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +204,7 @@
                             var product = products[0]; // Lấy sản phẩm đầu tiên từ mảng
                             $("#productImage").attr("src", product.image_url);
                             $("#productName").text(product.product_name);
-                            $("#productID2").val(product.product_id);
+                            $("#productId2").val(product.product_id);
                             console.log(products);
                             console.log(product.image_url);
                             console.log(product.product_name);

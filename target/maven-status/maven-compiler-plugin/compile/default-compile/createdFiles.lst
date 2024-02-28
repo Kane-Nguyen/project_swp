@@ -1,7 +1,7 @@
 dao\productDescriptionDAO.class
-controller\update.class
 model\productDescription.class
-controller\compareProductServlet.class
+controllerCompareProduct\dataToHomeFromDetail.class
 model\product.class
 connect\MysqlConnect.class
-controller\dataProductServlet.class
+controllerCompareProduct\compareProductServlet.class
+controllerCompareProduct\update.class

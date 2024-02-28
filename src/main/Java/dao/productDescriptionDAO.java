@@ -44,11 +44,12 @@ public class productDescriptionDAO {
         return pDescriptions;
     }
 
-    public List<product> getProduct() {
+    public List<product> getProductOutId(String id1) {
         List<product> list = new ArrayList<>();
-        String sql = "select * from products";
+        String sql = "select * from products where product_id <> ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            st.setString(1, id1);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 product p = new product(
@@ -74,6 +75,37 @@ public class productDescriptionDAO {
         return list;
     }
 
+        public List<product> getProductWhereId(int id1) {
+            List<product> list = new ArrayList<>();
+            String sql = "select * from products where product_id = ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+                st.setInt(1, id1);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    product p = new product(
+                            rs.getInt("product_id"),
+                            rs.getString("product_name"),
+                            rs.getDouble("product_price"),
+                            rs.getString("image_url"),
+                            rs.getInt("stock_quantity"),
+                            rs.getInt("category_id"),
+                            rs.getString("product_branch"), // Corrected column name
+                            rs.getDate("date_added")); // Corrected column name
+                    list.add(p);
+                }
+            } catch (SQLException e) {
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close(); // Close connection inside finally block
+                    }
+                } catch (SQLException e) {
+                }
+            }
+            return list;
+        }
+
     public List<product> getIMG(String id1, String id2) {
         List<product> list = new ArrayList<>();
         String sql = "SELECT * from products WHERE product_id IN (?, ?);";
@@ -95,7 +127,7 @@ public class productDescriptionDAO {
                 list.add(p);
             }
         } catch (SQLException e) {
-        } 
+        }
         return list;
     }
 
@@ -127,16 +159,10 @@ public class productDescriptionDAO {
 
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
-
-        List<productDescription> pd = pdModel.getAllProductDescription();
-        for (productDescription description : pd) {
-            System.out.println("anh " + description.getProductId());
+        List<product> pWhId = pdModel.getProductWhereId(3);
+        for (product object : pWhId) {
+            System.out.println(object.getProduct_name());
         }
-//        List<product> p = pdModel.getProduct();
-        List<product> p1 = pdModel.getIMG("1", "");
-        List<productDescription> p2 = pdModel.getProductDescription("1", "2");
-        System.out.println(p1.size());
- 
 
     }
 }

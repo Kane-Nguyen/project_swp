@@ -2,43 +2,27 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>compareProductServlet</servlet-name>
-        <servlet-class>controller.compareProductServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RemoveData</servlet-name>
-        <servlet-class>controller.RemoveData</servlet-class>
+        <servlet-class>controllerCompareProduct.compareProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>update</servlet-name>
-        <servlet-class>controller.update</servlet-class>
+        <servlet-class>controllerCompareProduct.update</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SaveToSession</servlet-name>
-        <servlet-class>controller.SaveToSession</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>dataProductServlet</servlet-name>
-        <servlet-class>controller.dataProductServlet</servlet-class>
+        <servlet-name>dataToHomeFromDetail</servlet-name>
+        <servlet-class>controllerCompareProduct.dataToHomeFromDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>compareProductServlet</servlet-name>
         <url-pattern>/compareProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RemoveData</servlet-name>
-        <url-pattern>/RemoveData</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>update</servlet-name>
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SaveToSession</servlet-name>
-        <url-pattern>/SaveToSession</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>dataProductServlet</servlet-name>
-        <url-pattern>/dataProductServlet</url-pattern>
+        <servlet-name>dataToHomeFromDetail</servlet-name>
+        <url-pattern>/dataToHomeFromDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
