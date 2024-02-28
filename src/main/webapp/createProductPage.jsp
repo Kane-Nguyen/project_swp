@@ -5,47 +5,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Product</title>
+    <title>Create and Upload Product</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Custom Styles -->
+    <style>
+        .img-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .img-preview {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .img-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h2>Create New Product</h2>
-    <form action="CrudProduct" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="add">
-        
-        <label for="productName">Product Name:</label><br>
-        <input type="text" id="productName" name="productName" required><br>
+    <div class="container mt-5">
+        <h2>Create New Product with Images</h2>
+        <form action="createProduct" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" class="form-control" id="productName" name="productName" required>
+            </div>
 
-        <label for="productPrice">Product Price:</label><br>
-        <input type="number" id="productPrice" name="productPrice" min="0.01" step="0.01" required><br>
+            <div class="form-group">
+                <label for="productPrice">Product Price:</label>
+                <input type="number" class="form-control" id="productPrice" name="productPrice" min="0.01" step="0.01" required>
+            </div>
 
-        <label for="image">Product Main Image:</label><br>
-        <input type="file" id="image" name="image" required accept=".jpg, .jpeg, .png"><br>
-        
-        <label for="additionalImages">Product Additional Images:</label><br>
-        <input type="file" id="additionalImages" name="additionalImages" required multiple accept=".jpg, .jpeg, .png" onchange="previewImages()"><br>
-        <div id="imagePreview"></div>
+            <div class="form-group">
+                <label for="stockQuantity">Stock Quantity:</label>
+                <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" min="1" step="1" required>
+            </div>
 
-        <label for="stockQuantity">Stock Quantity:</label><br>
-        <input type="number" id="stockQuantity" name="stockQuantity" min="1" step="1" required><br>
+            <div class="form-group">
+                <label for="categoryId">Category:</label>
+                <select id="categoryId" class="form-control" name="categoryId" required>
+                    <% 
+                        CategoryDAO categoryDAO = new CategoryDAO();
+                        List<Category> categories = categoryDAO.getAllCategories();
+                        for (Category category : categories) {
+                            out.print("<option value=\"" + category.getCategoryId() + "\">" + category.getCategoryName() + "</option>");
+                        }
+                    %>
+                </select>
+            </div>
 
-        <label for="categoryId">Category:</label><br>
-        <select id="categoryId" name="categoryId" required>
-            <% 
-                CategoryDAO categoryDAO = new CategoryDAO();
-                List<Category> categories = categoryDAO.getAllCategories();
-                for (Category category : categories) {
-                    out.print("<option value=\"" + category.getCategoryId() + "\">" + category.getCategoryName() + "</option>");
-                }
-            %>
-        </select><br>
+            <div class="form-group">
+                <label for="productBranch">Product Branch:</label>
+                <input type="text" class="form-control" id="productBranch" name="productBranch" required>
+            </div>
 
-        <label for="productBranch">Product Branch:</label><br>
-        <input type="text" id="productBranch" name="productBranch" required><br>
+            <div class="form-group">
+                <label for="image">Product Main Image:</label>
+                <input type="file" class="form-control-file" id="image" name="image" required accept=".jpg, .jpeg, .png">
+            </div>
 
-        <button type="submit">Add Product</button>
-    </form>
-        <script>
+            <div class="form-group">
+                <label for="additionalImages">Product Additional Images:</label>
+                <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" required multiple accept=".jpg, .jpeg, .png" onchange="previewImages()">
+                <div id="imagePreview" class="img-preview-container"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
         function previewImages() {
             var imageInput = document.getElementById('additionalImages');
             var imagePreview = document.getElementById('imagePreview');
@@ -55,7 +106,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var imgContainer = document.createElement('div');
-                    imgContainer.classList.add('img-container');
+                    imgContainer.classList.add('img-preview');
 
                     var img = new Image();
                     img.src = e.target.result;

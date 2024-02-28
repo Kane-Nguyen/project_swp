@@ -11,6 +11,8 @@ Controller\Image\UploadServlet.class
 dao\cartDAO.class
 Controller\Image\DeleteSliderServlet.class
 Controller\Order\CRUDOrderController.class
+Controller\Product\editProduct.class
+Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
 model\Product.class
 dao\UserDAO.class
@@ -25,3 +27,4 @@ dao\DBConnection.class
 model\Category.class
 Controller\Image\DeleteServlet.class
 dao\ProductDAO.class
+dao\ProductImageDAO.class

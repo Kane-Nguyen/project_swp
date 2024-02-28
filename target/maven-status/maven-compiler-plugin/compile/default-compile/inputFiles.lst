@@ -15,6 +15,7 @@ D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Image\UploadServlet.j
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Product\CrudProduct.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Image\EditSliderServlet.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\orderDAO.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\ProductImageDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Cart.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\UserDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\User.java
@@ -23,5 +24,6 @@ D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Image\ImageServlet.ja
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\cartDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Image\DeleteSliderServlet.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\imageDAO.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Product\createProduct.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Order.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\image.java

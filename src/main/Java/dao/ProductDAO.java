@@ -29,7 +29,7 @@ public class ProductDAO {
         String sql = "select * from products";
         try {
             connection = DBConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql); 
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product p = new Product(
@@ -57,39 +57,35 @@ public class ProductDAO {
         return list;
     }
 
-   public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
-    String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
-    int productId = -1;
+    public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+        String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
+        int productId = -1;
 
-    try (Connection connection = DBConnection.getConnection(); 
-         PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-        st.setString(1, productName);
-        st.setDouble(2, productPrice);
-        st.setString(3, imageUrl);
-        st.setInt(4, stockQuantity);
-        st.setInt(5, categoryId);
-        st.setString(6, productBranch);
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, productName);
+            st.setDouble(2, productPrice);
+            st.setString(3, imageUrl);
+            st.setInt(4, stockQuantity);
+            st.setInt(5, categoryId);
+            st.setString(6, productBranch);
 
-        int affectedRows = st.executeUpdate();
+            int affectedRows = st.executeUpdate();
 
-        if (affectedRows > 0) {
-            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    productId = generatedKeys.getInt(1);
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        productId = generatedKeys.getInt(1);
+                    }
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return productId;
     }
-    return productId;
-}
 
-
-    public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
-        // Ensure the category exists, or create it
-
-        // SQL statement for updating the product
+    // Update an existing product
+    public boolean editProduct(int productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productName);
@@ -98,12 +94,10 @@ public class ProductDAO {
             st.setInt(4, stockQuantity);
             st.setInt(5, categoryId);
             st.setString(6, productBranch);
-            st.setString(7, productId);
-
-            int affectedRows = st.executeUpdate();
-            return affectedRows > 0;
+            st.setInt(7, productId);
+            return st.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Consider logging this exception
             return false;
         }
     }
