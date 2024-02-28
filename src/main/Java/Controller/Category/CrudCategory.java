@@ -67,7 +67,7 @@ public class CrudCategory extends HttpServlet {
     private void listCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> listCategory = categoryDAO.getAllCategories();
         request.setAttribute("listCategory", listCategory);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("categories.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("showCategoryPage.jsp");
         dispatcher.forward(request, response);
     }
 }
