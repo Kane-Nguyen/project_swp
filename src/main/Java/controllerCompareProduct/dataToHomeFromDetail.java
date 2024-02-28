@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.product;
 
 public class dataToHomeFromDetail extends HttpServlet {
@@ -21,12 +22,18 @@ public class dataToHomeFromDetail extends HttpServlet {
         try {
             String id = request.getParameter("productId");
             productDescriptionDAO pdModel = new productDescriptionDAO();
-            
-            List<product> pOutid = pdModel.getProductOutId(id);
-            List<product> pWhId = pdModel.getProductWhereId(Integer.parseInt(id));
-
+            List<product> pWhereId = new ArrayList<>();
+            List<product> pOutid = new ArrayList<>();
+            List<product> p = pdModel.getProduct();
+            for (product object : p) {
+                if(object.getProduct_id() == Integer.parseInt(id)) {
+                    pWhereId.add(object);
+                }else {
+                    pOutid.add(object);
+                }
+            }
+            request.setAttribute("listWhId", pWhereId);
             request.setAttribute("listPout", pOutid);
-            request.setAttribute("listWhId", pWhId);
             request.setAttribute("productId", id);
 
             request.getRequestDispatcher("test.jsp").forward(request, response);

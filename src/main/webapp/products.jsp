@@ -13,7 +13,7 @@
     <div>
         <%
             productDescriptionDAO pdModel = new productDescriptionDAO();
-            List<product> p = pdModel.getProductOutId("0");
+            List<product> p = pdModel.getProduct();
             for (product product : p) {
         %>
         <form action="dataToHomeFromDetail"  id="hiddenForm">

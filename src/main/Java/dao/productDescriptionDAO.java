@@ -2,6 +2,7 @@ package dao;
 
 import connect.MysqlConnect;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,24 +45,23 @@ public class productDescriptionDAO {
         return pDescriptions;
     }
 
-    public List<product> getProductOutId(String id1) {
-        List<product> list = new ArrayList<>();
-        String sql = "select * from products where product_id <> ?";
+    public List<product> getProduct() {
+        List<product> listU = new ArrayList<>();
+        String sql = "select * from products";
         try {
-            PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-            st.setString(1, id1);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+            PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            ResultSet rsu = sta.executeQuery();
+            while (rsu.next()) {
                 product p = new product(
-                        rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getDouble("product_price"),
-                        rs.getString("image_url"),
-                        rs.getInt("stock_quantity"),
-                        rs.getInt("category_id"),
-                        rs.getString("product_branch"), // Corrected column name
-                        rs.getDate("date_added")); // Corrected column name
-                list.add(p);
+                        rsu.getInt("product_id"),
+                        rsu.getString("product_name"),
+                        rsu.getDouble("product_price"),
+                        rsu.getString("image_url"),
+                        rsu.getInt("stock_quantity"),
+                        rsu.getInt("category_id"),
+                        rsu.getString("product_branch"), // Corrected column name
+                        rsu.getDate("date_added")); // Corrected column name
+                listU.add(p);
             }
         } catch (SQLException e) {
         } finally {
@@ -72,39 +72,10 @@ public class productDescriptionDAO {
             } catch (SQLException e) {
             }
         }
-        return list;
+        return listU;
     }
 
-        public List<product> getProductWhereId(int id1) {
-            List<product> list = new ArrayList<>();
-            String sql = "select * from products where product_id = ?";
-            try {
-                PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-                st.setInt(1, id1);
-                ResultSet rs = st.executeQuery();
-                while (rs.next()) {
-                    product p = new product(
-                            rs.getInt("product_id"),
-                            rs.getString("product_name"),
-                            rs.getDouble("product_price"),
-                            rs.getString("image_url"),
-                            rs.getInt("stock_quantity"),
-                            rs.getInt("category_id"),
-                            rs.getString("product_branch"), // Corrected column name
-                            rs.getDate("date_added")); // Corrected column name
-                    list.add(p);
-                }
-            } catch (SQLException e) {
-            } finally {
-                try {
-                    if (connection != null) {
-                        connection.close(); // Close connection inside finally block
-                    }
-                } catch (SQLException e) {
-                }
-            }
-            return list;
-        }
+   
 
     public List<product> getIMG(String id1, String id2) {
         List<product> list = new ArrayList<>();
@@ -159,9 +130,13 @@ public class productDescriptionDAO {
 
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
-        List<product> pWhId = pdModel.getProductWhereId(3);
-        for (product object : pWhId) {
-            System.out.println(object.getProduct_name());
+        List<product> pOutId = pdModel.getProduct();
+        
+        
+ 
+        for (product object : pOutId) {
+            System.out.println(object.getImage_url() + " pOutId");
+             
         }
 
     }

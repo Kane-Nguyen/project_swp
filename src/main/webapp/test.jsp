@@ -100,17 +100,19 @@
             if(productId2Check != null) {
                 productId2 = productId2Check;
             }
-            List<product> p = pdModel.getProductWhereId(Integer.parseInt(productId2));
-             for (product object : p) {
-                imageUrl2 = object.getImage_url();
-            }
+            String id = (String) request.getAttribute("productId");
         %>
         <div>
             <!-- Tilse -->
             <div id="nameProduct" style="display: flex">
-                <h1>${listWhId}</h1>
+                <c:forEach items="${listWhId}" var="i">
+                    <h1>${i.product_name}</h1>
+                </c:forEach>
                 <h1>${productId}</h1>
                 <button id="open-modal" class="btn btn-primary">So sánh sản phẩm</button>
+            </div>
+            <div>
+                    
             </div>
             <!-- Nút để mở modal -->
             <div class="container" style="position: fixed; z-index: 100000;">
@@ -123,15 +125,15 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="row">
-                                <c:forEach items="${listPout}" var="o">
-                                    <div class="col-md-4 text-center">
-                                        <img src="${o.image_url}" alt="Product Image" class="img-fluid">
-                                        <p>${o.product_name}</p>
-                                        <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}%>" >So sánh</button>
-                                    </div>
-                                </c:forEach>
-                            </div>
+                            <!--                            <div class="row">
+                            <c:forEach items="${listPout}" var="o">
+                                <div class="col-md-4 text-center">
+                                    <img src="${o.image_url}" alt="Product Image" class="img-fluid">
+                                    <p>${o.product_name}</p>
+                                    <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}%>" >So sánh</button>
+                                </div>
+                            </c:forEach>
+                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -147,7 +149,7 @@
                     <div class="compare-content">
                         <div class="compare-container-inner">
                             <div class="row">
-                                <c:forEach items="${listWhereId}" var="i">
+                                <c:forEach items="${listWhId}" var="i">
                                     <div class="col-4" ">
                                         <a>
                                             <img src="${i.image_url}" alt="Product Image 1" style="width:150px; height: 150px"/>
