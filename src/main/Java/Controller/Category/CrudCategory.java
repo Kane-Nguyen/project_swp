@@ -1,73 +1,91 @@
 package Controller.Category;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
+import java.util.List;
 import model.Category;
 import dao.CategoryDAO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
-@WebServlet(name = "CategoryController", value = "/CategoryController")
+@WebServlet("/crudCategory")
 public class CrudCategory extends HttpServlet {
 
     private CategoryDAO categoryDAO;
 
-    public void init() {
-        categoryDAO = new CategoryDAO();
+    public CrudCategory() {
+        this.categoryDAO = new CategoryDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String action = request.getParameter("action");
-        try {
-            switch (action) {
-                case "create":
-                    createCategory(request, response);
-                    break;
-                case "update":
-                    updateCategory(request, response);
-                    break;
-                case "delete":
-                    deleteCategory(request, response);
-                    break;
-            }
-        } catch (Exception e) {
-            throw new ServletException(e);
+        if ("editForm".equals(action)) {
+            showEditForm(request, response);
+        } else {
+            List<Category> categories = categoryDAO.getAllCategories();
+            request.setAttribute("categories", categories);
+            request.getRequestDispatcher("showCategoryPage.jsp").forward(request, response);
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        listCategories(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        switch (action) {
+            case "add":
+                addCategory(request, response);
+                break;
+            case "edit":
+                editCategory(request, response);
+                break;
+            case "delete":
+                deleteCategory(request, response);
+                break;
+            default:
+                response.sendRedirect("Category.jsp");
+                break;
+        }
     }
 
-    private void createCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String name = request.getParameter("categoryName");
-        categoryDAO.createCategory(name);
-        response.sendRedirect("CategoryController");
-    }
-
-    private void updateCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+    private void addCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String categoryName = request.getParameter("categoryName");
-
-        categoryDAO.updateCategory(categoryId, categoryName);
-        response.sendRedirect("CategoryController");
+        categoryDAO.createCategory(categoryName);
+        response.sendRedirect("crudCategory");
     }
 
-    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void editCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            String categoryName = request.getParameter("categoryName");
+            categoryDAO.updateCategory(categoryId, categoryName);
+            response.sendRedirect("crudCategory");
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Category ID");
+        }
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            Category category = categoryDAO.getCategoryById(categoryId);
+            request.setAttribute("category", category);
+            request.getRequestDispatcher("/editCategory.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Category ID");
+        }
+    }
+
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-
         categoryDAO.deleteCategory(categoryId);
-        response.sendRedirect("CategoryController");
+        response.sendRedirect("crudCategory");
     }
 
-    private void listCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Category> listCategory = categoryDAO.getAllCategories();
-        request.setAttribute("listCategory", listCategory);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("showCategoryPage.jsp");
-        dispatcher.forward(request, response);
-    }
 }

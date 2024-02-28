@@ -53,6 +53,23 @@ public class CategoryDAO {
             return false;
         }
     }
+    
+    public Category getCategoryById(int categoryId){
+        String sql = "SELECT * FROM categories WHERE category_id = ?";
+        try(Connection conn = DBConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, categoryId);
+            
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                Category category = new Category(rs.getInt("category_id"), rs.getString("category_name"));
+                return category;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // Method to delete a category
     public boolean deleteCategory(int categoryId) {
@@ -72,6 +89,7 @@ public class CategoryDAO {
         CategoryDAO p = new CategoryDAO();
         List<Category> lp = p.getAllCategories();
         System.out.println(lp.get(0).getCategoryName());
-        p.createCategory("okok");
+        p.getAllCategories();
+        
     }
 }
