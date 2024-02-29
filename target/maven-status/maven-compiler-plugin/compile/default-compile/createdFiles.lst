@@ -11,7 +11,6 @@ Controller\Image\UploadServlet.class
 dao\cartDAO.class
 Controller\Image\DeleteSliderServlet.class
 Controller\Order\CRUDOrderController.class
-Controller\Product\editProduct.class
 Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
 model\Product.class
