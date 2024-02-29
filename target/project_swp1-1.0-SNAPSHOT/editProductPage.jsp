@@ -1,89 +1,208 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.Product" %>
+<%@ page import="model.image" %>
+<%@ page import="dao.ProductDAO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="dao.CategoryDAO, dao.ProductDAO" %>
-<%@ page import="model.Category, model.Product" %>
+<%@ page import="model.Category" %>
+<%@ page import="dao.CategoryDAO" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Product</title>
-    <style>
-        .input-field {
-            margin-bottom: 10px;
-        }
-        .input-field label {
-            display: block;
-        }
-        img.current-image {
-            max-width: 200px; /* Adjust as necessary */
-            max-height: 200px; /* Adjust as necessary */
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Edit Product</h2>
-    <%
-        String productId = request.getParameter("productId");
-        ProductDAO productDao = new ProductDAO();
-        Product product = productDao.getProductById(productId);
-        CategoryDAO categoryDao = new CategoryDAO();
-        List<Category> categories = categoryDao.getAllCategories(); // Fetch categories from DAO
+    <head>
+        <title>Edit Product</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .img-preview-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            }
 
-        if (product != null) {
-            // Assuming the image URL is a direct link to the image
-            // If it's a base64 string, prepend "data:image/png;base64," to the string
-            String imageUrl = product.getImage_url();
-            // Adjust MIME type and encoding prefix as needed if using base64
-            String imageDataURL = imageUrl.startsWith("data:") ? imageUrl : "data:image/png;base64," + imageUrl;
-    %>
-    <form action="CrudProduct" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="edit">
-        <input type="hidden" name="productId" value="<%= product.getProduct_id() %>">
+            .img-preview {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                border: 2px solid transparent;
+            }
 
-        <div class="input-field">
-            <label for="productName">Product Name:</label>
-            <input type="text" name="productName" id="productName" value="<%= product.getProduct_name() %>">
+            .img-preview img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .img-preview.selected {
+                border-color: blue;
+            }
+
+            .btn-danger {
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2>Edit Product</h2>
+            <% 
+                String productId = request.getParameter("productId");
+                ProductDAO productDAO = new ProductDAO();
+                Product product = productDAO.getProductById(productId);
+                if (product != null) {
+            %>
+            <form action="editProduct" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="productId" value="<%= productId %>">
+
+                <div class="form-group">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" class="form-control" id="productName" name="productName" value="<%= product.getProduct_name() %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productPrice">Product Price:</label>
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" value="<%= product.getProduct_price() %>" min="0.01" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stockQuantity">Stock Quantity:</label>
+                    <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="<%= product.getStock_quantity() %>" min="1" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryId">Category:</label>
+                    <select id="categoryId" class="form-control" name="categoryId" required>
+                        <% 
+                            CategoryDAO categoryDAO = new CategoryDAO();
+                            List<Category> categories = categoryDAO.getAllCategories();
+                            for (Category category : categories) {
+                                out.print("<option value=\"" + category.getCategoryId() + "\">" + category.getCategoryName() + "</option>");
+                            }
+                        %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="productBranch">Product Branch:</label>
+                    <input type="text" class="form-control" id="productBranch" name="productBranch" value="<%= product.getProduct_branch() %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Product Main Image:</label>
+                    <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalImages">Product Additional Images:</label>
+                    <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" required multiple accept=".jpg, .jpeg, .png" onchange="previewImages()">
+                    <div id="imagePreview" class="img-preview-container">
+                        <%
+                            List<image> additionalImages = productDAO.getAdditionalImages(productId);
+                            for (image img : additionalImages) {
+                                String imageDataURL = "data:image/png;base64," + img.getImage_url();
+                        %>
+                        <div class="img-preview">
+                            <input type="checkbox" class="image-checkbox" value="<%= img.getImage_id() %>">
+                            <img src="<%= imageDataURL %>" alt="Additional Image">
+                        </div>
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
+
+                <button id="deleteSelectedImages" type="button" class="btn btn-warning">Delete Selected Images</button><br>
+                
+                <button type="submit" class="btn btn-primary">Update Product</button> <br>
+                
+                <a href="showProducts.jsp" class="btn btn-primary mb-3">Back to list products</a>
+            </form>
+            <%
+                } else {
+                    out.println("<p>Product not found!</p>");
+                }
+            %>
         </div>
 
-        <div class="input-field">
-            <label for="productPrice">Price:</label>
-            <input type="number" step="0.01" name="productPrice" id="productPrice" value="<%= product.getProduct_price() %>">
-        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script>
+                        $(document).ready(function () {
+                            $('#deleteSelectedImages').click(function () {
+                                var selectedImageIds = $('.image-checkbox:checked').map(function () {
+                                    return $(this).val();
+                                }).get();
 
-        <div class="input-field">
-            <label for="image">Product Image:</label>
-            <input type="file" name="image" id="image">
-            <% if (!imageUrl.isEmpty()) { %>
-            <img src="<%= imageDataURL %>" class="current-image" alt="Current Product Image">
-            <% } %>
-        </div>
+                                if (selectedImageIds.length > 0) {
+                                    $.ajax({
+                                        url: '/deleteImage', // Ensure this matches your servlet URL
+                                        type: 'POST',
+                                        data: {imageIds: selectedImageIds},
+                                        traditional: true,
+                                        success: function (response) {
+                                            if (response.success) {
+                                                $('.image-checkbox:checked').closest('.img-preview').remove();
+                                                alert("Selected images deleted successfully.");
+                                            } else {
+                                                alert("Error deleting images.");
+                                            }
+                                        },
+                                        error: function () {
+                                            alert("Error processing your request.");
+                                        }
+                                    });
+                                } else {
+                                    alert("No images selected for deletion.");
+                                }
+                            });
 
-        <div class="input-field">
-            <label for="stockQuantity">Stock Quantity:</label>
-            <input type="number" name="stockQuantity" id="stockQuantity" value="<%= product.getStock_quantity() %>">
-        </div>
+                            $('.image-checkbox').change(function () {
+                                $(this).closest('.img-preview').toggleClass('selected', this.checked);
+                            });
 
-        <div class="input-field">
-            <label for="categoryId">Category:</label>
-            <select id="categoryId" name="categoryId" required>
-                <% for (Category category : categories) { %>
-                    <option value="<%= category.getCategoryId() %>" <%= product.getCategory_id() == category.getCategoryId() ? "selected" : "" %>><%= category.getCategoryName() %></option>
-                <% } %>
-            </select>
-        </div>
+                            $('#additionalImages').change(previewImages); // Bind the previewImages function to the change event of the file input
+                        });
 
-        <div class="input-field">
-            <label for="productBranch">Branch:</label>
-            <input type="text" name="productBranch" id="productBranch" value="<%= product.getProduct_branch() %>">
-        </div>
+                        function previewImages() {
+                            var imageInput = document.getElementById('additionalImages');
+                            var imagePreview = document.getElementById('imagePreview');
 
-        <input type="submit" value="Update Product">
-    </form>
-    <% 
-        } else {
-            out.println("<p>Product not found!</p>");
-        }
-    %>
-</body>
+                            // Remove previously added 'new' image previews but keep existing images
+                            $('.img-preview.new').remove();
+
+                            Array.from(imageInput.files).forEach(file => {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    var imgContainer = document.createElement('div');
+                                    imgContainer.classList.add('img-preview', 'new'); // Mark new previews with 'new' class
+
+                                    var img = new Image();
+                                    img.src = e.target.result;
+                                    imgContainer.appendChild(img);
+
+                                    var deleteBtn = document.createElement('button');
+                                    deleteBtn.innerText = 'X';
+                                    deleteBtn.classList.add('delete-btn');
+                                    deleteBtn.onclick = function () {
+                                        imgContainer.remove();
+                                        removeFile(file, imageInput);
+                                    };
+                                    imgContainer.appendChild(deleteBtn);
+
+                                    imagePreview.appendChild(imgContainer);
+                                };
+                                reader.readAsDataURL(file);
+                            });
+                        }
+
+                        function removeFile(fileToRemove, imageInput) {
+                            var dt = new DataTransfer();
+                            Array.from(imageInput.files).forEach(file => {
+                                if (file !== fileToRemove) {
+                                    dt.items.add(file);
+                                }
+                            });
+                            imageInput.files = dt.files;
+                        }
+        </script>
+
+    </body>
 </html>
+

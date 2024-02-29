@@ -13,7 +13,7 @@ import model.image;
 
 public class imageDAO {
 
-    private Connection connection; 
+    private Connection connection;
 
     public List<image> getImgList() throws SQLException {
         List<image> list = new ArrayList<>();
@@ -48,8 +48,8 @@ public class imageDAO {
             throw e;
         }
     }
-    
-     public void DeleteImageSlider(String imageId) throws SQLException {
+
+    public void DeleteImageSlider(String imageId) throws SQLException {
         String sql = "DELETE FROM images WHERE image_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, imageId);
@@ -59,8 +59,6 @@ public class imageDAO {
             throw e;
         }
     }
-    
-    
 
     public void updateImage(image img) throws SQLException {
         String sql = "UPDATE images SET product_id = ?, image_url = ? WHERE image_id = ?";
@@ -104,4 +102,24 @@ public class imageDAO {
         }
         return list;
     }
+
+    public void deleteMultipleImages(List<Integer> imageIds) throws SQLException {
+        String sql = "DELETE FROM images WHERE image_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            for (int imageId : imageIds) {
+                preparedStatement.setInt(1, imageId);
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        }
+    }
+    public void deleteImageById(int imageId) throws SQLException {
+    String sql = "DELETE FROM images WHERE image_id = ?";
+    try (Connection connection = DBConnection.getConnection(); 
+         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setInt(1, imageId);
+        preparedStatement.executeUpdate();
+    }
+}
+
 }

@@ -1,10 +1,11 @@
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Order\editOrder.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Product\deleteImage.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Product\editProduct.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Image\EditServlet.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Order\orderController.java
+D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\ProductImage.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Cart\CRUDCart.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Category\CrudCategory.java
-D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\ProductDetails.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\model\Category.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\dao\CategoryDAO.java
 D:\Chuyennganhki5\SWP\project_swp\src\main\java\Controller\Order\CRUDOrderController.java

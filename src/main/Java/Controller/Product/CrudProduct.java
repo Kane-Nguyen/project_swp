@@ -95,9 +95,7 @@ public class CrudProduct extends HttpServlet {
 
         if (action != null) {
             switch (action) {
-                case "edit":
-                    editProduct(request, response);
-                    break;
+
                 case "delete":
                     deleteProduct(request, response);
                     break;
@@ -108,49 +106,6 @@ public class CrudProduct extends HttpServlet {
     }
 
     
-
-    private void editProduct(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        try {
-            String productId = request.getParameter("productId");
-            String productName = request.getParameter("productName");
-            double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-            Part imagePart = request.getPart("image");
-            String imageUrl;
-
-            if (imagePart != null && imagePart.getSize() > 0) {
-                imageUrl = convertImageToBase64(imagePart); // Convert new image to base64
-
-            } else {
-                ProductDAO productDAO = new ProductDAO();
-                Product existingProduct = productDAO.getProductById(productId);
-                imageUrl = existingProduct.getImage_url(); // Keep existing image
-
-            }
-
-            int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-            String productBranch = request.getParameter("productBranch");
-
-            ProductDAO productDAO = new ProductDAO();
-            boolean success = productDAO.editProduct(productId, productName, productPrice, imageUrl, stockQuantity, categoryId, productBranch);
-
-            if (success) {
-                response.sendRedirect("showProducts.jsp"); // Redirect to the product list page
-
-            } else {
-                response.getWriter().println("Failed to edit product."); // Display error message
-
-            }
-        } catch (NumberFormatException e) {
-
-            response.getWriter().println("Number format error: " + e.getMessage());
-        } catch (Exception e) {
-
-            response.getWriter().println("An error occurred: " + e.getMessage());
-        }
-    }
 
     private String convertImageToBase64(Part imagePart) throws IOException {
         if (!isValidImageType(imagePart.getContentType())) {

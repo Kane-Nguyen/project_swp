@@ -7,7 +7,7 @@ package model;
 import java.util.Date;
 import java.util.List;
 
-public class ProductDetails {
+public class ProductImage {
     private String product_id;
     private String product_name;
     private double product_price;
@@ -18,11 +18,11 @@ public class ProductDetails {
     private Date dateAdded;
     private List<String> additionalImageUrls;
 
-    public ProductDetails() {
+    public ProductImage() {
     }
     
     
-    public ProductDetails(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
+    public ProductImage(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;

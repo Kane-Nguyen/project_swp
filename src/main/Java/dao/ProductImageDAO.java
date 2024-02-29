@@ -15,7 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import model.ProductDetails;
+import model.ProductImage;
+import model.image;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -28,13 +29,13 @@ public class ProductImageDAO {
     private Statement statement;
     private ResultSet rs;
 
-    public ProductDetails getProductDetails(String productId) {
+    public ProductImage getProductDetails(String productId) {
         String sql = "SELECT p.*, i.image_url as additional_image_url "
                 + "FROM products p "
                 + "LEFT JOIN images i ON p.product_id = i.product_id "
                 + "WHERE p.product_id = ?";
 
-        ProductDetails productDetails = null;
+        ProductImage productDetails = null;
         List<String> imageUrls = new ArrayList<>();
 
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -45,7 +46,7 @@ public class ProductImageDAO {
 
                 while (resultSet.next()) {
                     if (isFirstRow) {
-                        productDetails = new ProductDetails(
+                        productDetails = new ProductImage(
                                 resultSet.getString("product_id"),
                                 resultSet.getString("product_name"),
                                 resultSet.getDouble("product_price"),
@@ -73,6 +74,31 @@ public class ProductImageDAO {
         }
         return productDetails;
     }
+// Trong lớp ProductDAO
+
+public List<image> getAdditionalImages(String productId) {
+    List<image> additionalImages = new ArrayList<>();
+    String sql = "SELECT * FROM images WHERE product_id = ?";
+    try (Connection connection = DBConnection.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+        preparedStatement.setString(1, productId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            image img = new image(
+                rs.getInt("image_id"),
+                rs.getInt("product_id"),
+                rs.getString("image_url")
+            );
+            additionalImages.add(img);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return additionalImages;
+}
+
 
     private String convertImageToBase64(InputStream inputStream) throws IOException {
         byte[] imageBytes = IOUtils.toByteArray(inputStream);

@@ -1,6 +1,5 @@
 Controller\Order\orderController.class
 model\Cart.class
-model\ProductDetails.class
 dao\imageDAO.class
 model\image.class
 Controller\Order\editOrder.class
@@ -11,13 +10,16 @@ Controller\Image\UploadServlet.class
 dao\cartDAO.class
 Controller\Image\DeleteSliderServlet.class
 Controller\Order\CRUDOrderController.class
+Controller\Product\editProduct.class
 Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
 model\Product.class
 dao\UserDAO.class
+model\ProductImage.class
 model\User.class
 Controller\Category\CrudCategory.class
 Controller\Order\createOrder.class
+Controller\Product\deleteImage.class
 Controller\Image\EditSliderServlet.class
 Controller\Image\ImageServlet.class
 dao\orderDAO.class

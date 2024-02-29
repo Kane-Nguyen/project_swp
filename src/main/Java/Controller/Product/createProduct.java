@@ -18,7 +18,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import model.ProductDetails;
+import model.ProductImage;
 import model.image;
 
 @WebServlet(name = "createProduct", urlPatterns = {"/createProduct"})
@@ -94,7 +94,7 @@ public class createProduct extends HttpServlet {
 
         // Lấy thông tin chi tiết sản phẩm
         ProductImageDAO productDetailsDAO = new ProductImageDAO();
-        ProductDetails productDetails = productDetailsDAO.getProductDetails(String.valueOf(productId));
+        ProductImage productDetails = productDetailsDAO.getProductDetails(String.valueOf(productId));
 
         if (productDetails != null) {
             request.setAttribute("productDetails", productDetails);

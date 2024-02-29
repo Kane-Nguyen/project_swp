@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
+import model.image;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ProductDAO {
         String sql = "select * from products";
         try {
             connection = DBConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql); 
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product p = new Product(
@@ -57,34 +58,32 @@ public class ProductDAO {
         return list;
     }
 
-   public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
-    String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
-    int productId = -1;
+    public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+        String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
+        int productId = -1;
 
-    try (Connection connection = DBConnection.getConnection(); 
-         PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-        st.setString(1, productName);
-        st.setDouble(2, productPrice);
-        st.setString(3, imageUrl);
-        st.setInt(4, stockQuantity);
-        st.setInt(5, categoryId);
-        st.setString(6, productBranch);
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, productName);
+            st.setDouble(2, productPrice);
+            st.setString(3, imageUrl);
+            st.setInt(4, stockQuantity);
+            st.setInt(5, categoryId);
+            st.setString(6, productBranch);
 
-        int affectedRows = st.executeUpdate();
+            int affectedRows = st.executeUpdate();
 
-        if (affectedRows > 0) {
-            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    productId = generatedKeys.getInt(1);
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        productId = generatedKeys.getInt(1);
+                    }
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return productId;
     }
-    return productId;
-}
-
 
     public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         // Ensure the category exists, or create it
@@ -106,6 +105,28 @@ public class ProductDAO {
             e.printStackTrace();
             return false;
         }
+    }
+// Trong lớp ProductDAO
+    public List<image> getAdditionalImages(String productId) {
+        List<image> additionalImages = new ArrayList<>();
+        String sql = "SELECT * FROM images WHERE product_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, productId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                image img = new image(
+                        rs.getInt("image_id"),
+                        rs.getInt("product_id"),
+                        rs.getString("image_url")
+                );
+                additionalImages.add(img);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return additionalImages;
     }
 
     public Product getProductById(String productId) {
