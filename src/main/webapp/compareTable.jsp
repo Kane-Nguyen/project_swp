@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <head>
         <title>How To Create Bootstrap 5 Table For Compare Packages</title>
         <meta charset="utf-8" />
@@ -38,93 +40,83 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2 mt-5">
-                    <h3 class="bg-light p-2 mb-3">Compare Packages</h3>
+                    <h3 class="bg-light p-2 mb-3">Compare Product</h3>
                     <div class="table-responsive compare-packages">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th width="240px">Plans</th>
-                                    <th>Basic <p>Convert unique PSD/Sketch Homepage design to Responsive Bootstrap HTML/CSS with 3 rounds of revision</p>
+                                    <th width="240px">Hình ảnh</th>
+                                    <th><img src="${url1}" alt="alt" style="width: 100%"/>
                                     </th>
-                                    <th>Standard <p>Home + 1 inner page PSD/Sketch design to Responsive Bootstrap HTML/CSS with 3 rounds of revisions</p>
+                                    <th> <img src="${url2}" alt="alt" style="width: 100%"/>
                                     </th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="item1" items="${pd1}" varStatus="status">
+                                <c:set var="item2" value="${pd2[status.index]}" />
+                                <!-- Sử dụng item1 và item2 tại đây -->
+
                                 <tr>
-                                    <td>Number of Pages</td>
-                                    <td>3</td>
-                                    <td>6</td>
-                                 
+                                    <td>Name</td>
+                                    <td>${name1}</td>
+                                    <td>${name2}</td>
+
+                                </tr>
+                                <tr>            
+                                    <td>size display</td>
+
+                                    <td>${item1.sizeDisplay}</td>
+                                    <td>${item2.sizeDisplay}</td>
+
                                 </tr>
 
                                 <tr>
-                                    <td>Design Customization</td>
-                                    <td>No</td>
-                                    <td>Yes</td>
-                                    
+                                    <td>Chip set</td>
+                                    <td>${item1.chipset}</td>
+                                    <td>${item2.chipset}</td>
+
                                 </tr>
 
                                 <tr>
-                                    <td>Content Upload</td>
-                                    <td>No</td>
-                                    <td>Yes</td>
-                                    
+                                    <td>Battery</td>
+                                    <td>${item1.battery}</td>
+                                    <td>${item2.battery}</td>
+
                                 </tr>
 
                                 <tr>
-                                    <td>Responsive Design</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                 
+                                    <td>Osystem</td>
+                                    <td>${item1.osystem}</td>
+                                    <td>${item2.osystem}</td>
+
                                 </tr>
 
                                 <tr>
-                                    <td>Plugins/Extensions Installation</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                 
+                                    <td>Camera</td>
+                                    <td>${item1.camera}</td>
+                                    <td>${item2.camera}</td>
+
                                 </tr>
 
                                 <tr>
-                                    <td>E-Commerce Functionality</td>
-                                    <td>No</td>
-                                    <td>No</td>
-                             
+                                    <td>Sim</td>
+                                    <td>${item1.sim}</td>
+                                    <td>${item2.sim}</td>
+
                                 </tr>
 
-                                <tr>
-                                    <td>Number of Products</td>
-                                    <td>4</td>
-                                    <td>6</td>
-                             
-                                </tr>
+                            </c:forEach>
+                            <tr>
+                                <td>Total Prices</td>
+                                <td>${price1} VND<br />
+                                    <button class="btn btn-warning">Mua ngay</button>
+                                </td>
+                                <td>${price2} VND<br />
+                                    <button class="btn btn-warning">Continue</button>
+                                </td>
 
-                                <tr>
-                                    <td>Revisions</td>
-                                    <td>Unlimited</td>
-                                    <td>Unlimited</td>
-                           
-                                </tr>
-
-                                <tr>
-                                    <td>Delivery Days</td>
-                                    <td>7 Days</td>
-                                    <td>9 Days</td>
-                        
-                                </tr>
-
-                                <tr>
-                                    <td>Total Prices</td>
-                                    <td>$50<br />
-                                        <button class="btn btn-warning">Continue</button>
-                                    </td>
-                                    <td>$75<br />
-                                        <button class="btn btn-warning">Continue</button>
-                                    </td>
-                                    
-                                </tr>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

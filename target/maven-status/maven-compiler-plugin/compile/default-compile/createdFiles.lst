@@ -3,5 +3,6 @@ model\productDescription.class
 controllerCompareProduct\dataToHomeFromDetail.class
 model\product.class
 connect\MysqlConnect.class
+model\images.class
 controllerCompareProduct\compareProductServlet.class
 controllerCompareProduct\update.class

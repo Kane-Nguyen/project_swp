@@ -11,7 +11,7 @@ import java.sql.Date;
  * @author THANHVINH
  */
 public class product {
-      private int product_id;
+    private int product_id;
     private String  product_name;
     private double product_price;
     private String image_url;

@@ -2,13 +2,13 @@ package dao;
 
 import connect.MysqlConnect;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.images;
 import model.product;
 import model.productDescription;
 
@@ -27,7 +27,7 @@ public class productDescriptionDAO {
         String sql = "select * from productdescription";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 productDescription description = new productDescription();
                 description.setDescriptionId(rs.getInt("description_id"));
@@ -64,18 +64,9 @@ public class productDescriptionDAO {
                 listU.add(p);
             }
         } catch (SQLException e) {
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close(); // Close connection inside finally block
-                }
-            } catch (SQLException e) {
-            }
-        }
+        } 
         return listU;
     }
-
-   
 
     public List<product> getIMG(String id1, String id2) {
         List<product> list = new ArrayList<>();
@@ -84,7 +75,7 @@ public class productDescriptionDAO {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             st.setString(1, id1);
             st.setString(2, id2);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 product p = new product(
                         rs.getInt("product_id"),
@@ -102,14 +93,12 @@ public class productDescriptionDAO {
         return list;
     }
 
-    public List<productDescription> getProductDescription(String id1, String id2) {
+    public List<productDescription> getProductDescription() {
         List<productDescription> ProductDescription = new ArrayList<>();
-        String sql = "select * from productdescription WHERE product_id IN (?, ?);";
+        String sql = "select * from productdescription";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-            st.setString(1, id1);
-            st.setString(2, id2);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 productDescription description = new productDescription(
                         rs.getInt("description_id"), rs.getString("size_display"), rs.getString("chipset"),
@@ -117,27 +106,39 @@ public class productDescriptionDAO {
                 ProductDescription.add(description);
             }
         } catch (SQLException e) {
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close(); // Close connection inside finally block
-                }
-            } catch (SQLException e) {
-            }
-        }
+        } 
         return ProductDescription;
+    }
+
+    public List<images> getImagesByProductId(int productId) {
+        List<images> images = new ArrayList<>();
+        String sql = "SELECT * FROM images WHERE product_id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, productId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int imageId = resultSet.getInt("image_id");
+                String imageUrl = resultSet.getString("image_url");
+                images image = new images(imageId, productId, imageUrl);
+                images.add(image);
+            }
+        } catch (SQLException e) {
+
+        } 
+        return images;
     }
 
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
-        List<product> pOutId = pdModel.getProduct();
-        
-        
- 
-        for (product object : pOutId) {
-            System.out.println(object.getImage_url() + " pOutId");
-             
+//        List<product> pOutId = pdModel.getProduct();
+//        for (product object : pOutId) {
+//            System.out.println(object.getImage_url() + " pOutId");
+//
+        List<productDescription> pd = pdModel.getProductDescription();
+    
+        for (productDescription description : pd) {
+            System.out.println(description.getCamera());
         }
-
     }
 }
