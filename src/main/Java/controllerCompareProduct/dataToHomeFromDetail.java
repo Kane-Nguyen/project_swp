@@ -10,12 +10,28 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 import model.images;
 import model.product;
 import model.productDescription;
 
 public class dataToHomeFromDetail extends HttpServlet {
+
+    public String changeMoney(double price) {
+        Locale locale = new Locale("vi", "VN");
+        Currency currency = Currency.getInstance("VND");
+
+        DecimalFormatSymbols df = DecimalFormatSymbols.getInstance(locale);
+        df.setCurrency(currency);
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+        numberFormat.setCurrency(currency);
+        return numberFormat.format(price);
+        
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +39,7 @@ public class dataToHomeFromDetail extends HttpServlet {
 
         try {
             String id = request.getParameter("productId");
-           
+
             productDescriptionDAO pdModel = new productDescriptionDAO();
             List<product> pWhereId = new ArrayList<>();
             List<product> pOutid = new ArrayList<>();
@@ -31,13 +47,15 @@ public class dataToHomeFromDetail extends HttpServlet {
             List<images> img = pdModel.getImagesByProductId(Integer.parseInt(id));
             List<productDescription> pd = pdModel.getProductDescription();
             List<productDescription> pd1 = new ArrayList<>();
-             for (productDescription description : pd) {
-                if(description.getProductId() == Integer.parseInt(id)) {
+            String price = "";
+            for (productDescription description : pd) {
+                if (description.getProductId() == Integer.parseInt(id)) {
                     pd1.add(description);
                 }
             }
             for (product object : p) {
                 if (object.getProduct_id() == Integer.parseInt(id)) {
+                    price = changeMoney(object.getProduct_price());
                     pWhereId.add(object);
                 } else {
                     pOutid.add(object);
@@ -48,6 +66,7 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.setAttribute("listWhId", pWhereId);
             request.setAttribute("listPout", pOutid);
             request.setAttribute("productId", id);
+            request.setAttribute("priceId", price);
 
             request.getRequestDispatcher("test.jsp").forward(request, response);
         } catch (SQLException ex) {

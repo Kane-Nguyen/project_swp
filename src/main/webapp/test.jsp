@@ -30,10 +30,11 @@
     </style>
     <body>
         <%
+            
             String productId2= (String) session.getAttribute("productId2");
             String productName2 = (String) session.getAttribute("productName");
             String imageUrl2 = (String) session.getAttribute("productUrl");
-     
+            
         %>
         <!-- compareeeeeeeeeeeeeee -->
         <!-- báo lỗi -->
@@ -212,7 +213,7 @@
 
                                 <p class="product-description">Màn hình 10.1 inch cảm ứng đa điểm</p>
 
-                                <h4 class="price">Giá hiện tại: <span>${i.product_price} vnđ</span></h4>                               
+                                <h4 class="price">Giá hiện tại: <span>${priceId} vnđ</span></h4>                               
                                 <div class="form-group">
                                     <label for="soluong">Số lượng đặt mua:</label>
                                     <input type="number" class="form-control" id="soluong" name="soluong" min="0">
