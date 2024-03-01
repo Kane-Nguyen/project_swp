@@ -75,11 +75,25 @@ public class editProduct extends HttpServlet {
         }
 
         LOGGER.info("Product updated with ID: " + productId);
-        
+
         Collection<Part> additionalImageParts = request.getParts().stream()
                 .filter(part -> "additionalImages".equals(part.getName()) && part.getSize() > 0)
                 .collect(Collectors.toList());
         imageDAO imageDao = new imageDAO();
+        int existingImageCount = 0;
+        try {
+            existingImageCount = imageDao.getImageCountByProductId(Integer.parseInt(productId));
+        } catch (SQLException ex) {
+            Logger.getLogger(editProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int newImagesCount = additionalImageParts.size();
+
+        if (existingImageCount + newImagesCount > 5) {
+            // Redirect or forward request to JSP with error message
+            request.setAttribute("error", "Cannot add more than 5 images. Please remove some images to proceed.");
+            request.getRequestDispatcher("editProductPage.jsp?productId=" + productId).forward(request, response);
+            return; // Stop further execution
+        }
         // Xử lý hình ảnh phụ, giả sử bạn có một phương thức trong imageDAO để cập nhật hình ảnh
         Part[] additionalImages = request.getParts().toArray(new Part[0]);
         for (Part part : request.getParts()) {

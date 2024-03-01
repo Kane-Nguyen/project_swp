@@ -71,6 +71,20 @@ public class imageDAO {
         }
     }
 
+    public int getImageCountByProductId(int productId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS imageCount FROM images WHERE product_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, productId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("imageCount");
+                }
+            }
+        }
+        return 0; // Trả về 0 nếu không có ảnh nào hoặc có lỗi xảy ra
+    }
+
     public image getImageById(int id) throws SQLException {
         String sql = "SELECT * FROM images WHERE image_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -113,13 +127,13 @@ public class imageDAO {
             preparedStatement.executeBatch();
         }
     }
+
     public void deleteImageById(int imageId) throws SQLException {
-    String sql = "DELETE FROM images WHERE image_id = ?";
-    try (Connection connection = DBConnection.getConnection(); 
-         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-        preparedStatement.setInt(1, imageId);
-        preparedStatement.executeUpdate();
+        String sql = "DELETE FROM images WHERE image_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, imageId);
+            preparedStatement.executeUpdate();
+        }
     }
-}
 
 }

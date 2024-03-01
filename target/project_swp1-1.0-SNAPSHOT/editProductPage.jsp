@@ -17,7 +17,11 @@
                 gap: 10px;
                 margin-top: 10px;
             }
-
+            .img-container img {
+                width: 100px; /* hoặc bất kỳ kích thước nào bạn muốn */
+                height: 100px; /* hoặc bất kỳ kích thước nào bạn muốn */
+                object-fit: cover; /* để hình ảnh không bị méo */
+            }
             .img-preview {
                 position: relative;
                 width: 100px;
@@ -33,6 +37,17 @@
 
             .img-preview.selected {
                 border-color: blue;
+            }
+
+            .delete-image-btn {
+                position: absolute;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+                color: red;
+                font-size: 20px;
+                background-color: white;
+                border-radius: 50%;
             }
 
             .btn-danger {
@@ -92,7 +107,7 @@
 
                 <div class="form-group">
                     <label for="additionalImages">Product Additional Images:</label>
-                    <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" required multiple accept=".jpg, .jpeg, .png" onchange="previewImages()">
+                    <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png">
                     <div id="imagePreview" class="img-preview-container">
                         <%
                             List<image> additionalImages = productDAO.getAdditionalImages(productId);
@@ -108,101 +123,128 @@
                         %>
                     </div>
                 </div>
+                <% if (request.getAttribute("error") != null) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= request.getAttribute("error") %>
+                </div>
+                <% } %>
+                
+                <p id="selectedImageCount">Selected images: 0</p>
 
                 <button id="deleteSelectedImages" type="button" class="btn btn-warning">Delete Selected Images</button><br>
-                
+
                 <button type="submit" class="btn btn-primary">Update Product</button> <br>
-                
+
                 <a href="showProducts.jsp" class="btn btn-primary mb-3">Back to list products</a>
             </form>
-            <%
+            <% 
                 } else {
                     out.println("<p>Product not found!</p>");
                 }
             %>
         </div>
-
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
-                        $(document).ready(function () {
-                            $('#deleteSelectedImages').click(function () {
-                                var selectedImageIds = $('.image-checkbox:checked').map(function () {
-                                    return $(this).val();
-                                }).get();
+            $(document).ready(function () {
+                // Cập nhật số lượng hình ảnh được chọn
+                function updateSelectedCount() {
+                    var count = $('.image-checkbox:checked').length;
+                    $('#selectedImageCount').text('Selected images: ' + count);
+                }
 
-                                if (selectedImageIds.length > 0) {
-                                    $.ajax({
-                                        url: '/deleteImage', // Ensure this matches your servlet URL
-                                        type: 'POST',
-                                        data: {imageIds: selectedImageIds},
-                                        traditional: true,
-                                        success: function (response) {
-                                            if (response.success) {
-                                                $('.image-checkbox:checked').closest('.img-preview').remove();
-                                                alert("Selected images deleted successfully.");
-                                            } else {
-                                                alert("Error deleting images.");
-                                            }
-                                        },
-                                        error: function () {
-                                            alert("Error processing your request.");
-                                        }
-                                    });
+                // Xử lý sự kiện khi thay đổi checkbox của hình ảnh
+                $('.image-checkbox').change(function () {
+                    $(this).closest('.img-preview').toggleClass('selected', this.checked);
+                    updateSelectedCount();
+                });
+
+                // Xử lý sự kiện khi nhấn nút xóa hình ảnh (dấu "X") cho hình ảnh đã thêm
+                $(document).on('click', '.delete-image-btn', function () {
+                    $(this).closest('.img-preview').remove();
+                    updateSelectedCount();
+                });
+
+                function previewImages() {
+                    let imageInput = document.getElementById('additionalImages'); // Đảm bảo ID này khớp với input của bạn
+                    let imagePreview = document.getElementById('imagePreview'); // Đảm bảo ID này khớp với container preview của bạn
+                    imagePreview.innerHTML = ''; // Bạn có thể muốn giữ nguyên các hình ảnh đã thêm trước đó
+
+                    Array.from(imageInput.files).forEach(file => {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            let imgContainer = document.createElement('div');
+                            imgContainer.classList.add('img-container');
+
+                            let img = new DocumentFragment().appendChild(document.createElement('img'));
+                            img.src = e.target.result;
+                            imgContainer.appendChild(img);
+
+                            let deleteBtn = document.createElement('button');
+                            deleteBtn.innerHTML = '✖'; // Red X icon
+                            deleteBtn.className = 'delete-btn';
+                            deleteBtn.onclick = function () {
+                                imgContainer.remove();
+                                removeFile(file);
+                            };
+                            imgContainer.appendChild(deleteBtn);
+
+                            imagePreview.appendChild(imgContainer);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+
+
+
+                // Hàm xóa file khỏi danh sách input
+                function removeFile(fileToRemove) {
+                    let imageInput = document.getElementById('additionalImages'); // Đảm bảo ID này khớp với input của bạn
+                    let dt = new DataTransfer();
+                    Array.from(imageInput.files).forEach(file => {
+                        if (file !== fileToRemove) {
+                            dt.items.add(file);
+                        }
+                    });
+                    imageInput.files = dt.files;
+                }
+
+                // Gắn hàm previewImages vào sự kiện thay đổi của input file
+                $('#additionalImages').change(function () {
+                    previewImages();
+                });
+
+                // Xử lý sự kiện khi nhấn nút 'Xóa hình ảnh được chọn'
+                $('#deleteSelectedImages').click(function () {
+                    var selectedImageIds = $('.image-checkbox:checked').map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedImageIds.length > 0) {
+                        // Gửi yêu cầu AJAX để xóa hình ảnh
+                        $.ajax({
+                            url: '/deleteImage', // Đảm bảo URL này khớp với servlet của bạn
+                            type: 'POST',
+                            data: {imageIds: selectedImageIds},
+                            traditional: true,
+                            success: function (response) {
+                                if (response.success) {
+                                    $('.image-checkbox:checked').closest('.img-preview').remove();
+                                    updateSelectedCount();
+                                    alert("Selected images deleted successfully.");
                                 } else {
-                                    alert("No images selected for deletion.");
+                                    alert("Error deleting images.");
                                 }
-                            });
-
-                            $('.image-checkbox').change(function () {
-                                $(this).closest('.img-preview').toggleClass('selected', this.checked);
-                            });
-
-                            $('#additionalImages').change(previewImages); // Bind the previewImages function to the change event of the file input
+                            },
+                            error: function () {
+                                alert("Error processing your request.");
+                            }
                         });
-
-                        function previewImages() {
-                            var imageInput = document.getElementById('additionalImages');
-                            var imagePreview = document.getElementById('imagePreview');
-
-                            // Remove previously added 'new' image previews but keep existing images
-                            $('.img-preview.new').remove();
-
-                            Array.from(imageInput.files).forEach(file => {
-                                var reader = new FileReader();
-                                reader.onload = function (e) {
-                                    var imgContainer = document.createElement('div');
-                                    imgContainer.classList.add('img-preview', 'new'); // Mark new previews with 'new' class
-
-                                    var img = new Image();
-                                    img.src = e.target.result;
-                                    imgContainer.appendChild(img);
-
-                                    var deleteBtn = document.createElement('button');
-                                    deleteBtn.innerText = 'X';
-                                    deleteBtn.classList.add('delete-btn');
-                                    deleteBtn.onclick = function () {
-                                        imgContainer.remove();
-                                        removeFile(file, imageInput);
-                                    };
-                                    imgContainer.appendChild(deleteBtn);
-
-                                    imagePreview.appendChild(imgContainer);
-                                };
-                                reader.readAsDataURL(file);
-                            });
-                        }
-
-                        function removeFile(fileToRemove, imageInput) {
-                            var dt = new DataTransfer();
-                            Array.from(imageInput.files).forEach(file => {
-                                if (file !== fileToRemove) {
-                                    dt.items.add(file);
-                                }
-                            });
-                            imageInput.files = dt.files;
-                        }
+                    } else {
+                        alert("No images selected for deletion.");
+                    }
+                });
+            });
         </script>
 
     </body>
 </html>
-

@@ -86,7 +86,7 @@
 
             <div class="form-group">
                 <label for="additionalImages">Product Additional Images:</label>
-                <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" required multiple accept=".jpg, .jpeg, .png" onchange="previewImages()">
+                <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png" onchange="previewImages()">
                 <div id="imagePreview" class="img-preview-container"></div>
             </div>
 
