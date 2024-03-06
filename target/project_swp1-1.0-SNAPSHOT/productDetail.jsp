@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,17 +6,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Accordion with Images and Delete Button</title>
+        <meta name="viewport" >
+        <title>Accordion</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/productDetailCSS.css" rel="stylesheet"/>
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" type="text/css">
-        <!-- Font awesome -->
-        <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css" type="text/css">
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
@@ -178,12 +175,12 @@
                         <div class="preview col-md-6">
                             <div class="preview-pic tab-content">
                                 <div class="tab-pane active" id="pic-1">
-                                    <img src="${imgWhereId[0].imageUrl}">
+                                    <img src="${imgWhereId[0].image_url}">
                                 </div>
                                 <c:forEach items="${imgWhereId}" var="i" varStatus="loop">
                                     <c:if test="${loop.index > 0}">
                                         <div class="tab-pane" id="pic-${loop.index + 1}">
-                                            <img src="${i.imageUrl}">
+                                            <img src="${i.image_url}">
                                         </div>
                                     </c:if>
                                 </c:forEach>
@@ -193,7 +190,7 @@
                                 <c:forEach items="${imgWhereId}" var="i" varStatus="loop">
                                     <li class="active">
                                         <a data-target="#pic-${loop.index + 1}" data-toggle="tab" class="">
-                                            <img src="${i.imageUrl}">
+                                            <img src="${i.image_url}">
                                         </a>
                                     </li>
                                 </c:forEach>

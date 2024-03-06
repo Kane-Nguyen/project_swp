@@ -2,10 +2,7 @@ package controllerCompareProduct;
 
 import dao.productDescriptionDAO;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +22,6 @@ public class dataToHomeFromDetail extends HttpServlet {
     public String changeMoney(double price) {
         Locale locale = new Locale("vi", "VN");
         Currency currency = Currency.getInstance("VND");
-
         DecimalFormatSymbols df = DecimalFormatSymbols.getInstance(locale);
         df.setCurrency(currency);
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);

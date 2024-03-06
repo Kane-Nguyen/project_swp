@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>compareProductServlet</servlet-name>
-        <servlet-class>Controller.Compare.compareProductServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>Controller.Image.UploadServlet</servlet-class>
     </servlet>

@@ -133,14 +133,9 @@ public class productDescriptionDAO {
 
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
-//        List<product> pOutId = pdModel.getProduct();
-//        for (product object : pOutId) {
-//            System.out.println(object.getImage_url() + " pOutId");
-//
-        List<productDescription> pd = pdModel.getProductDescription();
-    
-        for (productDescription description : pd) {
-            System.out.println(description.getCamera());
+        List<image> l = pdModel.getImagesByProductId(2);
+        for (image object : l) {
+            System.out.println(object.getImage_url());
         }
     }
 }

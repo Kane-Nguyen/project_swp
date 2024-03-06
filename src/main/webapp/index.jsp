@@ -290,24 +290,24 @@ if(session.getAttribute("UserRole") != null){
             <div class="container mt-5">
                 <div class="card-container">
                     <c:forEach var="product" items="${listProduct}" varStatus="status">
-                        <a class="link-detail text-decoration-none text-dark" href="#">
-                            <div class="card">
+                        <div class="card link-detail text-decoration-none text-dark">
+                            <form  action="dataToHomeFromDetail" id="hiddenForm">
                                 <div class="discount-label px-4">-30%</div>
+                                <input type="hidden" name="productId" value="${product.product_id}">
                                 <img
                                     class="m-4 rounded-top"
-                                    src="data:image/png;base64,${product.image_url}" alt="Product Image"
+                                    src="${product.image_url}" alt="Product Image"
                                     class="card-img-top"
-                                    alt="..."
+                                    onclick="submitForm()"
                                     />
                                 <div class="card-body">
                                     <h5 class="card-title">${product.product_name}</h5>
                                     <h5 class="card-title">
                                         <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
-
                                     </h5>
                                 </div>
-                            </div>  
-                        </a>
+                            </form>
+                        </div>
                     </c:forEach>
                 </div>
 
@@ -378,6 +378,10 @@ if(session.getAttribute("UserRole") != null){
 </html>
 
 </div>
-
+<script>
+    function submitForm() {
+        document.getElementById("hiddenForm").submit();
+    }
+</script>
 </body>
 </html>

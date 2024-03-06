@@ -16,7 +16,7 @@
             List<Product> p = pdModel.getProduct();
             for (Product product : p) {
         %>
-        <form action="dataToHomeFromDetail"  id="hiddenForm">
+        <form action="dataToHomeFromDetail" id="hiddenForm">
             <input type="hidden" name="productId" value="<%= product.getProduct_id()%>">
             <input type="image" src="<%= product.getImage_url()%>" style="width: 50%; height: 100%;" onclick="submitForm()">
         </form>
