@@ -34,7 +34,7 @@ public class ProductDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product p = new Product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -140,7 +140,7 @@ public class ProductDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 product = new Product();
-                product.setProduct_id(resultSet.getString("product_id"));
+                product.setProduct_id(resultSet.getInt("product_id"));
                 product.setProduct_name(resultSet.getString("product_name"));
                 product.setProduct_price(resultSet.getDouble("product_price"));
                 product.setImage_url(resultSet.getString("image_url"));
@@ -217,7 +217,7 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product p = new Product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),

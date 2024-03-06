@@ -74,12 +74,12 @@
 
                 <div class="form-group">
                     <label for="productPrice">Product Price:</label>
-                    <input type="number" class="form-control" id="productPrice" name="productPrice" value="<%= product.getProduct_price() %>" min="0.01" step="0.01" required>
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" value="<%= product.getProduct_price() %>" min="0.01" max="99999999" step="0.01" required>
                 </div>
 
                 <div class="form-group">
                     <label for="stockQuantity">Stock Quantity:</label>
-                    <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="<%= product.getStock_quantity() %>" min="1" step="1" required>
+                    <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="<%= product.getStock_quantity() %>" min="1" max="10000" step="1" required>
                 </div>
 
                 <div class="form-group">
@@ -135,7 +135,7 @@
 
                 <button type="submit" class="btn btn-primary">Update Product</button> <br>
 
-                <a href="showProducts.jsp" class="btn btn-primary mb-3">Back to list products</a>
+                <a href="CrudProduct" class="btn btn-primary mb-3">Back to list products</a>
             </form>
             <% 
                 } else {

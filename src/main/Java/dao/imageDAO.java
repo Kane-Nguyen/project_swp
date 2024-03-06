@@ -136,4 +136,27 @@ public class imageDAO {
         }
     }
 
+    public List<image> getAdditionalImagesByProductId(String productId) throws SQLException {
+        List<image> additionalImages = new ArrayList<>();
+        String sql = "SELECT * FROM images WHERE product_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            // Since productId is a string, we use setString instead of setInt
+            preparedStatement.setString(1, productId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    image img = new image(
+                            resultSet.getInt("image_id"),
+                            resultSet.getInt("product_id"), // Ensure your product_id column is of type INT
+                            resultSet.getString("image_url")
+                    );
+                    additionalImages.add(img);
+                }
+            }
+        } catch (SQLException e) {
+            // Handle exception
+            throw e;
+        }
+        return additionalImages;
+    }
+
 }

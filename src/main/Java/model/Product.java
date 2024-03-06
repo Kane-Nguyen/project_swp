@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Product {
-    private String product_id;
+    private int product_id;
     private String product_name;
     private double product_price;
     private String image_url;
@@ -15,7 +15,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
+    public Product(int product_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;
@@ -26,11 +26,11 @@ public class Product {
         this.dateAdded = dateAdded;
     }
 
-    public String getProduct_id() {
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
@@ -89,4 +89,5 @@ public class Product {
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
+
 }

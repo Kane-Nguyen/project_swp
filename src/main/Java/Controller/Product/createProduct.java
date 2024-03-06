@@ -20,6 +20,9 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import model.ProductImage;
 import model.image;
+import model.Category;
+import dao.CategoryDAO;
+import java.util.List;
 
 @WebServlet(name = "createProduct", urlPatterns = {"/createProduct"})
 @MultipartConfig
@@ -79,6 +82,7 @@ public class createProduct extends HttpServlet {
                 .collect(Collectors.toList());
 
         imageDAO imageDAO = new imageDAO();
+        
         for (Part imagePart : additionalImageParts) {
             String imageBase64 = convertImageToBase64(imagePart.getInputStream());
             image img = new image();
@@ -98,14 +102,22 @@ public class createProduct extends HttpServlet {
 
         if (productDetails != null) {
             request.setAttribute("productDetails", productDetails);
-            response.sendRedirect("showProducts.jsp");
+            response.sendRedirect("CrudProduct");
         } else {
-            response.sendRedirect("productNotFound.jsp");
+            response.sendRedirect("createProduct");
         }
     }
 
     private String convertImageToBase64(InputStream inputStream) throws IOException {
         byte[] imageBytes = IOUtils.toByteArray(inputStream);
         return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<Category> categories = categoryDAO.getAllCategories();
+        request.setAttribute("categories", categories);
+        request.getRequestDispatcher("/createProductPage.jsp").forward(request, response);
     }
 }

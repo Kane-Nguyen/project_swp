@@ -92,6 +92,7 @@ public class CategoryDAO {
         List<Category> lp = p.getAllCategories();
         System.out.println(lp.get(0).getCategoryName());
         p.getAllCategories();
+        
 
     }
 }
