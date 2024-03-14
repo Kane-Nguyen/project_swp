@@ -99,7 +99,17 @@ public class imageDAO {
         }
     }
     
-    
+    public void updateLogo(image img) throws SQLException {
+        // Giả sử img chứa image_id, product_id, và image_url (đã được convert thành base64)
+        String sql = "UPDATE images SET image_url = ?, product_id = ? WHERE product_id = 2";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, img.getImage_url());
+            preparedStatement.setInt(2, img.getProduct_id());
+
+            preparedStatement.executeUpdate();
+        }
+    }
 
     public int getImageCountByProductId(int productId) throws SQLException {
         String sql = "SELECT COUNT(*) AS imageCount FROM images WHERE product_id = ?";

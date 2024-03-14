@@ -51,7 +51,7 @@ public class editLogoServlet extends HttpServlet {
         img.setImage_url(imageBase64); // Assuming image_url holds the Base64 string
 
         try {
-            dao.updateImage(img);
+            dao.updateLogo(img);
             response.sendRedirect("/admin-setting");
         } catch (SQLException e) {
             throw new ServletException("SQL error occurred: " + e.getMessage(), e);
