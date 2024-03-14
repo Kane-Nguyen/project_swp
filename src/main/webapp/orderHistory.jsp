@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -107,58 +108,66 @@
                         Tổng Tiền
                     </th>
                 </tr>
-                <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
+                <c:if test="${empty listOrder}">
                     <tr>
-                        <td>
-                            ${listOrder.recipientName}  
-                        </td>
-                        <td>
-                            ${listOrder.phoneNumber}  
-                        </td>
-                        <td>
-                            ${listOrder.deliveryAddress}  
-                        </td>
-                        <td>
-                            ${listOrder.paymentMethod}  
-                        </td>
-                        <td>
-                            <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
-                                <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
-                                    ${listOrderStatus.status_order_name}
-                                </c:if> 
-                            </c:forEach>
-                        </td>
-                        <td>
-                            ${listOrder.timeBuy}  
-                        </td>
-                        <td>
-                            <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
-                                <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
-                                    <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
-                                        <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
-                                            <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
-                                            <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
-                                            <div class="d-flex">
+                        <td colspan="8" style="text-align:center;">Hiện tại không có order</td>
+                    </tr>
+                </c:if>
+                <c:if test="${not empty listOrder}">
+                    <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
 
-                                                <div>
-                                                    <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
-                                                </div>
-                                                <div>
-                                                    ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
-                                                </div>
-                                            </div> <br>
-                                        </c:if> 
+                        <tr>
+                            <td>
+                                ${listOrder.recipientName}  
+                            </td>
+                            <td>
+                                ${listOrder.phoneNumber}  
+                            </td>
+                            <td>
+                                ${listOrder.deliveryAddress}  
+                            </td>
+                            <td>
+                                ${listOrder.paymentMethod}  
+                            </td>
+                            <td>
+                                <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
+                                    <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
+                                        ${listOrderStatus.status_order_name}
                                     </c:if> 
                                 </c:forEach>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <fmt:formatNumber value="${total}" type="number"/> VNĐ
-                            <c:set var="total" value="${0}"/>
-                        </td>
+                            </td>
+                            <td>
+                                ${listOrder.timeBuy}  
+                            </td>
+                            <td>
+                                <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
+                                    <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
+                                        <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
+                                            <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
+                                                <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
+                                                <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
+                                                <div class="d-flex">
 
-                    </tr>
-                </c:forEach>
+                                                    <div>
+                                                        <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
+                                                    </div>
+                                                    <div>
+                                                        ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
+                                                    </div>
+                                                </div> <br>
+                                            </c:if> 
+                                        </c:if> 
+                                    </c:forEach>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <fmt:formatNumber value="${total}" type="number"/> VNĐ
+                                <c:set var="total" value="${0}"/>
+                            </td>
+
+                        </tr>
+                    </c:forEach>
+                </c:if>
 
             </table> 
         </div>
