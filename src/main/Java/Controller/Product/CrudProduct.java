@@ -45,30 +45,10 @@ public class CrudProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action");
-
-        if (action != null) {
-            switch (action) {
-                case "delete":
-                    deleteProduct(request, response);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            // Get productId parameter from the request
+         try {
             String productId = request.getParameter("product_id");
-
-            // Delete the product
             ProductDAO productDAO = new ProductDAO();
             boolean success = productDAO.deleteProduct(productId);
-
-            // Redirect to the product list page or handle failure
             if (success) {
                 response.sendRedirect("CrudProduct");
             } else {
@@ -80,7 +60,6 @@ public class CrudProduct extends HttpServlet {
             response.getWriter().println("An error occurred in deleteProduct: " + e.getMessage());
         }
     }
-
     private String convertImageToBase64(Part imagePart) throws IOException {
         if (!isValidImageType(imagePart.getContentType())) {
             throw new IOException("Invalid image type.");

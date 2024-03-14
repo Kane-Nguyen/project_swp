@@ -19,6 +19,7 @@ if(role == null || !role.trim().equals("admin")){
     </head>
     <body>
         <div class="wrap-content">
+            
             <div class="left-content">
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
