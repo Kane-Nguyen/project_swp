@@ -33,7 +33,11 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                     <a href="/CrudProduct" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
                             <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
+                         <%}
+                          if(  session.getAttribute("UserRole").equals("admin")) { %>
+                    <a href="/admin-setting" class="none-decoration"><li class="item-controller">Quản lí cài đặt</li></a>
                             <%}%>
+                         <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
             <div class="right-content">

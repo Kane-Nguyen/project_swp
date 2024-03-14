@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="right-content">
-                    <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                  <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
@@ -66,6 +66,11 @@
 if(session.getAttribute("UserRole") == null){
                     %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <% }
+                    
+if(session.getAttribute("UserRole") != null){
+                    %>
+                     <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
                     <% }
                     
 if(session.getAttribute("UserRole") != null){
