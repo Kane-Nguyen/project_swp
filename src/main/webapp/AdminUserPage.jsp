@@ -32,7 +32,11 @@ if(role == null || !role.trim().equals("admin")){
                     <a href="/CrudProduct" class="none-decoration"> <li class="item-controller">Quản lí sản phẩm</li></a>
                             <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <li class="item-controller active">Quản lí người dùng</li>
-                        <%}%>
+                        <%}
+                          if(  session.getAttribute("UserRole").equals("admin")) { %>
+                    <a href="/admin-setting" class="none-decoration"><li class="item-controller">Quản lí cài đặt</li></a>
+                            <%}%>
+                         <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
             <div class="right-content">

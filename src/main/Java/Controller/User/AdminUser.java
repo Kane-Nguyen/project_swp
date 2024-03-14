@@ -64,7 +64,7 @@ public class AdminUser extends HttpServlet {
         UserDAO u = new UserDAO();
         List<User> listUsers = u.getAll();
         request.setAttribute("listUsers", listUsers);
-        request.getRequestDispatcher("/AdminUserPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/adminUserPage.jsp").forward(request, response);
     }
     
 

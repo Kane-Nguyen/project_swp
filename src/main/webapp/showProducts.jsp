@@ -19,6 +19,7 @@ if(role == null || !role.trim().equals("admin")){
     </head>
     <body>
         <div class="wrap-content">
+            
             <div class="left-content">
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
@@ -29,7 +30,11 @@ if(role == null || !role.trim().equals("admin")){
                     <li class="item-controller active">Quản lí sản phẩm</li>
                         <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
+                         <%}
+                          if(  session.getAttribute("UserRole").equals("admin")) { %>
+                    <a href="/admin-setting" class="none-decoration"><li class="item-controller">Quản lí cài đặt</li></a>
                             <%}%>
+                     <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
             <div class="right-content">

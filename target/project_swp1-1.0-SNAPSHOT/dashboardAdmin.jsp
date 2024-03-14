@@ -36,7 +36,11 @@ if(role == null || !role.trim().equals("admin")){
                     <a href="/CrudProduct" class="none-decoration"> <li class="item-controller">Quản lí sản phẩm</li></a>
                             <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
+                           <%}
+                          if(  session.getAttribute("UserRole").equals("admin")) { %>
+                    <a href="/admin-setting" class="none-decoration"><li class="item-controller">Quản lí cài đặt</li></a>
                             <%}%>
+                         <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
             <div class="right-content">
@@ -45,24 +49,25 @@ if(role == null || !role.trim().equals("admin")){
                     <div class="content-detail">
                         <div class="box-content yellow">  <h1 class="text-content yellow-text">Tổng số lượng đơn hàng <span>${totalNumberOfOrders}</span> </h1></div>
                         <div class="box-content red"> <h1 class="text-content red-text">Tổng số lượng sản phẩm <span>${totalNumberOfProducts}</span></h1></div>
+                        <div class="box-content green"> <h1 class="text-content green-text">Tổng số lượt click vào tất cả sản phẩm<span>${totalProductCount}</span> </h1></div>
                     </div>
                     <div class="content-detail">
                         <div class="box-content green"> <h1 class="text-content green-text">Tổng số lượng tổng stock<span>${totalStockQuantityOfProducts}</span> </h1></div>
                         <div class="box-content blue"><h1 class="text-content blue-text">Tổng số lượng người dùng<span>${totalUsersNumber}</span></h1></div>
-                        <div class="box-content green"> <h1 class="text-content green-text">Tổng số lượt click vào tất cả sản phẩm<span>${totalProductCount}</span> </h1></div>
+                        
                     </div>
 
                 </div>
-                <div class="container mt-5">
-                    <table class="table">
-                        <thead>
+                <div class="mt-5">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
                             <tr>
                                 <th>ID</th>
                                 <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Image</th>
                                 <th>Click</th>
-        
+
                             </tr>
                         </thead>
                         <tbody>
@@ -108,5 +113,6 @@ if(role == null || !role.trim().equals("admin")){
                 </div>
 
             </div>
+        </div>
     </body>
 </html>
