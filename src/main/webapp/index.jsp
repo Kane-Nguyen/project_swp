@@ -10,17 +10,17 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>JSP Page</title>
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
-        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="wrap-content">
-            <div class="container content">
+            <div class="container content" style="height:60px;">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
                         <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
@@ -55,8 +55,6 @@
                             </button>
                         </form>
                     </div>
-
-
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
@@ -77,11 +75,12 @@ if(session.getAttribute("UserRole") != null){
                     %>
                 </div>
             </div>
-            <div class="d-flex">
-                <div class="menu">
-                    <nav class="navbar navbar-vertical w-100">
+            <div class="d-flex container" style="">
+                <div class="menu" style="margin: 20px 20px 0px 0px; height: 412px; border-radius: 4px;">
+                    <nav class="navbar navbar-vertical" style="padding:0px;">
                         <ul class="navbar-nav w-100">
-                            <li class="nav-item w-100">
+                            <%for (int i = 0; i < 10; i++) {%>
+                            <li class="nav-item">
                                 <a
                                     class="nav-link w-100 text-dark d-flex justify-content-between"
                                     href="#"
@@ -102,216 +101,47 @@ if(session.getAttribute("UserRole") != null){
                                     </li>
                                 </ul>
                             </li>
-
-                            <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>  <li class="nav-item w-100">
-                                <a
-                                    class="nav-link w-100 text-dark d-flex justify-content-between"
-                                    href="#"
-                                    >Sản phẩm<ion-icon
-                                        name="chevron-forward-outline"
-                                        class="iconMenu"
-                                        ></ion-icon
-                                    ></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item  ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 1</a>
-                                    </li>
-                                    <li class="dropdown-item ">
-                                        <a href="#" class="text-decoration-none text-dark">Sản phẩm 2</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a href="#" class=" text-decoration-none  text-dark">Sản phẩm 3</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        </li>
+                            <%}%>
                         </ul>
                     </nav>
                 </div>
-                 <div class="w-50 mt-3 ">
-                    <div id="carouselExampleIndicators" class="carousel slide w-100 rounded" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <c:forEach items="${listSlider}" var="image" varStatus="status">
-                                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                                    <img src="data:image/png;base64,${image.image_url}" class="d-block w-100 rounded-3" alt="Image ${image.image_id}">
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
+
+                <div id="carouselExampleIndicators" class="carousel slide rounded slider-wrap" data-bs-ride="carousel" style="margin-top: 20px; height: 412px; overflow: hidden; width: 856px;box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);">
+                    <div class="carousel-inner">
+                        <c:forEach items="${listSlider}" var="image" varStatus="status">
+                            <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                                <img src="data:image/png;base64,${image.image_url}" class="d-block w-100 rounded-3 img-slide" alt="Image ${image.image_id}" >
+                            </div>
+                        </c:forEach>
                     </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev" style="background: #ccc;
+                       width: 50px;
+                       height: 50px;
+                       position: absolute;
+                       top: 50%;
+                       transform: translate(-50%, -50%);
+                       left:25px;
+                       border-radius: 50%;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next" style="background: #ccc;
+                       width: 50px;
+                       height: 50px;
+                       position: absolute;
+                       top: 50%;
+                       transform: translate(-50%, -50%);
+                       right: -25px;
+                       border-radius: 50%;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
                 </div>
             </div>
             <div class="container mt-5">
                 <div class="card-container">
                     <c:forEach var="product" items="${listProduct}" varStatus="status">
                         <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
-                            <div class="card">
+                            <div class="card" style="box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);
+                                 border-radius: 12px;">
                                 <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                                 %>
@@ -325,7 +155,7 @@ if(session.getAttribute("UserRole") != null){
                                     alt="..."
                                     />
                                 <div class="card-body">
-                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <h5 class="card-title" style="height: 67px; overflow: hidden">${product.product_name}</h5>
                                     <h5 class="card-title">
                                         <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
 
@@ -364,13 +194,15 @@ if(session.getAttribute("UserRole") != null){
 
             </div>
             <div>
-                <div class=" mt-5 py-3 footerr">
+                <div class=" mt-5 py-3 footer">
                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                         <p class="text-white">Mã số thuế : 92828823</p>
                         <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
                         <h5 class="text-white">Kết nối với chúng tôi</h5>
-                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                        <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+                                border: none;
+                                                                                                                             outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                     <div style="width: 30%;" class="mt-5 ft2 items-center"> 
                         <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>

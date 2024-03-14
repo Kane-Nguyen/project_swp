@@ -12,7 +12,9 @@
 .content{
     display: flex;
     align-items: center;
+    
 }
+
 .left-content{
     display: flex;
     gap: 20px;
