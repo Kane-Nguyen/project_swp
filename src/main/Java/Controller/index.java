@@ -83,6 +83,7 @@ public class index extends HttpServlet {
         } catch (SQLException ex) {
 
         }
+        request.setAttribute("listSlider", la);
         request.setAttribute("logo", img);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
