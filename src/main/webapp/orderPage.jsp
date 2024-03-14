@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.*"%>
@@ -36,56 +38,139 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                             <%}%>
                 </ul>
             </div>
+
             <div class="right-content">
-                <a class="btn btn-primary" href="/createorder">Tạo Đơn Hàng</a>
-                <table class="table">
+                <%if(request.getParameter("s")!=null){%>
+                <h4 class="text-success">Cập Nhật Đơn Hàng Thành Công</h4>
+                <%}else if(request.getParameter("d")!=null){%>
+                <h4 class="text-success">Xóa Đơn Hàng Thành Công</h4>
+                <%}%>
+                <table class="table table-responsive">
                     <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">User ID</th>
-                        <th scope="col">Địa Chỉ</th>
-                        <th scope="col">Số điện thoại   </th>
+
+
+                        <th scope="col">Tên Tài Khoản</th>
                         <th scope="col">Tên Người Nhận</th>
+                        <th scope="col">Số điện thoại   </th>
+                        <th scope="col">Địa Chỉ</th>
+
                         <th scope="col">Phương Thức Thanh Toán</th>
-                        <th scope="col">Giá</th>
+
+                        <th scope="col">Trạng Thái</th>
                         <th scope="col">Thời Gian</th>
-                        <th scope="col"></th>
+                        <th scope="col">Sản Phẩm</th>
+                        <th scope="col">Tổng Tiền</th>
+                        <th scope="col"> </th>
                     </tr>
                     </thead>
                     <tbody>
-                        <%
-                            orderDAO oDAO = new orderDAO();
-                            List<Order> orderList = oDAO.getOrderList();
-            
-                            if (orderList == null || orderList.isEmpty()) {
-                                  out.println("<p>Hiện tại không có orders nào từ người dùng.</p>");
-                            }else {
-                            for(Order order : orderList){
-                        %>
-                        <tr>
-                            <th scope="row"><%= order.getOrderID() %></th>
-                            <td><%= order.getUserID() %></td>
-                            <td><%= order.getDeliveryAddress() %></td>
-                            <td><%= order.getPhoneNumber() %></td>
-                            <td><%= order.getRecipientName() %></td>
-                            <td><%= order.getPaymentMethod() %></td>
-                            <td><%= order.getTotalPrice() %></td>
-                            <td><%= order.getTimeBuy() %></td>
-                            <td class="handle-delete-edit">
-                                <a class="btn btn-warning edit-btn" href="/editorder?orderId=<%= order.getOrderID()%>">Edit</a>
-                                <form method="POST" action="CRUDOrderController" >
-                                    <input type="hidden" name="orderId" value="<%= order.getOrderID()%>"/>
-                                    <button type="submit" class="btn btn-danger delete-btn">Delete</button>
-                                    <input type="hidden" name="method" value="delete"/>
-                                </form>
+                        <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
+                            <tr>
+                        <form action="CRUDOrderController" method="post">
+                            <input  name="method" type="hidden" value="edit"/>
+                            <input name="orderId" type="hidden" value="${listOrder.orderID}"/>
+                            <c:forEach items="${listUser}" var="listUser" varStatus="status">
+                                <c:if test="${listUser.userId == listOrder.userID}">
+                                    <td>
+                                        ${listUser.fullName}
+                                    </td>
+                                </c:if>
+                            </c:forEach>
+                            <td>
+                                <input class="border-0" type="text" name="receiver"  value="${listOrder.recipientName}"/> 
                             </td>
+                            <td>
+                                <input  class="border-0" type="text" name="phoneNumber" value="${listOrder.phoneNumber}"/>
+                            </td>
+                            <td>
+                                <input  class="border-0" type="text" name="address"  value="${listOrder.deliveryAddress}"/>  
+                            </td>
+                            <td>
+                                ${listOrder.paymentMethod}
+                            </td>
+                            <td>
+                                <select name="status" class="form-select">
+                                    <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
+                                        <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
+                                            <option value="${listOrderStatus.status_order_id}" selected>${listOrderStatus.status_order_name}</option>
+                                        </c:if>
+                                        <c:if test="${listOrder.status_order_id != listOrderStatus.status_order_id}">
+                                            <option value="${listOrderStatus.status_order_id}">${listOrderStatus.status_order_name}</option>
+                                        </c:if>
+                                    </c:forEach>
+                                </select>
+
+                            </td>
+                            <td>
+                                ${listOrder.timeBuy}  
+                            </td>
+                            <td>
+                                <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
+                                    <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
+                                        <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
+                                            <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
+                                                <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
+                                                <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
+                                                <div class="d-flex">
+
+                                                    <div>
+                                                        <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
+                                                    </div>
+                                                    <div>
+                                                        ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
+                                                    </div>
+                                                </div> <br>
+                                            </c:if> 
+                                        </c:if> 
+                                    </c:forEach>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <fmt:formatNumber value="${total}" type="number"/> VNĐ
+                                <c:set var="total" value="${0}"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary " type="submit">Sửa</button>
+                        </form> 
+
+                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            Xóa
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createOrderModalLabel">Xác nhận Xóa</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form id="deleteForm" action="CRUDOrderController" method="post">
+                                            <input  name="method" type="hidden" value="delete"/>  
+                                            <input  name="orderId" type="hidden" value="${listOrder.orderID}"/>  
+                                            <h3 class="text-danger">Bạn Có Chắc Chắn Xóa Không?</h3>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" form="deleteForm" class="btn btn-primary">Xóa Đơn hàng</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </td>
                         </tr>
-                        <% }}%>
+
+                    </c:forEach>
 
 
                     </tbody>
                 </table>
-                <p class="text-success">${requestScope.resultEdit}</p>
-                <p class="text-danger">${requestScope.resultDelete}</p>
+
             </div>
         </div>
 

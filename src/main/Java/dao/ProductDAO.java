@@ -27,7 +27,7 @@ public class ProductDAO {
 
     public List<Product> getAll() {
         List<Product> list = new ArrayList<>();
-        String sql = "select * from products";
+        String sql = "select * from products WHERE product_id >= 3";
         try {
             connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql);

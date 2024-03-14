@@ -87,67 +87,17 @@ public class CRUDOrderController extends HttpServlet {
         orderDAO oDAO = new orderDAO();
         System.out.println("method :" + method);
         boolean result = false;
-        if (method.equals("create")) {
-            String userId = request.getParameter("userId");
-            String address = request.getParameter("address");
-            String phoneNumber = request.getParameter("phoneNumber");
-            String receiver = request.getParameter("receiver");
-            String paymentMethod = request.getParameter("paymentMethod");
 
-            String createOrderDay = request.getParameter("createOrderDay");
-            int userIdNumber = Integer.parseInt(userId);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date utilBirthDate = null;
-
-            try {
-                utilBirthDate = dateFormat.parse(createOrderDay);
-            } catch (ParseException e) {
-                // Xử lý lỗi ở đây nếu không thể chuyển đổi ngày sinh từ chuỗi.
-
-            }
-            java.sql.Date birthDate = new java.sql.Date(utilBirthDate.getTime());
-
-            try {
-                result = oDAO.createOrder(userIdNumber, address, phoneNumber, receiver, paymentMethod, birthDate);
-                System.out.println(result);
-            } catch (SQLException ex) {
-                System.out.println("Error :" + ex.toString());
-                result = false;
-            }
-            System.out.println(result);
-            if (result == false) {
-                System.out.println("Error");
-
-            } else {
-                request.setAttribute("resultEdit", "Tạo đơn hàng thành công");
-                request.getRequestDispatcher("orderPage.jsp").forward(request, response);
-            }
-
-        }
         if (method.equals("edit")) {
             String orderId = request.getParameter("orderId");
-            String userId = request.getParameter("userId");
             String address = request.getParameter("address");
             String phoneNumber = request.getParameter("phoneNumber");
             String receiver = request.getParameter("receiver");
-            String paymentMethod = request.getParameter("paymentMethod");
+            String status = request.getParameter("status");
 
-            String createOrderDay = request.getParameter("createOrderDay");
-            int orderIdNumber = Integer.parseInt(orderId);
-            int userIdNumber = Integer.parseInt(userId);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date utilBirthDate = null;
 
             try {
-                utilBirthDate = dateFormat.parse(createOrderDay);
-            } catch (ParseException e) {
-                // Xử lý lỗi ở đây nếu không thể chuyển đổi ngày sinh từ chuỗi.
-
-            }
-            java.sql.Date birthDate = new java.sql.Date(utilBirthDate.getTime());
-
-            try {
-                result = oDAO.updateOrder(orderIdNumber, userIdNumber, address, phoneNumber, receiver, paymentMethod, birthDate);
+                result = oDAO.updateOrder(Integer.parseInt(orderId), address, phoneNumber, receiver, Integer.parseInt(status));
                 System.out.println(result);
             } catch (SQLException ex) {
                 System.out.println("Error :" + ex.toString());
@@ -158,14 +108,15 @@ public class CRUDOrderController extends HttpServlet {
                 System.out.println("Error");
 
             } else {
-                request.setAttribute("resultEdit", "Cập nhật đơn hàng thành công");
-                request.getRequestDispatcher("orderPage.jsp").forward(request, response);
+              
+                response.sendRedirect("/order?s=ss");
 
             }
 
         } else if (method.equals("delete")) {
             String orderId = request.getParameter("orderId");
             int orderIdNumber = Integer.parseInt(orderId);
+            System.out.println("id =" +orderIdNumber);
             try {
                 result = oDAO.deleteOrder(orderIdNumber);
             } catch (SQLException ex) {
@@ -176,8 +127,7 @@ public class CRUDOrderController extends HttpServlet {
                 System.out.println("Error");
 
             } else {
-                request.setAttribute("resultDelete", "Xóa đơn hàng thành công");
-                request.getRequestDispatcher("orderPage.jsp").forward(request, response);
+              response.sendRedirect("/order?d=ss");
 
             }
         } else {

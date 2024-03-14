@@ -208,7 +208,7 @@ public class UserDAO {
         UserDAO u = new UserDAO();
         List<User> t = u.getAll();
         for (int i = 0; i < t.size(); i++) {
-            System.out.println(t.get(i).getFullName());
+            System.out.println(t.get(i).getUserId());
         }
     }
 }

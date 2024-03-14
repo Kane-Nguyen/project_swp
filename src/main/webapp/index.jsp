@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="right-content">
-                    <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                    <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
