@@ -99,11 +99,13 @@
                         <div class="col-12">
                             <input type="hidden" class="form-control" name="createOrderDay" id="createOrderDay" value="<%= LocalDate.now() %>">
                         </div>
-
+                        <div>
+                            <h3 class="text-danger" id="errorMessages"></h3>
+                        </div>
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:forEach var="product" items="${ProductList}">
                                 <input type="hidden" name="productId" value="${product.product_id}"/>
-                                
+
                                 <c:forEach var="cartItem" items="${cartItems}">
                                     <c:if test="${cartItem.product_id == product.product_id}">
                                         <input type="hidden" name="methodBuy" value="cart"/>
@@ -251,6 +253,27 @@
 
 
             <script>
+                $(document).ready(function () {
+                    $("#paymentForm").submit(function (event) {
+                        var phoneNumber = $("input[name='phoneNumber']").val();                  
+                        var phoneNumberRegex = /^\d{10}$/;                    
+                        var errorMessage = '';
+
+                        if (!phoneNumberRegex.test(phoneNumber)) {
+                            errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                        }
+
+                        
+
+                        if (errorMessage.length > 0) {
+                            $("#errorMessages").html(errorMessage);
+                            event.preventDefault(); // Prevent form submission
+                        } else {
+                            $("#errorMessages").html(''); // Clear error message
+                        }
+                    });
+                });
+
                 $(document).ready(function () {
                     // Function to update button visibility based on the payment method
                     function updateButtonVisibility() {
