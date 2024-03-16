@@ -124,7 +124,7 @@ if(session.getAttribute("UserRole") != null){
                     </nav>
                 </div>
 
-                <div id="carouselExampleIndicators" class="carousel slide rounded slider-wrap" data-bs-ride="carousel" style="margin-top: 2 0px; height: 412px; overflow: hidden; width: 100%;box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);">
+                <div id="carouselExampleIndicators" class="carousel slide rounded slider-wrap" data-bs-ride="carousel" style="margin-top: 20px; height: 412px; overflow: hidden; width: 100%;box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);">
                     <div class="carousel-inner">
                         <c:forEach items="${listSlider}" var="image" varStatus="status">
                             <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
@@ -155,7 +155,7 @@ if(session.getAttribute("UserRole") != null){
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="card-container">
+                <div class="card-container" style="gap: 20px;justify-content: start" >
                     <c:forEach var="product" items="${listProduct}" varStatus="status">
                         <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
                             <div class="card" style="box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);
