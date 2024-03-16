@@ -205,7 +205,7 @@ if(session.getAttribute("UserRole") != null){
                                     <h3  >${i.product_name}</h3>
                                     <button id="open-modal"  class="btn btn-sm" style="margin-left: 5px; font-size: 12px;background-color: #eee; color: black;  border: 1px solid red;  ">+ So Sánh</button>
                                 </div>
-                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>   
+                                <h4 class="price ">Giá hiện tại: <span class="text-danger">${priceId}</span></h4>   
                                 <form action="addCart" name="frmsanphamchitiet" id="frmsanphamchitiet" method="post">
                                     <input type="hidden" name="method" value="cart"> 
                                     <div class="form-group">
@@ -215,7 +215,7 @@ if(session.getAttribute("UserRole") != null){
 
                                     <input type="hidden" name="productId" id="productId" value="${productId}">
                                     <div class="action">
-                                        <button class="add-to-cart btn btn-default" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</button>
+                                        <button class="add-to-cart btn btn-primary" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</button>
 
                                     </div>
                                 </form>
