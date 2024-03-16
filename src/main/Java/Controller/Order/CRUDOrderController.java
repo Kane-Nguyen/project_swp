@@ -153,7 +153,6 @@ public class CRUDOrderController extends HttpServlet {
                 if (order_id == -1) {
                     response.sendRedirect("cart?error=e");
                 } else {
-
                     System.out.println("orderID = " + order_id);
                     orderDetailDAO d = new orderDetailDAO();
                     for (int i = 0; i < productIds.length; i++) {
@@ -161,11 +160,11 @@ public class CRUDOrderController extends HttpServlet {
                         int quantity = Integer.parseInt(quantities[i]);
                         orderDetail oM = new orderDetail(quantity, order_id, productId);
                         if (d.insertOrderDetail(oM)) {
-                            response.sendRedirect("/");
+                           
                         } else {
                             response.sendRedirect("cart?error=e");
                         }
-                    }
+                    } response.sendRedirect("/orderHistory");
 
                 }
             } catch (NumberFormatException e) {

@@ -110,24 +110,28 @@ public class orderPayment extends HttpServlet {
             }
         } else {
             String productIdStr = request.getParameter("productId");
-            String quantityStr = request.getParameter("quantity");
+
             System.out.println(productIdStr);
-            System.out.println(quantityStr);
-            int quantity = 0;
+
+            int quantity = 1; 
             int productId = 0;
             try {
-                quantity = Integer.parseInt(quantityStr);
-                productId = Integer.parseInt(productIdStr);
+                String quantityStr = request.getParameter("quantity");
+                if (quantityStr != null) {
+                    quantity = Integer.parseInt(quantityStr);
+                }
+
             } catch (NumberFormatException e) {
-                System.out.println("Lỗi");
-                 request.getRequestDispatcher("/orderPayment?error").forward(request, response);
+              
             }
+            productId = Integer.parseInt(productIdStr);
             ProductDAO p = new ProductDAO();
             Product p1 = p.getProductById(productId);
-              request.setAttribute("method", "buy");
+            request.setAttribute("method", "buy");
             request.setAttribute("product", p1);
             request.setAttribute("quantity", quantity);
             request.getRequestDispatcher("/orderPayment.jsp").forward(request, response);
+
         }
 
     }

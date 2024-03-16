@@ -31,8 +31,7 @@
             String imageUrl2 = (String) session.getAttribute("productUrl");
             
         %>
-        <!-- compareeeeeeeeeeeeeee -->
-        <!-- báo lỗi -->
+
         <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -211,7 +210,7 @@ if(session.getAttribute("UserRole") != null){
                                     <input type="hidden" name="method" value="cart"> 
                                     <div class="form-group">
                                         <label for="soluong">Số lượng đặt mua:</label>
-                                        <input type="number" class="form-control" id="quantity" name="quantity" min="0">
+                                        <input type="number" class="form-control" id="quantity" name="quantity" min="1">
                                     </div>
 
                                     <input type="hidden" name="productId" id="productId" value="${productId}">
@@ -278,14 +277,16 @@ if(session.getAttribute("UserRole") != null){
 
     $(document).ready(function () {
         $('#btnThemVaoGioHang').click(function (e) {
-            // Gửi yêu cầu AJAX đến server để kiểm tra trạng thái đăng nhập
-            $.get('/addCart', function (isLoggedIn) {
+            if (!quantity || quantity < 1) {
+                $('#quantity').val('1'); // Đặt giá trị mặc định là 1
+            }
+            $.post('/addCart', function (isLoggedIn) {
                 if (isLoggedIn !== "true") {
                     // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
                     window.location.href = '/login'; // Thay đổi đường dẫn nếu cần
                 } else {
                     window.location.href = '/cart';
-                    alert("Tiến hành thêm vào giỏ hàng");
+
                 }
             });
         });
@@ -344,7 +345,10 @@ if(session.getAttribute("UserRole") != null){
     $(document).ready(function () {
         $('#buyNow').click(function (e) {
             e.preventDefault(); // Ngăn không cho form submit ngay lập tức
-            var quantity = $('#quantity').val(); // Lấy giá trị số lượng từ form đầu tiên
+            var quantity = $('#quantity').val();
+            if (!quantity || quantity < 1) {
+                $('#quantity').val('1'); // Đặt giá trị mặc định là 1
+            }
             $('#quantityForOrder').val(quantity); // Đặt giá trị số lượng vào trường ẩn của form thứ hai
             $(this).closest('#BuyNowForm').submit(); // Submit form thứ hai
 
