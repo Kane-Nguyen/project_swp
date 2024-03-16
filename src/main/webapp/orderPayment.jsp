@@ -160,7 +160,7 @@
 
                     </form>
                 </div>
-                <div style="width: 40%"> 
+                <div style="width: 40%">
                     <ul class="list-group">
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:set var="total" value="0"/> <!-- Initialize total -->
