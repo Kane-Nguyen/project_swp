@@ -28,13 +28,12 @@ import model.Product;
  */
 @WebServlet(name = "addCart", urlPatterns = {"/addCart"})
 public class addCart extends HttpServlet {
-    
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false); // Lấy session hiện tại nếu có
         boolean isLoggedIn = (session != null && session.getAttribute("UserRole") != null);
-        
+
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(String.valueOf(isLoggedIn)); // Trả về "true" nếu đã đăng nhập, ngược lại "false"
@@ -45,17 +44,14 @@ public class addCart extends HttpServlet {
             throws ServletException, IOException {
 
         String productId = request.getParameter("productId");
-        String quantityStr = request.getParameter("quantity");
 
-        System.out.println(quantityStr);
-
-        int quantity = 0;
+        int quantity = 1;
         try {
+            String quantityStr = request.getParameter("quantity");
             quantity = Integer.parseInt(quantityStr);
             System.out.println(quantity);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return;
+
         }
 
         cartDAO cart = new cartDAO();
@@ -74,7 +70,7 @@ public class addCart extends HttpServlet {
             int cartId = cart1.getCart_id();
             try {
                 cart.updateCartQuantity(cartId, newQuantity);
-                response.sendRedirect("cart"); 
+                response.sendRedirect("cart?s1");
             } catch (SQLException ex) {
 
                 Logger.getLogger(addCart.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,11 +79,11 @@ public class addCart extends HttpServlet {
 
         } else {
             // Product is not in the cart, add a new entry
-            Cart newCart = new Cart(userId, Integer.parseInt(productId), Integer.parseInt(quantityStr));
+            Cart newCart = new Cart(userId, Integer.parseInt(productId), quantity);
 
             try {
                 if (cart.insertCart(newCart)) {
-                    response.sendRedirect("cart");
+                    response.sendRedirect("cart?ss");
                 } else {
                     System.out.println("errorr");
                     response.sendRedirect("cart?e=erorr");
