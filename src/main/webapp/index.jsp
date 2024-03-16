@@ -13,22 +13,22 @@
     <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>JSP Page</title>
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
-        <script
-            type="module"
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-        ></script>
-        <script
-            nomodule
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-        ></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <style>
+
+            @media (max-width: 992px) {
+                .right-content{
+                    display: none;
+                }
+                .list-mb{
+                    display: block;
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="wrap-content">
@@ -56,8 +56,21 @@
                         </form>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown link
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
                 <div class="right-content">
-                  <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
+                    <!-- Example single danger button -->
+
+                    <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
@@ -70,7 +83,7 @@ if(session.getAttribute("UserRole") == null){
                     
 if(session.getAttribute("UserRole") != null){
                     %>
-                     <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
+                    <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
                     <% }
                     
 if(session.getAttribute("UserRole") != null){
@@ -111,7 +124,7 @@ if(session.getAttribute("UserRole") != null){
                     </nav>
                 </div>
 
-                <div id="carouselExampleIndicators" class="carousel slide rounded slider-wrap" data-bs-ride="carousel" style="margin-top: 20px; height: 412px; overflow: hidden; width: 856px;box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);">
+                <div id="carouselExampleIndicators" class="carousel slide rounded slider-wrap" data-bs-ride="carousel" style="margin-top: 2 0px; height: 412px; overflow: hidden; width: 100%;box-shadow: 0 1px 2px 0 rgba(60,64,67,.1), 0 2px 6px 2px rgba(60,64,67,.15);">
                     <div class="carousel-inner">
                         <c:forEach items="${listSlider}" var="image" varStatus="status">
                             <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
@@ -206,8 +219,8 @@ if(session.getAttribute("UserRole") != null){
                         <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
                         <h5 class="text-white">Kết nối với chúng tôi</h5>
                         <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
-                                border: none;
-                                                                                                                             outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
+                                                                     border: none;
+                                                                     outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                     <div style="width: 30%;" class="mt-5 ft2 items-center"> 
                         <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
@@ -245,5 +258,7 @@ if(session.getAttribute("UserRole") != null){
         document.getElementById("hiddenForm").submit();
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 </html>
