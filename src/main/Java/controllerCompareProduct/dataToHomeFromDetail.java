@@ -44,12 +44,12 @@ public class dataToHomeFromDetail extends HttpServlet {
         List<productDescription> pd1 = new ArrayList<>();
         String price = "";
         for (productDescription description : pd) {
-            if (description.getProductId() == Integer.parseInt(id)) {
+            if (description.getProductId() == Integer.parseInt(id) && Integer.parseInt(id) > 2) {
                 pd1.add(description);
             }
         }
         for (Product object : p) {
-            if (object.getProduct_id() == Integer.parseInt(id)) {
+            if (object.getProduct_id() == Integer.parseInt(id) ) {
                 price = changeMoney(object.getProduct_price());
                 pWhereId.add(object);
             } else {

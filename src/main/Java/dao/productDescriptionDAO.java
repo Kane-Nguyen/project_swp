@@ -19,7 +19,7 @@ public class productDescriptionDAO {
 
     public List<productDescription> getAllProductDescription() {
         List<productDescription> pDescriptions = new ArrayList<>();
-        String sql = "select * from productdescription";
+        String sql = "select * from productdescription where product_id >=3";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -42,7 +42,7 @@ public class productDescriptionDAO {
 
     public List<Product> getProduct() {
         List<Product> listU = new ArrayList<>();
-        String sql = "select * from products";
+        String sql = "select * from products where product_id >=3 ";
         try {
             connection = DBConnection.getConnection();
             PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement

@@ -249,7 +249,7 @@
 
 .add-to-cart,
 .like {
-    background: #ff9f1a;
+   
     padding: 1.2em 1.5em;
     border: none;
     text-transform: UPPERCASE;
@@ -261,7 +261,7 @@
 
 .add-to-cart:hover,
 .like:hover {
-    background: #b36800;
+    background: #e8f7ff;
     color: #fff;
 }
 
