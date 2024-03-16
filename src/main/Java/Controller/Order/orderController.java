@@ -15,7 +15,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Order;
 import model.Product;
 import model.User;
@@ -67,8 +73,24 @@ public class orderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          HttpSession session = request.getSession();
+        int sellerId= (int) session.getAttribute("userId");
         UserDAO ud = new UserDAO();
         orderDAO od = new orderDAO();
+        List<Order> listOrderSeller;
+        try {
+            
+            listOrderSeller = od.getOrdersByUserId(sellerId);
+            for (Order order : listOrderSeller) {
+    List<Product> products = od.getProductsByOrderId(order.getOrderID());
+    order.setProducts(products); // Ensure Order class has this setter method
+}
+            request.setAttribute("listOrderSeller", listOrderSeller);
+        } catch (SQLException ex) {
+            Logger.getLogger(orderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         List<User> lu = ud.getAll();
         List<Order> lo = od.getOrderList();
         request.setAttribute("listOrder", lo);
@@ -81,6 +103,7 @@ public class orderController extends HttpServlet {
         List<Product> lp = p.getAll();
         request.setAttribute("ListProduct", lp);
         request.setAttribute("listUser", lu);
+         
         request.getRequestDispatcher("/orderPage.jsp").forward(request, response);
     }
 

@@ -25,7 +25,6 @@ public class Order {
     public Order(int orderID,int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, int status_order_id, Date timeBuy) {
         this.orderID = orderID;
         this.userID = userID;
-
         this.deliveryAddress = deliveryAddress;
         this.phoneNumber = phoneNumber;
         this.recipientName = recipientName;
@@ -66,14 +65,6 @@ public class Order {
 
     public int getUserID() {
         return userID;
-    }
-
-    public int getSellerID() {
-        return sellerID;
-    }
-
-    public void setSellerID(int sellerID) {
-        this.sellerID = sellerID;
     }
 
     public void setUserID(int userID) {
