@@ -129,8 +129,7 @@ public class CRUDOrderController extends HttpServlet {
                 System.out.println("Error");
 
             } else {
-                response.sendRedirect("/order?d=ss");
-
+              response.sendRedirect("/order?d=ss");
             }
         } else {
             try {
@@ -157,7 +156,7 @@ public class CRUDOrderController extends HttpServlet {
                 }
                 Order order = new Order(userId, deliveryAddress, phoneNumber, recipientName, paymentMethod, status, sqlDate);
                 int order_id = od.insertOrder(order);
-                if (order_id == -1) {
+                if (order_id == -1) {       
                     response.sendRedirect("cart?error=e");
                 } else {
                     System.out.println("orderID = " + order_id);
@@ -187,11 +186,6 @@ public class CRUDOrderController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
