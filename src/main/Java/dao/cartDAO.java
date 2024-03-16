@@ -1,4 +1,4 @@
-    package dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class cartDAO {
     private ResultSet rs;
 
     public List<Cart> getCartList() {
-        String sql = "select * from Cart";
+        String sql = "select * from cart";
         List<Cart> list = new ArrayList<>();
         try {
             connection = DBConnection.getConnection();
@@ -43,7 +43,7 @@ public class cartDAO {
 
     public Cart getCartByID(int userId) {
         Cart cart = null;
-        String sql = "SELECT * FROM Cart WHERE user_id = ?";
+        String sql = "SELECT * FROM cart WHERE user_id = ?";
         try {
             connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
@@ -61,13 +61,14 @@ public class cartDAO {
     public List<Cart> getCartItemsByUserId(int userId) {
         List<Cart> cartItems = new ArrayList<>();
         String sql = "SELECT * FROM cart WHERE user_id = ?";
-         try {
+        try {
             connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, userId);
             rs = st.executeQuery();
             while (rs.next()) {
                 Cart cart = new Cart(
+                        rs.getInt("cart_id"),
                         rs.getInt("user_id"),
                         rs.getInt("product_id"),
                         rs.getInt("quantity")
@@ -131,15 +132,13 @@ public class cartDAO {
         return null; // Return null if no cart is found or in case of an exception
     }
 
-    public boolean deleteCart(int cartId, int userId, String productId) throws SQLException {
+    public boolean deleteCart(int cartId) throws SQLException {
         boolean cartDeleted = false;
-        String sql = "DELETE FROM Cart WHERE cart_id = ? AND user_id = ? AND product_id = ?";
+        String sql = "DELETE FROM cart WHERE cart_id = ?";
         connection = DBConnection.getConnection();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, cartId);
-            st.setInt(2, userId);
-            st.setString(3, productId);
 
             cartDeleted = st.executeUpdate() > 0;
         } catch (SQLException e) {

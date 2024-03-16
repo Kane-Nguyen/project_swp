@@ -102,11 +102,13 @@
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:forEach var="product" items="${ProductList}">
                                 <input type="hidden" name="productId" value="${product.product_id}"/>
+                                
                                 <c:forEach var="cartItem" items="${cartItems}">
                                     <c:if test="${cartItem.product_id == product.product_id}">
-                                        <input type="hidden" name="sellerId" value="${product.user_id}"/>
+                                        <input type="hidden" name="methodBuy" value="cart"/>
                                         <input type="hidden" name="price" value="${product.product_price * cartItem.quantity}"/>
                                         <input type="hidden" name="quantity" value="${cartItem.quantity}"/>
+                                        <input type="hidden" name="cartID" value="${cartItem.cart_id}"/>
                                     </c:if>
                                 </c:forEach>
                             </c:forEach>

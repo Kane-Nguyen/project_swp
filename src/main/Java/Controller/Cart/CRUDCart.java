@@ -23,10 +23,6 @@ public class CRUDCart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        if (session.getAttribute("userId") == null) {
-            response.sendRedirect("login");
-        }
         int userId = (int) session.getAttribute("userId");
         cartDAO cartDAO = new cartDAO();
         List<Cart> cartList = cartDAO.getCartItemsByUserId(userId);
@@ -53,7 +49,7 @@ public class CRUDCart extends HttpServlet {
         boolean result = false;
 
         if ("updateQuantity".equals(method)) {
-            String cartId = request.getParameter("cartId");
+            String cartId = request.getParameter("id");
             String newQuantity = request.getParameter("newQuantity");
             int cartIdNumber = Integer.parseInt(cartId);
             int newQuantityNumber = Integer.parseInt(newQuantity);
@@ -73,20 +69,16 @@ public class CRUDCart extends HttpServlet {
             }
 
             // Reload the cart page after update
-            List<Cart> cartList = cDAO.getCartList();
-            request.setAttribute("cartList", cartList);
-            request.getRequestDispatcher("/cartPage.jsp").forward(request, response);
+           response.sendRedirect("cart");
         }
 
         if ("delete".equals(method)) {
-            String userId = request.getParameter("userId");
-            String productId = request.getParameter("productId");
-            String cartId = request.getParameter("cartId");
-            int cartIdNumber = Integer.parseInt(cartId);
-            int userIdNumber = Integer.parseInt(userId);
 
+            String cartId = request.getParameter("id");
+            int cartIdNumber = Integer.parseInt(cartId);
+            System.out.println("cartid " +cartIdNumber);
             try {
-                result = cDAO.deleteCart(cartIdNumber, userIdNumber, productId);
+                result = cDAO.deleteCart(cartIdNumber);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 result = false;
@@ -97,7 +89,7 @@ public class CRUDCart extends HttpServlet {
                 response.sendRedirect("/cart");
             } else {
                 request.setAttribute("resultDelete", "Lỗi khi xóa sản phẩm khỏi giỏ hàng");
-                response.sendRedirect("/cart?e=e");
+                response.sendRedirect("/cart?e=e123");
             }
 
         }

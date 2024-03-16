@@ -5,6 +5,7 @@
 package Controller.Order;
 
 import dao.ProductDAO;
+import dao.cartDAO;
 import dao.orderDAO;
 import dao.orderDetailDAO;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import model.Order;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.orderDetail;
 
 /**
@@ -95,7 +98,6 @@ public class CRUDOrderController extends HttpServlet {
             String receiver = request.getParameter("receiver");
             String status = request.getParameter("status");
 
-
             try {
                 result = oDAO.updateOrder(Integer.parseInt(orderId), address, phoneNumber, receiver, Integer.parseInt(status));
                 System.out.println(result);
@@ -108,7 +110,7 @@ public class CRUDOrderController extends HttpServlet {
                 System.out.println("Error");
 
             } else {
-              
+
                 response.sendRedirect("/order?s=ss");
 
             }
@@ -116,7 +118,7 @@ public class CRUDOrderController extends HttpServlet {
         } else if (method.equals("delete")) {
             String orderId = request.getParameter("orderId");
             int orderIdNumber = Integer.parseInt(orderId);
-            System.out.println("id =" +orderIdNumber);
+            System.out.println("id =" + orderIdNumber);
             try {
                 result = oDAO.deleteOrder(orderIdNumber);
             } catch (SQLException ex) {
@@ -131,7 +133,7 @@ public class CRUDOrderController extends HttpServlet {
             }
         } else {
             try {
-
+                String methodBuy = request.getParameter("methodBuy");
                 int userId = Integer.parseInt(request.getParameter("userIdNumber"));
                 String deliveryAddress = request.getParameter("address");
                 String phoneNumber = request.getParameter("phoneNumber");
@@ -145,8 +147,13 @@ public class CRUDOrderController extends HttpServlet {
                 if (paymentMethod.equals("COD")) {
                     status = 2;
                 }
+                cartDAO cd = new cartDAO();
                 String[] productIds = request.getParameterValues("productId");
                 String[] quantities = request.getParameterValues("quantity");
+                String[] cartID = null;
+                if (methodBuy.equals("cart")) {
+                    cartID = request.getParameterValues("cartID");
+                }
                 Order order = new Order(userId, deliveryAddress, phoneNumber, recipientName, paymentMethod, status, sqlDate);
                 int order_id = od.insertOrder(order);
                 if (order_id == -1) {       
@@ -158,16 +165,23 @@ public class CRUDOrderController extends HttpServlet {
                         int productId = Integer.parseInt(productIds[i]);
                         int quantity = Integer.parseInt(quantities[i]);
                         orderDetail oM = new orderDetail(quantity, order_id, productId);
+                        if (methodBuy.equals("cart")) {
+                            int cardid = Integer.parseInt(cartID[i]);
+                            cd.deleteCart(cardid);
+                        }
                         if (d.insertOrderDetail(oM)) {
-                           
+
                         } else {
                             response.sendRedirect("cart?error=e");
                         }
-                    } response.sendRedirect("/orderHistory");
+                    }
+                    response.sendRedirect("/orderHistory");
 
                 }
             } catch (NumberFormatException e) {
                 response.sendRedirect("cart?error=e");
+            } catch (SQLException ex) {
+                Logger.getLogger(CRUDOrderController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
