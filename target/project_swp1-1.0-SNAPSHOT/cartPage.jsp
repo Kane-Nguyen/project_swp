@@ -125,13 +125,14 @@ if(session.getAttribute("UserRole") == null){
                                                                                         <input type="hidden" name="productId" value="${cart.product_id}">
                                                                                             <input type="hidden" name="cartId" value="${cart.cart_id}">
                                                                                                 <div class="d-flex" style="gap:4px;">
-                                                                                                <button type="submit" class="btn btn-success">Mua</button>
-                                                                                                <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
+                                                                                                    <button type="submit" class="btn btn-success">Mua</button>
+                                                                                                    <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
                                                                                                 </div>
                                                                                                 </form>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <input style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}">
+                                                                                                    <input style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}" onclick="checkAllSelected()">
+
                                                                                                 </td>
                                                                                                 </tr>
                                                                                             </c:forEach>
@@ -140,18 +141,33 @@ if(session.getAttribute("UserRole") == null){
                                                                                             </tbody>
 
                                                                                             </table>
-                                                                                            <span> <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span><br>
+                                                                                            <span> <input type="checkbox" id="selectAll" style="height: 20px;width: 20px;border-radius: 50%;" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span><br>
                                                                                                 <button type="submit" class="btn btn-primary">Mua sản phẩm</button>
                                                                                                 </form>
                                                                                                 </div>
                                                                                                 </div>
                                                                                                 <script>
+                                                                                                    // This function is triggered when the "Select All" checkbox changes state.
                                                                                                     function toggleSelectAll(source) {
-                                                                                                        checkboxes = document.getElementsByName('selectedProducts');
+                                                                                                        var checkboxes = document.getElementsByName('selectedProducts');
                                                                                                         for (var i = 0, n = checkboxes.length; i < n; i++) {
                                                                                                             checkboxes[i].checked = source.checked;
                                                                                                         }
                                                                                                     }
+
+                                                                                                    // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
+                                                                                                    function checkAllSelected() {
+                                                                                                        var allCheckboxes = document.getElementsByName('selectedProducts');
+                                                                                                        var selectAllCheckbox = document.getElementById('selectAll');
+                                                                                                        // Check if the number of checked boxes is equal to the total number of checkboxes.
+                                                                                                        var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
+                                                                                                        selectAllCheckbox.checked = allChecked;
+
+                                                                                                        // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
+                                                                                                        var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+                                                                                                        selectAllCheckbox.indeterminate = anyChecked && !allChecked;
+                                                                                                    }
                                                                                                 </script>
+
                                                                                                 </body>
                                                                                                 </html>

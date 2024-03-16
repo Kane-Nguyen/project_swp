@@ -22,18 +22,22 @@ public class CRUDCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("userId") == null) {
+            response.sendRedirect("login");
+        }
         int userId = (int) session.getAttribute("userId");
         cartDAO cartDAO = new cartDAO();
         List<Cart> cartList = cartDAO.getCartItemsByUserId(userId);
-       
-         List<Product> ProductList = new ArrayList<>();
+
+        List<Product> ProductList = new ArrayList<>();
         ProductDAO p = new ProductDAO();
         for (Cart item : cartList) {
             Product product = p.getProductById(item.getProduct_id());
             ProductList.add(product);
         }
-        for(int i = 0; i<ProductList.size(); i++){
+        for (int i = 0; i < ProductList.size(); i++) {
             System.out.println(ProductList.get(i).getProduct_name());
         }
         request.setAttribute("cartList", cartList);
@@ -95,7 +99,7 @@ public class CRUDCart extends HttpServlet {
                 request.setAttribute("resultDelete", "Lỗi khi xóa sản phẩm khỏi giỏ hàng");
                 response.sendRedirect("/cart?e=e");
             }
-            
+
         }
     }
 }
