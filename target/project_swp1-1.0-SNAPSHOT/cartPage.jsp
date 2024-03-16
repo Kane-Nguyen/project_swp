@@ -69,105 +69,106 @@ if(session.getAttribute("UserRole") == null){
                             </div>
                         </div>
                         <div>
-                            <form action="orderPayment" method="post">
-                                <table class="table">
-                                    <thead>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tên Sản Phẩm</th>
+                                        <th scope="col">Ảnh Sản Phẩm</th>
+                                        <th scope="col">Giá Sản Phẩm</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Select to Buy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="cart" items="${cartList}" varStatus="i">
                                         <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Tên Sản Phẩm</th>
-                                            <th scope="col">Ảnh Sản Phẩm</th>
-                                            <th scope="col">Giá Sản Phẩm</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Update</th>
-                                            <th scope="col">Delete</th>
-                                            <th scope="col">Select to Buy</th>
+
+                                            <td>${i.count}</td>
+                                            <td>
+                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                    <c:if test="${cart.product_id == product.product_id}">
+                                                        ${product.product_name}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                    <c:if test="${cart.product_id == product.product_id}">
+                                                        <img src="data:image/png;base64,${product.image_url}" style="width:100px; height:auto;"/>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                    <c:if test="${cart.product_id == product.product_id}">
+                                                        <span><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>${cart.quantity}</td>
+
+                                            <td>
+                                                <form action="cart" method="post">
+                                                    <input type="hidden" name="method" value="updateQuantity"/>
+                                                    <input type="hidden" name="id" value="${cart.cart_id}"/>
+                                                    <input type="number" name="newQuantity" value="" required=""/>
+                                                    <button type="submit" class="btn btn-danger">Cập Nhật Số Lượng</button>
+                                                </form>
+                                            </td>
+
+
+                                            <td>
+                                                <form action="cart" method="post">
+                                                    <input type="hidden" name="method" value="delete"/>
+                                                    <input type="hidden" name="id" value="${cart.cart_id}"/>
+                                                    <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <input  form="purchaseForm" style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}" onclick="checkAllSelected()">
+
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="cart" items="${cartList}" varStatus="i">
-                                            <tr>
-                                                <input type="hidden" name="method" value="cart">
-                                                    <td>${i.count}</td>
-                                                    <td>
-                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                            <c:if test="${cart.product_id == product.product_id}">
-                                                                ${product.product_name}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>
-                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                            <c:if test="${cart.product_id == product.product_id}">
-                                                                <img src="data:image/png;base64,${product.image_url}" style="width:100px; height:auto;"/>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>
-                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                            <c:if test="${cart.product_id == product.product_id}">
-                                                                <span><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>${cart.quantity}</td>
-                                                    <td>
-                                                        <form action="cart" method="post">
-                                                            <input type="hidden" name="method" value="updateQuantity">
-                                                                <input type="hidden" name="cartId" value="${cart.cart_id}">
-                                                                    <input type="number" name="newQuantity" min="0" value="${cart.quantity}">
-                                                                        <button type="submit" class="btn btn-primary">Update</button>
-                                                                        </form>
-                                                                        </td>
-                                                                        <td>
-                                                                            <form action="cart" method="post">
-                                                                                <input type="hidden" name="method" value="delete">
-                                                                                    <input type="hidden" name="userId" value="${cart.user_id}">
-                                                                                        <input type="hidden" name="productId" value="${cart.product_id}">
-                                                                                            <input type="hidden" name="cartId" value="${cart.cart_id}">
-                                                                                                <div class="d-flex" style="gap:4px;">
-                                                                                                    <button type="submit" class="btn btn-success">Mua</button>
-                                                                                                    <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
-                                                                                                </div>
-                                                                                                </form>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <input style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}" onclick="checkAllSelected()">
 
-                                                                                                </td>
-                                                                                                </tr>
-                                                                                            </c:forEach>
+                                    </c:forEach>
 
 
-                                                                                            </tbody>
+                                </tbody>
 
-                                                                                            </table>
-                                                                                            <span> <input type="checkbox" id="selectAll" style="height: 20px;width: 20px;border-radius: 50%;" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span><br>
-                                                                                                <button type="submit" class="btn btn-primary">Mua sản phẩm</button>
-                                                                                                </form>
-                                                                                                </div>
-                                                                                                </div>
-                                                                                                <script>
-                                                                                                    // This function is triggered when the "Select All" checkbox changes state.
-                                                                                                    function toggleSelectAll(source) {
-                                                                                                        var checkboxes = document.getElementsByName('selectedProducts');
-                                                                                                        for (var i = 0, n = checkboxes.length; i < n; i++) {
-                                                                                                            checkboxes[i].checked = source.checked;
-                                                                                                        }
-                                                                                                    }
+                            </table>
+                            <form id="purchaseForm" action="orderPayment" method="post">  
+                                <input type="hidden" name="method" value="cart">
+                                    <span> <input type="checkbox" id="selectAll" style="height: 20px;width: 20px;border-radius: 50%;" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span><br>
+                                        <button type="submit" class="btn btn-primary">Mua sản phẩm</button>
+                                        </form>
+                                        </div>
+                                        </div>
+                                        <script>
+                                            // This function is triggered when the "Select All" checkbox changes state.
+                                            function toggleSelectAll(source) {
+                                                var checkboxes = document.getElementsByName('selectedProducts');
+                                                for (var i = 0, n = checkboxes.length; i < n; i++) {
+                                                    checkboxes[i].checked = source.checked;
+                                                }
+                                            }
 
-                                                                                                    // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
-                                                                                                    function checkAllSelected() {
-                                                                                                        var allCheckboxes = document.getElementsByName('selectedProducts');
-                                                                                                        var selectAllCheckbox = document.getElementById('selectAll');
-                                                                                                        // Check if the number of checked boxes is equal to the total number of checkboxes.
-                                                                                                        var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
-                                                                                                        selectAllCheckbox.checked = allChecked;
+                                            // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
+                                            function checkAllSelected() {
+                                                var allCheckboxes = document.getElementsByName('selectedProducts');
+                                                var selectAllCheckbox = document.getElementById('selectAll');
+                                                // Check if the number of checked boxes is equal to the total number of checkboxes.
+                                                var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
+                                                selectAllCheckbox.checked = allChecked;
 
-                                                                                                        // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
-                                                                                                        var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
-                                                                                                        selectAllCheckbox.indeterminate = anyChecked && !allChecked;
-                                                                                                    }
-                                                                                                </script>
+                                                // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
+                                                var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+                                                selectAllCheckbox.indeterminate = anyChecked && !allChecked;
+                                            }
+                                        </script>
 
-                                                                                                </body>
-                                                                                                </html>
+                                        </body>
+                                        </html>

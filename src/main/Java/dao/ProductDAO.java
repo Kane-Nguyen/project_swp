@@ -333,7 +333,7 @@ String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
-        System.out.println(lp.get(0).getProduct_branch());
+        System.out.println(lp.get(1).getProduct_branch());
        
     }
 
