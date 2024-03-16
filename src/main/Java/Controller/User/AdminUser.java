@@ -5,6 +5,7 @@
 package Controller.User;
 
 import dao.UserDAO;
+import dao.imageDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +14,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.List;
 import model.User;
+import model.image;
 
 /**
  *
@@ -61,6 +64,14 @@ public class AdminUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         UserDAO u = new UserDAO();
         List<User> listUsers = u.getAll();
         request.setAttribute("listUsers", listUsers);

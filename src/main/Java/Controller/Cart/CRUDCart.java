@@ -2,6 +2,7 @@ package Controller.Cart;
 
 import dao.ProductDAO;
 import dao.cartDAO;
+import dao.imageDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,8 +14,10 @@ import model.Cart;
 import model.Product;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.image;
 
 @WebServlet("/cart")
 public class CRUDCart extends HttpServlet {
@@ -36,6 +39,14 @@ public class CRUDCart extends HttpServlet {
         for (int i = 0; i < ProductList.size(); i++) {
             System.out.println(ProductList.get(i).getProduct_name());
         }
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         request.setAttribute("cartList", cartList);
         request.setAttribute("ProductList", ProductList);
         request.getRequestDispatcher("cartPage.jsp").forward(request, response);
@@ -69,14 +80,14 @@ public class CRUDCart extends HttpServlet {
             }
 
             // Reload the cart page after update
-           response.sendRedirect("cart");
+            response.sendRedirect("cart");
         }
 
         if ("delete".equals(method)) {
 
             String cartId = request.getParameter("id");
             int cartIdNumber = Integer.parseInt(cartId);
-            System.out.println("cartid " +cartIdNumber);
+            System.out.println("cartid " + cartIdNumber);
             try {
                 result = cDAO.deleteCart(cartIdNumber);
             } catch (Exception ex) {

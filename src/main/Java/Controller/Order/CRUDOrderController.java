@@ -175,11 +175,11 @@ public class CRUDOrderController extends HttpServlet {
                             response.sendRedirect("cart?error=e");
                         }
                     }
-                    response.sendRedirect("/orderHistory");
+                    response.sendRedirect("/orderHistory?status=ok");
 
                 }
             } catch (NumberFormatException e) {
-                response.sendRedirect("cart?error=e");
+                response.sendRedirect("/orderHistory?status=e");
             } catch (SQLException ex) {
                 Logger.getLogger(CRUDOrderController.class.getName()).log(Level.SEVERE, null, ex);
             }

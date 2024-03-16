@@ -5,6 +5,7 @@
 package Controller.User;
 
 import dao.UserDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import model.User;
+import model.image;
 import org.apache.commons.codec.binary.Hex;
 
 /**
@@ -46,6 +49,14 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         request.getRequestDispatcher("/loginPage.jsp").forward(request, response);
     }
 

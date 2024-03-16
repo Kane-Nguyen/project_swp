@@ -5,6 +5,7 @@
 package Controller.Order;
 
 import dao.ProductDAO;
+import dao.imageDAO;
 import dao.orderDAO;
 import dao.orderDetailDAO;
 import java.io.IOException;
@@ -15,10 +16,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Order;
 import model.Product;
+import model.image;
 import model.orderDetail;
 import model.orderStatus;
 
@@ -60,7 +63,7 @@ public class orderHistory extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
-         if (userId == null) {
+        if (userId == null) {
             response.sendRedirect("login");
             return;
         }
@@ -68,11 +71,18 @@ public class orderHistory extends HttpServlet {
         orderDAO od = new orderDAO();
         List<Order> lo = od.getOrderListById(userId);
         request.setAttribute("listOrder", lo);
-        
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         List<orderStatus> ls = od.getOrderStatus();
         request.setAttribute("listOrderStatus", ls);
         orderDetailDAO odd = new orderDetailDAO();
-         List<orderDetail> lod = odd.getOrderDetailListBy();
+        List<orderDetail> lod = odd.getOrderDetailListBy();
         request.setAttribute("ListOrderDetail", lod);
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();

@@ -22,6 +22,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home2.css" rel="stylesheet"/>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -80,6 +81,25 @@
                 </div>
             </div>
         </div>
+        <!-- Status Modal -->
+        <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel">Thông Báo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Đã Đặt Hàng Thành Công</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container-fluid mt-5" style="width: 80%; margin: auto;">
             <table class="table table-striped">
                 <tr>
@@ -173,7 +193,7 @@
         </div>
 
         <div>
-            <div class=" mt-5 py-3 footerr">
+            <div class=" mt-5 py-3 footer">
                 <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                     <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                     <p class="text-white">Mã số thuế : 92828823</p>
@@ -214,7 +234,35 @@
 
     </div>
     <script>
+        $(document).ready(function () {
+            // Function to get the value of a query parameter by name
+            function getQueryParamByName(name, url = window.location.href) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
 
+            // Check the 'status' query parameter and set modal content
+            var status = getQueryParamByName('status');
+            if (status === 'ok') {
+                $('#statusModal .modal-body').html('<h5>Đã Đặt Hàng Thành Công</h5>');
+                var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                    keyboard: false
+                });
+                statusModal.show();
+            } else if (status === 'e') {
+                $('#statusModal .modal-body').html('<h5>Lỗi Hệ Thống, Vui Lòng Thử Lại</h5>');
+                var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                    keyboard: false
+                });
+                statusModal.show();
+            }
+        });
     </script>
 </body>
 </html>

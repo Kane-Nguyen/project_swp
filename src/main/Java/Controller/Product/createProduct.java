@@ -75,7 +75,7 @@ public class createProduct extends HttpServlet {
 
         // Tạo sản phẩm mới và lấy product_id
         ProductDAO productDAO = new ProductDAO();
-         int productId = productDAO.createProduct(productName, userId, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
+        int productId = productDAO.createProduct(productName, userId, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
 
         if (productId == -1) {
             LOGGER.warning("Failed to create product");
@@ -124,6 +124,14 @@ public class createProduct extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);

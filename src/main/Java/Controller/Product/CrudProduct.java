@@ -16,11 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "CrudProduct", urlPatterns = {"/CrudProduct"})
 @MultipartConfig(
@@ -35,6 +32,14 @@ public class CrudProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         ProductDAO productDAO = new ProductDAO();
         List<Product> productList = productDAO.getAll();
         request.setAttribute("productList", productList);
@@ -45,7 +50,7 @@ public class CrudProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-         try {
+        try {
             String productId = request.getParameter("product_id");
             ProductDAO productDAO = new ProductDAO();
             boolean success = productDAO.deleteProduct(productId);
@@ -60,6 +65,7 @@ public class CrudProduct extends HttpServlet {
             response.getWriter().println("An error occurred in deleteProduct: " + e.getMessage());
         }
     }
+
     private String convertImageToBase64(Part imagePart) throws IOException {
         if (!isValidImageType(imagePart.getContentType())) {
             throw new IOException("Invalid image type.");

@@ -4,6 +4,7 @@
  */
 package controllerCompareProduct;
 
+import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -11,9 +12,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Product;
+import model.image;
 import model.productDescription;
 
 @WebServlet(name = "compareProductServlet", urlPatterns = {"/compareProductServlet"})
@@ -57,7 +60,14 @@ public class compareProductServlet extends HttpServlet {
             }
 
         }
+ imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
 
+        }
+        request.setAttribute("logo", img);
         request.setAttribute("price2", price2);
         request.setAttribute("price1", price1);
         request.setAttribute("pd2", pd2);

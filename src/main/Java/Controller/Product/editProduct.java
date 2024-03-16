@@ -30,7 +30,16 @@ public class editProduct extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(editProduct.class.getName());
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
         String productIdStr = request.getParameter("productId");
         ProductDAO productDAO = new ProductDAO();
         CategoryDAO categoryDAO = new CategoryDAO();
