@@ -115,10 +115,7 @@ public class orderDAO {
             statement.setString(4, order.getRecipientName());
             statement.setString(5, order.getPaymentMethod());
             statement.setInt(6, order.getStatus_order_id());
-
             int affectedRows = statement.executeUpdate();
-
-            // Kiểm tra xem có hàng nào được chèn vào hay không.
             if (affectedRows == 0) {
                 throw new SQLException("Creating order failed, no rows affected.");
             }

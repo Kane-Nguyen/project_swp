@@ -75,7 +75,7 @@
 .page-link{
     border-radius: 15%;
 }
- .list-mb{
+ .list-menu{
         display: none;
  }
 
@@ -92,8 +92,11 @@
     .img-slide{
         height: 372px!important;
     }
-    .list-mb{
+    .list-menu{
         display: block;
+    }
+    .right-content{
+        display: none;
     }
   
 }
