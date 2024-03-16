@@ -21,6 +21,7 @@
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
         <link href="./styles/searchpageCSS.css" rel="stylesheet"/>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -35,7 +36,7 @@
             <div class="container content">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
-                        <img src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474049VKG/logo-tottenham-dep-nhat-3.png" alt="logo" class="logo-image"/>
+                        <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                     </a>
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
@@ -78,12 +79,12 @@ if(session.getAttribute("UserRole") != null){
                 <div  style="margin-top: 20px; display: flex">
                     <form action="catalogsearchServlet" id="PriceForm" class="sort-and-filter">
                         <div>
-                        <c:if test="${quantity > 0}">
-                            <button type="submit" class="btn btn-primary" name="sort" value="ASC" style="margin-right: 10px">Tăng dần</button>
-                            <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
-                        </c:if>
-                        <input name="search" type="hidden" value="${result}"/>
-                        <input name="page" value="${page}" type="hidden"/>
+                            <c:if test="${quantity > 0}">
+                                <button type="submit" class="btn btn-primary" name="sort" value="ASC" style="margin-right: 10px">Tăng dần</button>
+                                <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
+                            </c:if>
+                            <input name="search" type="hidden" value="${result}"/>
+                            <input name="page" value="${page}" type="hidden"/>
                         </div>
                         <div class="wrap-choose-price">
                             <div style="margin-right: 10px; margin-top:  5px " class="choose-price">Chọn giá:</div>
@@ -161,7 +162,7 @@ if(session.getAttribute("UserRole") != null){
                 </c:otherwise>
             </c:choose>
             <div <c:if test="${quantity == 0}">style="bottom: 0; position: absolute; width: 100%"</c:if>>
-                <div class=" mt-5 py-3 footerr">
+                <div class=" mt-5 py-3 footer">
                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                         <p class="text-white">Mã số thuế : 92828823</p>
@@ -237,4 +238,3 @@ if(session.getAttribute("UserRole") != null){
 </script>
 </body>
 </html>
-    

@@ -5,6 +5,7 @@
 package Controller.User;
 
 import dao.UserDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +15,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import model.User;
+import model.image;
 import org.apache.commons.codec.binary.Hex;
 
 /**
@@ -65,6 +68,14 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          imageDAO im = new imageDAO();
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img);
        request.getRequestDispatcher("SignUpPage.jsp").forward(request, response);
     }
 

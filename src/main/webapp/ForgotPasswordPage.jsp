@@ -27,7 +27,7 @@ String error = request.getParameter("error");%>
             <div class="container content">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
-                        <img src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474049VKG/logo-tottenham-dep-nhat-3.png" alt="logo" class="logo-image"/>
+                       <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                     </a>
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>

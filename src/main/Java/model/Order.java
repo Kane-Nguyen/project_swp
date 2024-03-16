@@ -16,7 +16,7 @@ public class Order {
     private String paymentMethod;
     private int status_order_id;
     private Date timeBuy;
-
+    private int sellerID;
     public Order() {
     }
 
@@ -55,6 +55,19 @@ public class Order {
 
         this.status_order_id = status_order_id;
     }
+
+    public Order(int orderID, int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, int status_order_id, Date timeBuy, int sellerID) {
+        this.orderID = orderID;
+        this.userID = userID;
+        this.deliveryAddress = deliveryAddress;
+        this.phoneNumber = phoneNumber;
+        this.recipientName = recipientName;
+        this.paymentMethod = paymentMethod;
+        this.status_order_id = status_order_id;
+        this.timeBuy = timeBuy;
+        this.sellerID = sellerID;
+    }
+    
 
     public int getOrderID() {
         return orderID;

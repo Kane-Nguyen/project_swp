@@ -6,6 +6,7 @@ package Controller.Order;
 
 import dao.ProductDAO;
 import dao.cartDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +15,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cart;
 import model.Product;
+import model.image;
 
 /**
  *
@@ -101,6 +104,14 @@ public class orderPayment extends HttpServlet {
                     System.out.println(productId);
 
                 }
+                imageDAO im = new imageDAO();
+                image img = null;
+                try {
+                    img = im.getImageByProductId(2);
+                } catch (SQLException ex) {
+
+                }
+                request.setAttribute("logo", img);
                 request.setAttribute("method", "buyfromCart");
                 request.setAttribute("ProductList", ProductList);
                 request.getRequestDispatcher("/orderPayment.jsp").forward(request, response);
@@ -113,7 +124,7 @@ public class orderPayment extends HttpServlet {
 
             System.out.println(productIdStr);
 
-            int quantity = 1; 
+            int quantity = 1;
             int productId = 0;
             try {
                 String quantityStr = request.getParameter("quantity");
@@ -122,8 +133,16 @@ public class orderPayment extends HttpServlet {
                 }
 
             } catch (NumberFormatException e) {
-              
+
             }
+            imageDAO im = new imageDAO();
+            image img = null;
+            try {
+                img = im.getImageByProductId(2);
+            } catch (SQLException ex) {
+
+            }
+            request.setAttribute("logo", img);
             productId = Integer.parseInt(productIdStr);
             ProductDAO p = new ProductDAO();
             Product p1 = p.getProductById(productId);

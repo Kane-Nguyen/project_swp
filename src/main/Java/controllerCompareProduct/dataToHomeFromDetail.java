@@ -1,5 +1,6 @@
 package controllerCompareProduct;
 
+import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;
 import java.util.List;
@@ -8,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.Locale;
 import model.image;
 import model.Product;
 import model.productDescription;
+
 @WebServlet(name = "dataToHomeFromDetail", urlPatterns = {"/dataToHomeFromDetail"})
 public class dataToHomeFromDetail extends HttpServlet {
 
@@ -27,7 +30,7 @@ public class dataToHomeFromDetail extends HttpServlet {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
         numberFormat.setCurrency(currency);
         return numberFormat.format(price);
-        
+
     }
 
     @Override
@@ -49,13 +52,21 @@ public class dataToHomeFromDetail extends HttpServlet {
             }
         }
         for (Product object : p) {
-            if (object.getProduct_id() == Integer.parseInt(id) ) {
+            if (object.getProduct_id() == Integer.parseInt(id)) {
                 price = changeMoney(object.getProduct_price());
                 pWhereId.add(object);
             } else {
                 pOutid.add(object);
             }
         }
+        imageDAO im = new imageDAO();
+        image img1 = null;
+        try {
+            img1 = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img1);
         request.setAttribute("productDescription", pd1);
         request.setAttribute("imgWhereId", img);
         request.setAttribute("listWhId", pWhereId);
