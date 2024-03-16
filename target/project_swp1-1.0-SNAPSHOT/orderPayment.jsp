@@ -36,7 +36,7 @@
             <div class="container content">
                 <div class="container content" style="height:60px;">
                     <div class="left-content">
-                        <a href="/" class="logo-link"> 
+                        <a href="/" class="logo-link">
                             <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                         </a>
                         <div class="dropdown no-mb">
@@ -99,13 +99,12 @@
                         <div class="col-12">
                             <input type="hidden" class="form-control" name="createOrderDay" id="createOrderDay" value="<%= LocalDate.now() %>">
                         </div>
-
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:forEach var="product" items="${ProductList}">
                                 <input type="hidden" name="productId" value="${product.product_id}"/>
-
                                 <c:forEach var="cartItem" items="${cartItems}">
                                     <c:if test="${cartItem.product_id == product.product_id}">
+                                        <input type="hidden" name="sellerId" value="${product.user_id}"/>
                                         <input type="hidden" name="price" value="${product.product_price * cartItem.quantity}"/>
                                         <input type="hidden" name="quantity" value="${cartItem.quantity}"/>
                                     </c:if>
@@ -161,7 +160,6 @@
                 </div>
                 <div style="width: 40%"> 
                     <ul class="list-group">
-
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:set var="total" value="0"/> <!-- Initialize total -->
                             <c:forEach var="product" items="${ProductList}" varStatus="status">

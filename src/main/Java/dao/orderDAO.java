@@ -105,16 +105,17 @@ public class orderDAO {
     }
 
     public int insertOrder(Order order) {
-        String sql = "INSERT INTO orders (user_id, delivery_address, phone_number, recipient_name, payment_method,status_order_id) VALUES (?,  ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (user_id, delivery_address, phone_number, recipient_name, payment_method,status_order_id) VALUES (?,  ?,?, ?, ?, ?, ?)";
         // Sử dụng try-with-resources để đảm bảo các tài nguyên được đóng một cách an toàn.
         try (Connection conn = DBConnection.getConnection(); // Cập nhật statement để lấy khóa được tạo tự động.
                  PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, order.getUserID());
-            statement.setString(2, order.getDeliveryAddress());
-            statement.setString(3, order.getPhoneNumber());
-            statement.setString(4, order.getRecipientName());
-            statement.setString(5, order.getPaymentMethod());
-            statement.setInt(6, order.getStatus_order_id());
+            statement.setInt(2, order.getSellerID());
+            statement.setString(3, order.getDeliveryAddress());
+            statement.setString(4, order.getPhoneNumber());
+            statement.setString(5, order.getRecipientName());
+            statement.setString(6, order.getPaymentMethod());
+            statement.setInt(7, order.getStatus_order_id());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating order failed, no rows affected.");
