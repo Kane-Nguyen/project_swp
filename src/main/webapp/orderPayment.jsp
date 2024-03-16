@@ -36,7 +36,7 @@
             <div class="container content">
                 <div class="container content" style="height:60px;">
                     <div class="left-content">
-                        <a href="/" class="logo-link"> 
+                        <a href="/" class="logo-link">
                             <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                         </a>
                         <div class="dropdown no-mb">
@@ -163,9 +163,8 @@
 
                     </form>
                 </div>
-                <div style="width: 40%"> 
+                <div style="width: 40%">
                     <ul class="list-group">
-
                         <c:if test="${requestScope.method == 'buyfromCart'}">
                             <c:set var="total" value="0"/> <!-- Initialize total -->
                             <c:forEach var="product" items="${ProductList}" varStatus="status">
