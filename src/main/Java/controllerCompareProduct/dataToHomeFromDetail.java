@@ -1,8 +1,10 @@
 package controllerCompareProduct;
 
-import dao.ProductDAO;
-import dao.imageDAO;
+import dao.UserDAO;
+import dao.feedbackDAO;
+import dao.orderDAO;
 import dao.productDescriptionDAO;
+import dao.replyDAO;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
@@ -10,14 +12,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Feedback;
+
 import model.image;
 import model.Product;
+import model.Order;
+import model.Reply;
+import model.User;
 import model.productDescription;
 
 @WebServlet(name = "dataToHomeFromDetail", urlPatterns = {"/dataToHomeFromDetail"})
