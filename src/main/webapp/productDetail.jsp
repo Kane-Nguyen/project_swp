@@ -365,7 +365,7 @@ if(session.getAttribute("UserRole") != null){
                             </c:forEach>
                         </div>
                     </div>
-                </div>
+    
             </div>                      
         </div>
         <div>
