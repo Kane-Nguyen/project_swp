@@ -115,6 +115,7 @@ public class SendOtpServlet extends HttpServlet {
                 String address = request.getParameter("address");
                 String phoneNumber = request.getParameter("phoneNumber");               
                 String rawpassword = request.getParameter("password");
+                String role = request.getParameter("role");
                 String password = GenSHA256(rawpassword);
              
                 HttpSession session = request.getSession();
@@ -125,6 +126,7 @@ public class SendOtpServlet extends HttpServlet {
                 session.setAttribute("phoneNumber", phoneNumber);
                 session.setAttribute("email", email);
                 session.setAttribute("password", password);
+                session.setAttribute("role", role);
                 session.setAttribute("otp", GenSHA256(otp));
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
 

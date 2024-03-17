@@ -1,10 +1,12 @@
 package controllerCompareProduct;
 
+import dao.ProductDAO;
 import dao.UserDAO;
 import dao.feedbackDAO;
 import dao.orderDAO;
 import dao.productDescriptionDAO;
 import dao.replyDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
@@ -50,32 +52,23 @@ public class dataToHomeFromDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            HttpSession session = request.getSession();
-            String id = request.getParameter("productId");
-            productDescriptionDAO pdModel = new productDescriptionDAO();
-            List<Product> pWhereId = new ArrayList<>();
-            List<Product> pOutid = new ArrayList<>();
-            List<Product> p = pdModel.getProduct();
-            List<image> img = pdModel.getImagesByProductId(Integer.parseInt(id));
-            List<productDescription> pd = pdModel.getProductDescription();
-            List<productDescription> pd1 = new ArrayList<>();
-            String price = "";
-            boolean checkUserToFeedback = false;
-            orderDAO oDAO = new orderDAO();
-            replyDAO rd = new replyDAO();
-            feedbackDAO fd = new feedbackDAO();
-            UserDAO ud = new UserDAO();
-            // Lấy danh sách Feedback và Reply
-            List<Feedback> feedbackList = fd.selectFeedbacksByProduct(Integer.parseInt(id));
-            List<Reply> replyList = rd.getALL(); // Giả sử này lấy tất cả các Reply, bạn có thể thay đổi logic để tối ưu
-            // Lấy tên người dùng cho Feedback và Reply
-            Map<Integer, String> feedbackNameMap = new HashMap<>();
-            Map<Integer, String> replyNameMap = new HashMap<>();
-            for (Feedback feedback : feedbackList) {
-                String userName = ud.getNameUserById(feedback.getUserId());
-                feedbackNameMap.put(feedback.getUserId(), userName);
+
+        String id = request.getParameter("productId");
+        ProductDAO pc = new ProductDAO();
+        pc.incrementProductCount(Integer.parseInt(id));
+        productDescriptionDAO pdModel = new productDescriptionDAO();
+        List<Product> pWhereId = new ArrayList<>();
+        List<Product> pOutid = new ArrayList<>();
+        List<Product> p = pdModel.getProduct();
+        List<image> img = pdModel.getImagesByProductId(Integer.parseInt(id));
+        List<productDescription> pd = pdModel.getProductDescription();
+        List<productDescription> pd1 = new ArrayList<>();
+        String price = "";
+        for (productDescription description : pd) {
+            if (description.getProductId() == Integer.parseInt(id) && Integer.parseInt(id) > 2) {
+                pd1.add(description);
             }
+<<<<<<< HEAD
             for (Reply reply : replyList) {
                 String userName = ud.getNameUserById(reply.getUserId());
                 replyNameMap.put(reply.getUserId(), userName);
@@ -123,6 +116,31 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.getRequestDispatcher("productDetail.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(dataToHomeFromDetail.class.getName()).log(Level.SEVERE, null, ex);
+=======
+>>>>>>> 6c1066b88dab409ced3524ec3716e87aaa78975c
         }
+        for (Product object : p) {
+            if (object.getProduct_id() == Integer.parseInt(id)) {
+                price = changeMoney(object.getProduct_price());
+                pWhereId.add(object);
+            } else {
+                pOutid.add(object);
+            }
+        }
+        imageDAO im = new imageDAO();
+        image img1 = null;
+        try {
+            img1 = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+        request.setAttribute("logo", img1);
+        request.setAttribute("productDescription", pd1);
+        request.setAttribute("imgWhereId", img);
+        request.setAttribute("listWhId", pWhereId);
+        request.setAttribute("listPout", pOutid);
+        request.setAttribute("productId", id);
+        request.setAttribute("priceId", price);
+        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
     }
 }

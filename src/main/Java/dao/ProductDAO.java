@@ -257,6 +257,36 @@ public class ProductDAO {
         return products;
     }
 
+    public List<Product> selectProductsByuserID(int userID) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE user_id = ?";
+
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, userID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProduct_id(resultSet.getInt("product_id"));
+                product.setProduct_name(resultSet.getString("product_name"));
+                product.setProduct_price(resultSet.getDouble("product_price"));
+                product.setImage_url(resultSet.getString("image_url"));
+                product.setStock_quantity(resultSet.getInt("stock_quantity"));
+                product.setCategory_id(resultSet.getInt("category_id"));
+                product.setProduct_branch(resultSet.getString("product_branch"));
+                // Assuming you have a date_added field in your table
+                product.setDateAdded(resultSet.getDate("date_added"));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
     public boolean deleteProduct(String productId) {
         // SQL statements to delete from dependent tables and the products table
         String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
@@ -266,7 +296,7 @@ public class ProductDAO {
         String deleteFromFeedbacksSql = "DELETE FROM feedbacks WHERE product_id = ?";
         String deleteFromProductsSql = "DELETE FROM products WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection()) {
-  
+
             connection.setAutoCommit(false);
 
             deleteFromTable(connection, deleteFromReplyCommentsSql, productId);
@@ -276,13 +306,12 @@ public class ProductDAO {
 
             deleteFromTable(connection, deleteFromFeedbacksSql, productId);
 
-
             deleteFromTable(connection, deleteFromProductsSql, productId);
 
             connection.commit();
             return true;
         } catch (SQLException e) {
-     
+
             try {
                 if (connection != null) {
                     connection.rollback();

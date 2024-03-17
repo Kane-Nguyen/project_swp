@@ -22,7 +22,7 @@ public class orderDetailDAO {
         List<orderDetail> list = new ArrayList<>();
         try {
             connection = DBConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);           
+            PreparedStatement st = connection.prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
                 orderDetail o = new orderDetail(rs.getInt("record_id"), rs.getInt("quantity"), rs.getInt("order_id"), rs.getInt("product_id")
@@ -42,6 +42,35 @@ public class orderDetailDAO {
         return list;
     }
 
+    public List<orderDetail> getOrderDetailListByUserId(int userId) {
+        String sql = "SELECT od.* FROM orderdetail od JOIN products o ON od.product_id = o.product_id WHERE o.user_id= ?";
+        List<orderDetail> list = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId); // Set the user_id parameter
+            rs = st.executeQuery();
+            while (rs.next()) {
+                orderDetail o = new orderDetail(rs.getInt("record_id"),
+                        rs.getInt("quantity"),
+                        rs.getInt("order_id"),
+                        rs.getInt("product_id"));
+                list.add(o);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
     public boolean insertOrderDetail(orderDetail OrderDetail) {
         String sql = "INSERT INTO orderdetail(quantity, order_id, product_id) VALUES (?, ?, ?) ";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -58,6 +87,10 @@ public class orderDetailDAO {
     }
 
     public static void main(String[] args) {
-
+        orderDetailDAO od = new orderDetailDAO();
+        List<orderDetail> l = od.getOrderDetailListByUserId(1);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(l.get(i).getProduct_id());
+        }
     }
 }

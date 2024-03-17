@@ -12,7 +12,7 @@
 <html>
     <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>JSP Page</title>
+        <title>EnduretaleS</title>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
@@ -68,7 +68,7 @@
                             <%
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                             %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                             <% }
 
         if(session.getAttribute("UserRole") == null){
@@ -80,7 +80,7 @@
                             <% 
         if(session.getAttribute("UserRole") != null){
                             %>
-                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">LogOut</a></li>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                             <% }
                             %>
                     </ul>
@@ -93,6 +93,10 @@
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
                     <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <% }
+            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")){
+                    %>
+                    <a href="/order"><button class="btn-danger btn white-space-nowrap">Quản Lý Đơn Hàng</button></a>
                     <% }
 if(session.getAttribute("UserRole") == null){
                     %>
