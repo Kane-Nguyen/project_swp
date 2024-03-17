@@ -3,11 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 String role = (String) session.getAttribute("UserRole");
-
-if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")){
-    response.sendRedirect("loginPage.jsp");
-    return;
-   }    
+if(role == null || !role.trim().equals("admin")){
+   response.sendRedirect("404-page.jsp");
+    return;}    
 %>
 <!DOCTYPE html>
 <html>

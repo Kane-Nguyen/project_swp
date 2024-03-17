@@ -8,6 +8,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.lang.Boolean" %>
 <%@ page import="java.time.LocalDate" %>
+    <%if(session.getAttribute("UserRole") == null){
+       response.sendRedirect("404-page.jsp");
+        return; 
+}
+    %>
 <!DOCTYPE html>
 <html>
     <head>

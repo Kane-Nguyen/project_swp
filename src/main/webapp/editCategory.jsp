@@ -1,5 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String role = (String) session.getAttribute("UserRole");
+if(role == null || !role.trim().equals("Admin")){
+    response.sendRedirect("404-page.jsp");
+    return;}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

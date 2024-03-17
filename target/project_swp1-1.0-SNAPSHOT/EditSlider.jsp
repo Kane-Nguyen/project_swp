@@ -1,6 +1,12 @@
 <%@page import="model.image" %>
 <%@page import="dao.imageDAO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+String role = (String) session.getAttribute("UserRole");
+if(role == null || !role.trim().equals("admin")){
+   response.sendRedirect("404-page.jsp");
+    return;}    
+%>
 <!DOCTYPE html>
 <html>
 <head>
