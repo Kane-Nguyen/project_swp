@@ -87,12 +87,12 @@
                             <%
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                             %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
 
                         <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                         %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                             <% }
 
                                  if(session.getAttribute("UserRole") == null){
@@ -106,6 +106,11 @@
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                             <% }
+ 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                            <% }
                             %>
                     </ul>
                 </div>
@@ -117,11 +122,11 @@
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
-                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
                     <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                     %>
-                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                         <% }
  if(session.getAttribute("UserRole") == null){
                         %>
@@ -136,6 +141,10 @@ if(session.getAttribute("UserRole") != null){
 if(session.getAttribute("UserRole") != null){
                     %>
                     <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                    <% }
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                     <% }
                     %>
                 </div>

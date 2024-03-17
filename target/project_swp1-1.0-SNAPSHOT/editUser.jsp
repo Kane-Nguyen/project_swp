@@ -21,6 +21,7 @@
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home2.css" rel="stylesheet"/>
         <link href="./styles/editUser.css" rel="stylesheet"/>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -29,11 +30,28 @@
             nomodule
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
         ></script>
+        <style>
+            .list-menu{
+                display: none;
+            }
+            @media (max-width: 992px) {
+                .right-content{
+                    display: none;
+                }
+                .wrap-header{
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .list-menu{
+                    display: block;
+                }
+            }
+        </style>
     </head>
-
-    <body>
-        <div class="container content">
-            <div class="container content" style="height:60px;">
+    <body class=" d-flex flex-column min-vh-100" style="height: 100%;
+          margin: 0;">
+        <div class="wrap-content ">
+            <div class="container content wrap-header" style="height:60px;">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
                         <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
@@ -41,10 +59,10 @@
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="#">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="#">Ipad</a></li>
-                            <li><a class="dropdown-item" href="#">Laptop</a></li>
-                            <li><a class="dropdown-item" href="#">PC</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                         </ul>
                     </div>
                     <div class="search">
@@ -57,99 +75,185 @@
                         </form>
                     </div>
                 </div>
+                <!-- Mobile -->
+                <div class="dropdown list-menu">
+                    <span class="btn dropdown-toggle btn-white">Menu</span>
+                    <ul class="dropdown-content" style="padding: 0px;">
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom">  <a href="/orderHistory" class="text-decoration-none text-decoration-none text-dark">Tra cứu đơn hàng</a></li>
+                            <%
+           if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
+                            %>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+
+                        <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                        %>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                            <% }
+
+                                 if(session.getAttribute("UserRole") == null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/login" class="text-decoration-none text-decoration-none text-dark">Đăng nhập</a></li>
+                            <% }
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/cart" class="text-decoration-none text-decoration-none text-dark">Giỏ hàng</a></li>
+                            <% 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
+                            <% }
+ 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                            <% }
+                            %>
+                    </ul>
+                </div>
+                <!-- Desktop -->
                 <div class="right-content">
-                    <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                    <!-- Example single danger button -->
+
+                    <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
-                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
-                    <% }
-if(session.getAttribute("UserRole") == null){
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
+                    <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
                     %>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <% }
+ if(session.getAttribute("UserRole") == null){
+                        %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                     <% }
                     
 if(session.getAttribute("UserRole") != null){
                     %>
-                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
+                    <% }
+                    
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                    <% }
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                     <% }
                     %>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-center w-100 mt-5 ">
-            <form action="editUser" method="post" class="form" id="userInformationForm">
-                <c:set var="user" value="${User}" scope="request" />
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="inputEmail4">Họ Và Tên</label>
-                        <input type="text" class="form-control" id="" placeholder="Nhập Họ Và Tên"  name="fullName" required value="${user.fullName}">
-                    </div>
-                    <div class="form-group ">
-                        <label for="inputPassword4">Ngày Sinh</label>
-                        <input type="date"  id="datePicker" name="birthDate" required value="${user.birthDate}" class="form-control" >
-                    </div>
 
-                    <div class="form-group">
-                        <label for="inputAddress">Số Điện Thoại</label>
-                        <input name="phoneNumber" required value="${user.phoneNumber}" class="form-control" id="inputAddress" placeholder="Nhập Số Điện Thoại">
+            <div class="d-flex justify-content-center w-100 mt-5 ">
+                <form action="editUser" method="post" class="form" id="userInformationForm">
+                    <c:set var="user" value="${User}" scope="request" />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputEmail4">Họ Và Tên</label>
+                            <input type="text" class="form-control" id="" placeholder="Nhập Họ Và Tên"  name="fullName" required value="${user.fullName}">
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputPassword4">Ngày Sinh</label>
+                            <input type="date"  id="datePicker" name="birthDate" required value="${user.birthDate}" class="form-control" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputAddress">Số Điện Thoại</label>
+                            <input name="phoneNumber" required value="${user.phoneNumber}" class="form-control" id="inputAddress" placeholder="Nhập Số Điện Thoại">
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputAddress2">Địa Chỉ</label>
+                            <input type="text" name="address" required value="${user.address}" class="form-control" id="inputAddress2" placeholder="Nhập Địa Chỉ">
+                        </div>
+                        <h3 class="text-danger fs-5 mt-4" id="errorMessages"></h3>
                     </div>
-                    <div class="form-group ">
-                        <label for="inputAddress2">Địa Chỉ</label>
-                        <input type="text" name="address" required value="${user.address}" class="form-control" id="inputAddress2" placeholder="Nhập Địa Chỉ">
+                    <input type="hidden" name="feature" value="info"/> 
+                    <button type="submit" class="w-100 mt-3 btn btn-primary">Lưu</button>
+                </form>
+
+            </div>
+            <div class="d-flex justify-content-center w-100 mt-2">
+                <button data-bs-toggle="modal" data-bs-target="#addUser" id="exampleModal" class="form btn btn-dark">Đổi Mật Khẩu</button>
+            </div>
+            <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addUser">Đổi Mật Khẩu</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 id="errorMessages" class="text-danger"></h5>
+                            <form id="userInformationForm1" action="editUser" method="post" class="container mt-3">
+                                <div class="mb-3 input-group">
+                                    <input type="password" class="form-control" name="oldpassword" id="newPassword" required placeholder="Nhập Mật Khẩu Cũ" value="" />
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye togglePasswordVisibility"></i>
+                                    </span>
+                                </div>
+                                <div class="mb-3 input-group">
+                                    <input type="password" class="form-control" name="password" id="newPassword" required placeholder="Nhập Mật Khẩu Mới" value="" />
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye togglePasswordVisibility"></i>
+                                    </span>
+                                </div>
+
+
+                                <div class="mb-3 input-group">
+                                    <input type="password" class="form-control" name="Repassword" id="reNewPassword" required placeholder="Nhập Lại Mật Khẩu Mới" value="" />
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye togglePasswordVisibility"></i>
+                                    </span>
+                                </div>
+                                <input type="hidden" name="feature" value="pass"/>
+                                <h3 class="text-danger" id="errorMessages1"></h3>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <input type="submit" class="btn btn-primary" value="Lưu" />
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <h3 class="text-danger fs-5 mt-4" id="errorMessages"></h3>
                 </div>
-                <input type="hidden" name="feature" value="info"/> 
-                <button type="submit" class="w-100 mt-3 btn btn-primary">Lưu</button>
-            </form>
+            </div>
+            <div>
+                <div class=" mt-5 py-3 footer">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-        </div>
-        <div class="d-flex justify-content-center w-100 mt-2">
-            <button data-bs-toggle="modal" data-bs-target="#addUser" id="exampleModal" class="form btn btn-dark">Đổi Mật Khẩu</button>
-        </div>
-        <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUser" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addUser">Đổi Mật Khẩu</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
                     </div>
-                    <div class="modal-body">
-                        <h5 id="errorMessages" class="text-danger"></h5>
-                        <form id="userInformationForm1" action="editUser" method="post" class="container mt-3">
-                            <div class="mb-3 input-group">
-                                <input type="password" class="form-control" name="oldpassword" id="newPassword" required placeholder="Nhập Mật Khẩu Cũ" value="" />
-                                <span class="input-group-text">
-                                    <i class="fas fa-eye togglePasswordVisibility"></i>
-                                </span>
-                            </div>
-                            <div class="mb-3 input-group">
-                                <input type="password" class="form-control" name="password" id="newPassword" required placeholder="Nhập Mật Khẩu Mới" value="" />
-                                <span class="input-group-text">
-                                    <i class="fas fa-eye togglePasswordVisibility"></i>
-                                </span>
-                            </div>
 
-
-                            <div class="mb-3 input-group">
-                                <input type="password" class="form-control" name="Repassword" id="reNewPassword" required placeholder="Nhập Lại Mật Khẩu Mới" value="" />
-                                <span class="input-group-text">
-                                    <i class="fas fa-eye togglePasswordVisibility"></i>
-                                </span>
-                            </div>
-                            <input type="hidden" name="feature" value="pass"/>
-                            <h3 class="text-danger" id="errorMessages1"></h3>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <input type="submit" class="btn btn-primary" value="Lưu" />
-                            </div>
-                        </form>
+                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                        <div>
+                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
                     </div>
                 </div>
             </div>
         </div>
-
         <script>
             $(document).ready(function () {
                 $("#userInformationForm").submit(function (event) {

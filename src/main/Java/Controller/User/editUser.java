@@ -5,6 +5,7 @@
 package Controller.User;
 
 import dao.UserDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,9 +16,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import model.User;
+import model.image;
 import org.apache.commons.codec.binary.Hex;
 
 /**
@@ -66,7 +70,16 @@ public class editUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        imageDAO im = new imageDAO();
 
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+        } catch (SQLException ex) {
+
+        }
+
+        request.setAttribute("logo", img);
         String email = (String) session.getAttribute("email");
         UserDAO ud = new UserDAO();
         User u = ud.getUserByEmail(email);
@@ -132,15 +145,14 @@ public class editUser extends HttpServlet {
             String oldPassword = GenSHA256(request.getParameter("oldpassword"));
             if (ud.comparePassword(email, oldPassword)) {
                 String password = GenSHA256(request.getParameter("password"));
-                if (ud.updatePassword(email, password)){
+                if (ud.updatePassword(email, password)) {
                     response.sendRedirect("editUser");
-                }
-                else{
+                } else {
                     response.sendRedirect("editUser?e=ErrorP");
                 }
 
-            }else{
-                  response.sendRedirect("editUser?e=ErrorP1");
+            } else {
+                response.sendRedirect("editUser?e=ErrorP1");
             }
         }
 
