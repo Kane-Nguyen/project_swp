@@ -6,6 +6,8 @@
 <html>
     <head>
         <title>Chỉnh Sửa Sản Phẩm</title>
+                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             .img-preview-container {

@@ -133,7 +133,6 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.setAttribute("logo", img1);
 
             System.out.println(checkUserToFeedback);
-
             request.setAttribute("feedbackList", feedbackList);
             request.setAttribute("feedbackNameMap", feedbackNameMap);
             request.setAttribute("replyNameMap", replyNameMap);

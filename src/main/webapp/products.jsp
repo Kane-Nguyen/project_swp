@@ -8,6 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>JSP Page</title>
+            <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
 </head>
 <body>
     <div>

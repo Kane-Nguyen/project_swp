@@ -12,6 +12,7 @@
 <html>
     <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
         <title>Trang Chủ</title>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
