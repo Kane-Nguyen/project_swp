@@ -52,7 +52,6 @@ public class catalogsearchServlet extends HttpServlet {
         }
         int pageSize = 12;
         if (price == null) {
-            p = pdModel.getTop12(resutl, page, pageSize, sort);
             if (caterory == null) {
                 p = pdModel.getTop12(resutl, page, pageSize, sort);
             } else {
@@ -86,6 +85,8 @@ public class catalogsearchServlet extends HttpServlet {
         }
         
         request.setAttribute("caterory", caterory);
+        request.setAttribute("price", price);
+        request.setAttribute("sort", sortString);
         request.setAttribute("logo", img);
         request.setAttribute("listCaterogy", listCaterogy);
         request.setAttribute("page", page);
