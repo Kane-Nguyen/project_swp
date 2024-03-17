@@ -35,11 +35,11 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                     <a href="/CrudProduct" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
                             <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
-                         <%}
+                            <%}
                           if(  session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/admin-setting" class="none-decoration"><li class="item-controller">Quản lí cài đặt</li></a>
                             <%}%>
-                         <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
+                    <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
 
@@ -68,6 +68,17 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                     </tr>
                     </thead>
                     <tbody>
+                        <% if(session.getAttribute("UserRole").equals("seller")) { %>
+                        <c:forEach items="${listOrderSeller}" var="listOrder" varStatus="status">
+                            <tr>
+                                <td>${listOrder.deliveryAddress}</td>
+                                <td>${listOrder.phoneNumber}</td>
+                                <td>${listOrder.recipientName}</td>
+                                <td>${listOrder.paymentMethod}</td>
+                                <td>${listOrder.timeBuy}</td>
+                            </tr>
+                        </c:forEach>
+                        <% }else { %>
                         <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
                             <tr>
                         <form action="CRUDOrderController" method="post">
@@ -170,7 +181,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                         </tr>
 
                     </c:forEach>
-
+                    <% } %>
 
                     </tbody>
                 </table>
