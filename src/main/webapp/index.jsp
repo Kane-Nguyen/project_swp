@@ -61,6 +61,7 @@
                         </form>
                     </div>
                 </div>
+                    <!-- Mobile -->
                 <div class="dropdown list-menu">
                     <span class="btn dropdown-toggle btn-white">Menu</span>
                     <ul class="dropdown-content" style="padding: 0px;">
@@ -69,22 +70,28 @@
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                             %>
                         <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+
+                        <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                        %>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
                             <% }
 
-        if(session.getAttribute("UserRole") == null){
+                                 if(session.getAttribute("UserRole") == null){
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/login" class="text-decoration-none text-decoration-none text-dark">Đăng nhập</a></li>
                             <% }
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/cart" class="text-decoration-none text-decoration-none text-dark">Giỏ hàng</a></li>
                             <% 
-        if(session.getAttribute("UserRole") != null){
+                            if(session.getAttribute("UserRole") != null){
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">LogOut</a></li>
                             <% }
                             %>
                     </ul>
                 </div>
+                     <!-- Desktop -->
                 <div class="right-content">
                     <!-- Example single danger button -->
 
@@ -93,9 +100,13 @@
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
                     <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
-                    <% }
-if(session.getAttribute("UserRole") == null){
+                    <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
                     %>
+                    <li class="btn-danger btn white-space-nowrap no-mb border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <% }
+ if(session.getAttribute("UserRole") == null){
+                        %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                     <% }
                     

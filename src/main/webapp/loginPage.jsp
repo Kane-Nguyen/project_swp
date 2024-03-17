@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <%if(session.getAttribute("UserRole") != null){
-response.sendRedirect("/");
+       response.sendRedirect("404-page.jsp");
 return; 
 }
     %>

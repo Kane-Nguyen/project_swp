@@ -73,24 +73,23 @@ public class orderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          HttpSession session = request.getSession();
-        int sellerId= (int) session.getAttribute("userId");
+        HttpSession session = request.getSession();
+        Integer sellerId = (Integer) session.getAttribute("userId");
         UserDAO ud = new UserDAO();
         orderDAO od = new orderDAO();
         List<Order> listOrderSeller;
         try {
-            
+
             listOrderSeller = od.getOrdersByUserId(sellerId);
             for (Order order : listOrderSeller) {
-    List<Product> products = od.getProductsByOrderId(order.getOrderID());
-    
-}           
+                List<Product> products = od.getProductsByOrderId(order.getOrderID());
+
+            }
             request.setAttribute("listOrderSeller", listOrderSeller);
         } catch (SQLException ex) {
             Logger.getLogger(orderController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         List<User> lu = ud.getAll();
         List<Order> lo = od.getOrderList();
         request.setAttribute("listOrder", lo);
@@ -103,7 +102,7 @@ public class orderController extends HttpServlet {
         List<Product> lp = p.getAll();
         request.setAttribute("ListProduct", lp);
         request.setAttribute("listUser", lu);
-         
+
         request.getRequestDispatcher("/orderPage.jsp").forward(request, response);
     }
 
