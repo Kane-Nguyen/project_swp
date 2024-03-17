@@ -51,22 +51,22 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                 <%}%>
                 <table class="table table-responsive table-bordered">
                     <thead class="thead-light">
-                    <tr>
+                        <tr>
 
 
-                        <th scope="col">Tên Tài Khoản</th>
-                        <th scope="col">Tên Người Nhận</th>
-                        <th scope="col">Số điện thoại   </th>
-                        <th scope="col">Địa Chỉ</th>
+                            <th scope="col">Tên Tài Khoản</th>
+                            <th scope="col">Tên Người Nhận</th>
+                            <th scope="col">Số điện thoại   </th>
+                            <th scope="col">Địa Chỉ</th>
 
-                        <th scope="col">Phương Thức Thanh Toán</th>
+                            <th scope="col">Phương Thức Thanh Toán</th>
 
-                        <th scope="col">Trạng Thái</th>
-                        <th scope="col">Thời Gian</th>
-                        <th scope="col">Sản Phẩm</th>
-                        <th scope="col">Tổng Tiền</th>
-                        <th scope="col"> </th>
-                    </tr>
+                            <th scope="col">Trạng Thái</th>
+                            <th scope="col">Thời Gian</th>
+                            <th scope="col">Sản Phẩm</th>
+                            <th scope="col">Tổng Tiền</th>
+                            <th scope="col"> </th>
+                        </tr>
                     </thead>
                     <tbody>
                         <% if(session.getAttribute("UserRole").equals("seller")) { %>

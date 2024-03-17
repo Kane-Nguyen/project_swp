@@ -4,7 +4,6 @@
  */
 package controllerCompareProduct;
 
-import dao.ProductDAO;
 import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;

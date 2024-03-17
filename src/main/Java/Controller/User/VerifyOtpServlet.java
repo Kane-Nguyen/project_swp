@@ -4,7 +4,6 @@
  */
 package Controller.User;
 
-import com.mysql.cj.conf.PropertyKey;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -11,7 +11,6 @@ D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\Categ
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Cart\addCart.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\VerifyOtpServlet.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\imageDAO.java
-D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller.Support\supportUser.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Feedback\feedbackServlet.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\AdminUser.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Category.java
@@ -44,6 +43,7 @@ D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Pro
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\deleteSliderServlet.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\controllerCompareProduct\catalogsearchServlet.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\UploadServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Support\supportUser.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Reply.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Category\CrudCategory.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\createProduct.java

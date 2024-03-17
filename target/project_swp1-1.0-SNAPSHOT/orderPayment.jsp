@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-5 container-fluid d-flex justify-content-around">
+                    <div class="mt-5 container-fluid d-flex justify-content-around" style="min-height: 100vh">
                 <div style="width: 40%">
                     <form id="paymentForm" action="CRUDOrderController" class="row g-3" method="post">
 
