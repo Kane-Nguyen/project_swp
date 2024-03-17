@@ -14,7 +14,7 @@
 %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Đăng Ký</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
@@ -120,19 +120,19 @@
             <% if ("infomation".equals(method)) { %>
             <form action="signUp" method="post" class="container mt-10" id="userInformationForm">
                 <div class="wrap-input-email">
-                    <input class="input-email" type="text" name="fullName" placeholder="Please Enter Full Name" required />
+                    <input class="input-email" type="text" name="fullName" placeholder="Vui Lòng Nhập Tên" required />
                 </div>
                 <div class="wrap-input-email">
-                    <input class="input-email" type="date" name="birthdate" id="datePicker" placeholder="Please Enter Birthdate" max="" required />
+                    <input class="input-email" type="date" name="birthdate" id="datePicker" placeholder="Vui Lòng Nhập Ngày Sinh" max="" required />
                 </div>
                 <div class="wrap-input-email">
-                    <input class="input-email" type="text" name="address" required placeholder="Please Enter Address" />
+                    <input class="input-email" type="text" name="address" required placeholder="Vui Lòng Nhập Địa Chỉ" />
                 </div>
                 <div class="wrap-input-email">
-                    <input class="input-email" type="number" name="phoneNumber" required placeholder="Please Enter Phone Number" />
+                    <input class="input-email" type="number" name="phoneNumber" required placeholder="Vui Lòng Nhập Số Điện Thoại" />
                 </div>
                 <div class="wrap-input-email">
-                    <input class="input-email" type="password" name="password" required placeholder="Please Enter Password" />
+                    <input class="input-email" type="password" name="password" required placeholder="Vui Lòng Nhập Mật Khẩu" />
                 </div>
                 <div class="wrap-input-email">
                     <input class="input-email"v type="hidden" name="email" value="<%= email %>" />

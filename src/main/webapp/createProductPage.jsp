@@ -45,31 +45,31 @@
     </head>
     <body>
         <div class="container mt-5">
-            <h2>Create New Product</h2>
+            <h2>Tạo Sản Phẩm Mới</h2>
             <form id="createProductForm" action="createProduct" method="post" enctype="multipart/form-data">
                 <!-- Product Name -->
                 <div class="form-group">
-                    <label for="productName">Product Name:</label>
+                    <label for="productName">Tên Sản Phẩm:</label>
                     <input type="text" class="form-control" id="productName" name="productName" required>
                 </div>
 
                 <!-- Product Price -->
                 <div class="form-group">
-                    <label for="productPrice">Product Price:</label>
+                    <label for="productPrice">Giá Sản Phảm:</label>
                     <input type="text" class="form-control" id="productPrice" name="productPrice" required>
                     <span id="priceError" class="text-danger"></span> <!-- Error message placeholder -->
                 </div>
 
                 <!-- Stock Quantity -->
                 <div class="form-group">
-                    <label for="stockQuantity">Stock Quantity:</label>
+                    <label for="stockQuantity">Số Lượng Tồn Kho: </label>
                     <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" min="1" step="1" required>
                     <span id="quantityError" class="text-danger"></span> <!-- Error message placeholder -->
                 </div>
 
                 <!-- Category Selection -->
                 <div class="form-group">
-                    <label for="categoryId">Category:</label>
+                    <label for="categoryId">Danh Mục:</label>
                     <select id="categoryId" class="form-control" name="categoryId" required>
                         <c:forEach var="category" items="${categories}">
                             <option value="${category.categoryId}">${category.categoryName}</option>
@@ -77,26 +77,26 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="productBranch">Branch:</label>
+                    <label for="productBranch">Thương Hiệu: </label>
                     <input type="text" class="form-control" id="productBranch" name="productBranch" required>
                 </div>
 
                 <!-- Main Image Upload -->
                 <div class="form-group">
-                    <label for="image">Product Main Image:</label>
+                    <label for="image">Ảnh Chính:</label>
                     <input type="file" class="form-control-file" id="mainImage" name="image" accept=".jpg, .jpeg, .png" required>
                     <div id="mainImagePreview" class="img-preview-container"></div> <!-- Image preview container -->
                 </div>
 
                 <!-- Additional Images Upload -->
                 <div class="form-group">
-                    <label for="additionalImages">Product Additional Images:</label>
+                    <label for="additionalImages">Ảnh Chi Tiết:</label>
                     <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png">
                     <div id="additionalImagesPreview" class="img-preview-container"></div> <!-- Image preview container -->
                     <span id="imageLimitMessage" class="text-danger"></span> <!-- Image limit message placeholder -->
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create Product</button>
+                <button type="submit" class="btn btn-primary">Tạo Sản Phẩm</button>
             </form>
         </div>
 

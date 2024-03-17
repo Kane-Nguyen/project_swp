@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Product</title>
+        <title>Chỉnh Sửa Sản Phẩm</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             .img-preview-container {
@@ -62,27 +62,27 @@
 
                     <!-- Product Name -->
                     <div class="form-group">
-                        <label for="productName">Product Name:</label>
+                        <label for="productName">Tên Sẩn Phẩm:</label>
                         <input type="text" class="form-control" id="productName" name="productName" value="${product.product_name}" required>
                     </div>
 
                     <!-- Product Price -->
                     <div class="form-group">
-                        <label for="productPrice">Product Price:</label>
+                        <label for="productPrice">Giá Sản Phẩm:</label>
                         <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.product_price}" required>
                         <p class="text-danger" id="priceError"></p>
                     </div>
 
                     <!-- Stock Quantity -->
                     <div class="form-group">
-                        <label for="stockQuantity">Stock Quantity:</label>
+                        <label for="stockQuantity">Tồn Kho: </label>
                         <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="${product.stock_quantity}" min="1" step="1" required>
                         <p class="text-danger" id="quantityError"></p>
                     </div>
 
                     <!-- Category Selection -->
                     <div class="form-group">
-                        <label for="categoryId">Category:</label>
+                        <label for="categoryId">Danh Muc:</label>
                         <select id="categoryId" class="form-control" name="categoryId" required>
                             <c:forEach var="category" items="${categories}">
                                 <option value="${category.categoryId}" ${category.categoryId == product.category_id ? 'selected' : ''}>${category.categoryName}</option>
@@ -92,19 +92,19 @@
 
                     <!-- Product Branch -->
                     <div class="form-group">
-                        <label for="productBranch">Product Branch:</label>
+                        <label for="productBranch">Thương Hiệu:</label>
                         <input type="text" class="form-control" id="productBranch" name="productBranch" value="${product.product_branch}" required>
                     </div>
 
                     <!-- Main Image Upload -->
                     <div class="form-group">
-                        <label for="image">Product Main Image:</label>
+                        <label for="image">Ảnh Chính:</label>
                         <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
                     </div>
 
                     <!-- Additional Images Upload -->
                     <div class="form-group">
-                        <label for="additionalImages">Product Additional Images:</label>
+                        <label for="additionalImages">Ảnh Chi Tiết:</label>
                         <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png">
                         <div id="imagePreview" class="img-preview-container">
                             <c:forEach var="img" items="${additionalImages}">
