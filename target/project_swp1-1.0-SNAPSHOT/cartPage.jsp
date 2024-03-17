@@ -173,81 +173,61 @@ if(session.getAttribute("UserRole") == null){
                                                     <p class="text-white">Mã số thuế : 92828823</p>
                                                     <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
                                                     <h5 class="text-white">Kết nối với chúng tôi</h5>
-                                                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                                                    <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+                                                                                                 border: none;
+                                                                                                 outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                                                 <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                                                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                                                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                                                                <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                                                                    <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                                                                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                                                                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                                                                                <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                                                                                    <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                                                                                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                                                                                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                                                                                                </div>
+                                                    <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <script>
+                                            // This function is triggered when the "Select All" checkbox changes state.
+                                            function toggleSelectAll(source) {
+                                                var checkboxes = document.getElementsByName('selectedProducts');
+                                                for (var i = 0, n = checkboxes.length; i < n; i++) {
+                                                    checkboxes[i].checked = source.checked;
+                                                }
+                                            }
 
-                                                                                                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                                                                                                    <div>
-                                                                                                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                                                                                                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                                                                                                                <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                                                                                                                    <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                                                                                                                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                                                                                                                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                                                                                                                                <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                                                                                                                                    <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
-                                                                                                                                        </div>
-                                                                                                                                        </div>
-                                                                                                                                        </div>
-                                                                                                                                        </div>
+                                            // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
+                                            function checkAllSelected() {
+                                                var allCheckboxes = document.getElementsByName('selectedProducts');
+                                                var selectAllCheckbox = document.getElementById('selectAll');
+                                                // Check if the number of checked boxes is equal to the total number of checkboxes.
+                                                var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
+                                                selectAllCheckbox.checked = allChecked;
 
-                                                                                                                                        <script>
-                                                                                                                                            // This function is triggered when the "Select All" checkbox changes state.
-                                                                                                                                            function toggleSelectAll(source) {
-                                                                                                                                                var checkboxes = document.getElementsByName('selectedProducts');
-                                                                                                                                                for (var i = 0, n = checkboxes.length; i < n; i++) {
-                                                                                                                                                    checkboxes[i].checked = source.checked;
-                                                                                                                                                }
-                                                                                                                                            }
+                                                // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
+                                                var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+                                                selectAllCheckbox.indeterminate = anyChecked && !allChecked;
+                                            }
 
-                                                                                                                                            // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
-                                                                                                                                            function checkAllSelected() {
-                                                                                                                                                var allCheckboxes = document.getElementsByName('selectedProducts');
-                                                                                                                                                var selectAllCheckbox = document.getElementById('selectAll');
-                                                                                                                                                // Check if the number of checked boxes is equal to the total number of checkboxes.
-                                                                                                                                                var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
-                                                                                                                                                selectAllCheckbox.checked = allChecked;
+                                            $(document).ready(function () {
+                                                // Function to get the value of a query parameter by name
+                                                function getQueryParamByName(name, url = window.location.href) {
+                                                    name = name.replace(/[\[\]]/g, '\\$&');
+                                                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                                                            results = regex.exec(url);
+                                                    if (!results)
+                                                        return null;
+                                                    if (!results[2])
+                                                        return '';
+                                                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                                                }
 
-                                                                                                                                                // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
-                                                                                                                                                var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
-                                                                                                                                                selectAllCheckbox.indeterminate = anyChecked && !allChecked;
-                                                                                                                                            }
-
-                                                                                                                                            $(document).ready(function () {
-                                                                                                                                                // Function to get the value of a query parameter by name
-                                                                                                                                                function getQueryParamByName(name, url = window.location.href) {
-                                                                                                                                                    name = name.replace(/[\[\]]/g, '\\$&');
-                                                                                                                                                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                                                                                                                                                            results = regex.exec(url);
-                                                                                                                                                    if (!results)
-                                                                                                                                                        return null;
-                                                                                                                                                    if (!results[2])
-                                                                                                                                                        return '';
-                                                                                                                                                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                                                                                                                                                }
-
-                                                                                                                                                // Check the 'status' query parameter and set modal content
-                                                                                                                                                var status = getQueryParamByName('error');
-                                                                                                                                                if (status === 'noProductSelected') {
-                                                                                                                                                    console.log(status);
-                                                                                                                                                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
-                                                                                                                                                        keyboard: false
-                                                                                                                                                    });
-                                                                                                                                                    statusModal.show();
-                                                                                                                                                }
-                                                                                                                                            });
-                                                                                                                                        </script>
-                                                                                                                                        </body>
-                                                                                                                                        </html>
+                                                // Check the 'status' query parameter and set modal content
+                                                var status = getQueryParamByName('error');
+                                                if (status === 'noProductSelected') {
+                                                    console.log(status);
+                                                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                                                        keyboard: false
+                                                    });
+                                                    statusModal.show();
+                                                }
+                                            });
+                                        </script>
+                                        </body>
+                                        </html>
