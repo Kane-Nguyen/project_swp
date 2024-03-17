@@ -264,6 +264,107 @@ if(session.getAttribute("UserRole") != null){
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div>
+                    <div clas="commentForm">
+                        <form id ="feedback" action="commentServlet" method="POST">
+                            <label for="exampleFormControlTextarea1"><h3>Hỏi và đáp</h3></label>
+                            <div class="form-group">
+                                <input type="hidden" name="productId" class="productId" value="${productId}"/>
+                                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Xin mời để lại câu hỏi, CellphoneS sẽ trả lời lại trong 1h, các câu hỏi sau 22h - 8h sẽ được trả lời vào sáng hôm sau
+                                          " style="max-width: 92%; margin-right: 10px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);  border-radius: 10px; "></textarea>
+                                <div>
+                                    <button class="btn btn-primary" id="sendFeedbackButton" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                        </svg> Gửi</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="container">
+                        <div class="comment-list">
+                            <c:forEach items="${feedbackList}" var="f" varStatus="loop">
+                                <div class="coment-box">
+                                    <div>
+                                        <div class="user-comment" >
+                                            <div style="display: flex;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                                </svg>
+                                                <strong class="name" style="margin-left: 5px ">${feedbackNameMap[f.userId]}</strong> 
+                                            </div>
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                                                </svg>
+                                                <strong class="user-date" style="margin-left: 5px ">${f.datePosted}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="text-box" style="  margin-left: 20px;"> 
+                                            <p>${f.comments}</p>
+                                            <a href="#" id="showReplyBtn_${loop.index}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16">
+                                                <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
+                                                <path d="M7.066 6.76A1.665 1.665 0 0 0 4 7.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 0 0 .6.58c1.486-1.54 1.293-3.214.682-4.112zm4 0A1.665 1.665 0 0 0 8 7.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 0 0 .6.58c1.486-1.54 1.293-3.214.682-4.112z"/>
+                                                </svg>
+                                                trả lời
+                                            </a>    
+                                        </div>
+                                    </div>
+
+                                    <c:forEach items="${repliesGroupedByFeedback[f.feedbackId]}" var="reply" varStatus="outloop">
+                                        <div>
+                                            <div class="admin-commnet">
+                                                <div style="display: flex">
+                                                    <strong class="name">${replyNameMap[reply.userId]}</strong>
+                                                    <span class="box-info_tag">
+                                                        QTV
+                                                    </span>
+
+                                                </div>
+                                                <div style="display: flex;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                                                    <strong style="margin-left: 5px ">${reply.dateReplied}</strong>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="text-box" style="margin-left: 50px"> 
+                                                <p>${reply.replyText}</p>
+                                                <a href="#" id="showReplyBtn1_${loop.index}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-quote" viewBox="0 0 16 16">
+                                                    <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
+                                                    <path d="M7.066 6.76A1.665 1.665 0 0 0 4 7.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 0 0 .6.58c1.486-1.54 1.293-3.214.682-4.112zm4 0A1.665 1.665 0 0 0 8 7.668a1.667 1.667 0 0 0 2.561 1.406c-.131.389-.375.804-.777 1.22a.417.417 0 0 0 .6.58c1.486-1.54 1.293-3.214.682-4.112z"/>
+                                                    </svg>
+                                                    trả lời
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div id="reply_${loop.index}" class="comment-feedback" style="display: none;">
+                                    <form action="feedbackServlet" method="POST">
+                                        <input type="hidden" name="productId" class="productId" value="${productId}"/> 
+                                        <input type="hidden" name="feedbackId" class="feedbackId" value="${f.feedbackId}"/> 
+                                        <div class="form-group">
+                                            <textarea name = "reply" class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Xin mời để lại câu hỏi, CellphoneS sẽ trả lời lại trong 1h, các câu hỏi sau 22h - 8h sẽ được trả lời vào sáng hôm sau
+                                                      " style="max-width: 93%; margin-right: 10px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);  border-radius: 10px; "></textarea>
+                                            <div>
+                                                <button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                                                    </svg> Gửi</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>                      
         </div>
         <div>
             <div class=" mt-5 py-3 footer">
@@ -308,27 +409,11 @@ if(session.getAttribute("UserRole") != null){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        $('#btnThemVaoGioHang').click(function (e) {
-            if (!quantity || quantity < 1) {
-                $('#quantity').val('1'); // Đặt giá trị mặc định là 1
-            }
-            $.post('/addCart', function (isLoggedIn) {
-                if (isLoggedIn !== "true") {
-                    // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
-                    window.location.href = '/login'; // Thay đổi đường dẫn nếu cần
-                } else {
-                    window.location.href = '/cart';
-
-                }
-            });
-        });
-    });
-
     console.log(<%= productId2 %>);
+    var checkFeedback = ${checkFeedback}; // Giả sử checkFeedback là một biến từ JSP
     function updateProductInfo(productId2) {
         $.ajax({
             type: "POST",
@@ -358,10 +443,11 @@ if(session.getAttribute("UserRole") != null){
         updateProductInfo(productId2);
     });
 
+
     document.getElementById('open-modal').addEventListener('click', function () {
         document.getElementById('compare-modal').classList.add('active');
         // Ẩn nút open-modal khi modal được mở
-        this.style.display = 'none';
+        this.style.display = 'non   e';
     });
 
     document.getElementById('close-modal').addEventListener('click', function () {
@@ -378,17 +464,43 @@ if(session.getAttribute("UserRole") != null){
             warningModal.show(); // Hiển thị modal
         }
     });
-    $(document).ready(function () {
-        $('#buyNow').click(function (e) {
-            e.preventDefault(); // Ngăn không cho form submit ngay lập tức
-            var quantity = $('#quantity').val();
-            if (!quantity || quantity < 1) {
-                $('#quantity').val('1'); // Đặt giá trị mặc định là 1
-            }
-            $('#quantityForOrder').val(quantity); // Đặt giá trị số lượng vào trường ẩn của form thứ hai
-            $(this).closest('#BuyNowForm').submit(); // Submit form thứ hai
 
+    // ẩm hiện reply
+    <c:forEach var="f" items="${feedbackList}" varStatus="loop">
+    var noFeedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+
+    document.querySelectorAll('[id^="showReplyBtn_${loop.index}"], [id^="showReplyBtn1_${loop.index}"]').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var feedbacksExist = checkFeedback;
+            if (!feedbacksExist) {
+                noFeedbackModal.show();
+            } else {
+                var replyBox = document.getElementById('reply_${loop.index}');
+                if (replyBox) {
+                    if (replyBox.style.display === "none" || replyBox.style.display === "") {
+                        replyBox.style.display = "block";
+                    } else {
+                        replyBox.style.display = "none";
+                    }
+                }
+            }
         });
     });
+    </c:forEach>
+    // thực hiện check Feedback
+    document.getElementById('sendFeedbackButton').addEventListener('click', function (event) {
+        if (checkFeedback === false) {
+            console.log(checkFeedback);
+            // Ngăn chặn hành động mặc định của nút submit nếu checkFeedback là false
+            event.preventDefault();
+            // Hiển thị modal thông báo
+            var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+            feedbackModal.show();
+        }
+
+    });
+
 </script>
 </html>

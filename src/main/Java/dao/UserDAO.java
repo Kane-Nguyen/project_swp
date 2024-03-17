@@ -50,15 +50,15 @@ public class UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     password = resultSet.getString("password");
-                    System.out.println("p "+ password);
-                    System.out.println("oldp "+ oldpassword);
-                    if(password.equals(oldpassword)){
+                    System.out.println("p " + password);
+                    System.out.println("oldp " + oldpassword);
+                    if (password.equals(oldpassword)) {
                         return true;
                     }
                 }
             }
         } catch (SQLException e) {
-          
+
         }
 
         return false;
@@ -202,6 +202,24 @@ public class UserDAO {
         }
 
         return false;
+    }
+
+    public String getNameUserById(int User_id) {
+        String sql = "SELECT full_name FROM users WHERE user_id = ?";
+        String name = "";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setInt(1, User_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    name = resultSet.getString("full_name");
+                }
+            }
+        } catch (SQLException e) {
+            // Handle exceptions properly in your application
+
+        }
+
+        return name;
     }
 
     public static void main(String[] args) {
