@@ -1,3 +1,4 @@
+Controller\Comment\commentServlet.class
 dao\orderDetailDAO.class
 dao\replyDAO.class
 Controller\Dashboard\dashboardController.class
@@ -32,6 +33,7 @@ model\productDescription.class
 controllerCompareProduct\dataToHomeFromDetail.class
 model\Category.class
 Controller\Image\editSliderServlet.class
+Controller\Feedback\feedbackServlet.class
 dao\feedbackDAO.class
 Controller\Image\DeleteServlet.class
 Controller\User\logout.class
