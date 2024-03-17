@@ -15,7 +15,7 @@ if(role == null || !role.trim().equals("admin")){
         <title>Danh sách người dùng</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
-                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
 
         <link href="./styles/adminCSSUser.css" rel="stylesheet"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -99,7 +99,7 @@ if(role == null || !role.trim().equals("admin")){
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <input type="submit" class="btn btn-primary" value="Lưu" />
+                                        <input type="submit" class="btn btn-primary" value="SAVE" />
                                     </div>
                                 </form>
                             </div>
@@ -124,8 +124,8 @@ if(role == null || !role.trim().equals("admin")){
 
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" value="Xác Nhận" />
-                                <a href="/AdminUser" class="btn btn-danger">Hủy</a>
+                                <input type="submit" class="btn btn-primary" value="Submit" />
+                                <a href="/AdminUser" class="btn btn-danger">Cancel</a>
                                 </form>
                             </div>
                         </div>
@@ -151,15 +151,8 @@ if(role == null || !role.trim().equals("admin")){
                             <td>${user.phoneNumber}</td>
                             <td>${user.email}</td>
                             <td>${user.address}</td>
-                            <c:if test="${user.userRole == 'customer'}">
-                                <td>Khách Hàng</td>
-                            </c:if>
-                            <c:if test="${user.userRole == 'admin'}">
-                                <td>Quản Lý</td>
-                            </c:if>
-                            <c:if test="${user.userRole == 'seller'}">
-                                <td>Người Bán Hàng</td>
-                            </c:if>
+
+                            <td>${user.userRole}</td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal${user.userId}">
                                     Sửa
@@ -168,7 +161,7 @@ if(role == null || !role.trim().equals("admin")){
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="signupModalLabel${user.userId}">Chỉnh Sửa Người Dùng</h5>
+                                                <h5 class="modal-title" id="signupModalLabel${user.userId}">Edit User</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -193,17 +186,8 @@ if(role == null || !role.trim().equals("admin")){
                                                     <div class="mb-3">
                                                         <input type="email" class="form-control" name="email" required placeholder="Please Enter email" value="${user.email}" />
                                                     </div>
-
                                                     <div class="mb-3">
-                                                        <label>Vai trò</label>
-                                                        <select class="form-select" name="role">
-                                                            <option value="customer">
-                                                                Khách Hàng
-                                                            </option>
-                                                            <option value="seller">
-                                                                Người Bán Hàng
-                                                            </option>
-                                                        </select>
+                                                        <input type="password" class="form-control" id="password1" name="password" required placeholder="Please Enter Password" value="${user.password}" />
                                                     </div>
                                                     <input type="hidden" value="edit" name="method"/>
 
@@ -239,7 +223,7 @@ if(role == null || !role.trim().equals("admin")){
                                                     <input type="hidden" value="delete" name="method"/>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <input type="submit" class="btn btn-danger" value="Xóa" />
+                                                        <input type="submit" class="btn btn-danger" value="Delete" />
                                                     </div>
 
                                                 </form>

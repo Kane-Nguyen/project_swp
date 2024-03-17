@@ -234,16 +234,7 @@ if(session.getAttribute("UserRole") != null){
                                                                      outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                     <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
+                        <a href="/supportUser" class="btn btn-info text-white">Lấy thông tin hổ trợ người dùng</a>
                     </div>
 
                     <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
