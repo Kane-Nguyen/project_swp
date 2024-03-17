@@ -227,7 +227,7 @@ if(session.getAttribute("UserRole") != null){
                                     <input type="hidden" name="quantity" id="quantityForOrder"> 
                                     <input type="hidden" name="method" value="buy"> 
                                     <div class="action">
-                                        <button class="add-to-cart btn btn-default" id="buyNow" style="margin-bottom: 5px">Mua Ngay</button>
+                                        <button class="add-to-cart btn btn-primary" id="buyNow" style="margin-bottom: 5px">Mua Ngay</button>
 
                                     </div>
                                 </form>

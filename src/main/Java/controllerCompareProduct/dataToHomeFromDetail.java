@@ -85,6 +85,7 @@ public class dataToHomeFromDetail extends HttpServlet {
             for (Reply reply : replyList) {
                 repliesGroupedByFeedback.computeIfAbsent(reply.getFeedbackId(), k -> new ArrayList<>()).add(reply);
             }
+            System.out.println("Day la user cúa session: "+session.getAttribute("userId"));
             if (session.getAttribute("userId") != null) {
                 int userid = (int) session.getAttribute("userId");
                 List<Order> olist = oDAO.getOrdersByUserId(userid);

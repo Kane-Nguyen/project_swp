@@ -6,8 +6,7 @@
     <%if(session.getAttribute("UserRole") != null){
 response.sendRedirect("/");
 return; 
-}
-    %>
+}%>
     <head>
         <title>LogIn Store</title>
         <meta charset="UTF-8">
@@ -71,9 +70,6 @@ return;
             <div class="wrap-link-sign-up">
                 <p class="sign-up-word">Bạn chưa có tài khoản?</p><a href="/signUp" class="sign-up-link"> Đăng ký ngay</a>
             </div>
-
-
-
         </form>
         <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
         <%
