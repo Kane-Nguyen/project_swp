@@ -4,7 +4,7 @@ import="model.Category" %> <%@ page import="dao.CategoryDAO" %> <%@ taglib
 prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <% String role = (String)
 session.getAttribute("UserRole"); if(role == null &&
 !role.trim().equals("admin") && !role.trim().equals("seller")){
-response.sendRedirect("404-page.jsp"); return; } %>
+response.sendRedirect("404-page.jsp"); return; } %> %>
 
 <!DOCTYPE html>
 <html>
