@@ -234,19 +234,7 @@ if(session.getAttribute("UserRole") != null){
                                                                      outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                     <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <a href="/supportUser" class="btn btn-info text-white">Lấy thông tin hổ trợ người dùng</a>
-                    </div>
-
-                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                        <div>
-                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                        <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
                     </div>
                 </div>
             </div>
