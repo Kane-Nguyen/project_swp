@@ -74,13 +74,16 @@ public class dataToHomeFromDetail extends HttpServlet {
             // Lấy tên người dùng cho Feedback và Reply
             Map<Integer, String> feedbackNameMap = new HashMap<>();
             Map<Integer, String> replyNameMap = new HashMap<>();
-for (Feedback feedback : feedbackList) {
+            Map<Integer, String> replyRoleMap = new HashMap<>();
+            for (Feedback feedback : feedbackList) {
                 String userName = ud.getNameUserById(feedback.getUserId());
                 feedbackNameMap.put(feedback.getUserId(), userName);
             }
             for (Reply reply : replyList) {
                 String userName = ud.getNameUserById(reply.getUserId());
+                String userRole = ud.getRoleUserById(reply.getUserId());
                 replyNameMap.put(reply.getUserId(), userName);
+                replyRoleMap.put(reply.getUserId(), userRole);
             }
 
             // Gom nhóm Reply theo FeedbackId

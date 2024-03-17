@@ -222,6 +222,25 @@ public class UserDAO {
         return name;
     }
     
+    public String getRoleUserById(int User_id) {
+        String sql = "SELECT user_role FROM users WHERE user_id = ?";
+        String name = "";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setInt(1, User_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    name = resultSet.getString("user_role");
+                }
+            }
+        } catch (SQLException e) {
+            // Handle exceptions properly in your application
+
+        }
+        return name;
+    }
+    
+    
+    
     public User getALLUserById(int User_id) {
         String sql = "SELECT * FROM users where user_id = "+User_id+"";
 

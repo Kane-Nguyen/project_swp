@@ -31,9 +31,26 @@
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
         ></script>
     </head>
+    <style>
+        .list-menu{
+            display: none;
+        }
+        @media (max-width: 992px) {
+            .right-content{
+                display: none;
+            }
+            .wrap-header{
+                display: flex;
+                justify-content: space-between;
+            }
+            .list-menu{
+                display: block;
+            }
+        }
+    </style>
     <body>
         <div class="wrap-content" style="   min-height:100%">
-            <div class="container content">
+            <div class="container content wrap-header" style="height:60px;">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
                         <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
@@ -42,36 +59,78 @@
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
                         <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=${result}">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=${result}">Laptop</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=${result}">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=${result}">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=${result}">Laptop</a></li>
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=${result}">PC</a></li>
                         </ul>
                     </div>
                     <div class="search">
                         <form action="catalogsearchServlet">
-                            <input name="search" class="search-input" placeholder="Tìm kiếm...">
-                            <input name="catetory" value="${caterory}" type="hidden"/>
+                            <input name="search" class="search-input" placeholder="Tìm kiếm..."/>
                             <input name="page" value="1" type="hidden"/>
                             <button class="search-btn">
                                 <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
                             </button>
                         </form>
                     </div>
-
-
                 </div>
+                <!-- Mobile -->
+                <div class="dropdown list-menu">
+                    <span class="btn dropdown-toggle btn-white">Menu</span>
+                    <ul class="dropdown-content" style="padding: 0px;">
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom">  <a href="/orderHistory" class="text-decoration-none text-decoration-none text-dark">Tra cứu đơn hàng</a></li>
+                            <%
+           if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
+                            %>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+
+                        <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                        %>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                            <% }
+
+                                 if(session.getAttribute("UserRole") == null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/login" class="text-decoration-none text-decoration-none text-dark">Đăng nhập</a></li>
+                            <% }
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/cart" class="text-decoration-none text-decoration-none text-dark">Giỏ hàng</a></li>
+                            <% 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
+                            <% }
+                            %>
+                    </ul>
+                </div>
+                <!-- Desktop -->
                 <div class="right-content">
-                    <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                    <!-- Example single danger button -->
+
+                    <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                     <%
-if(session.getAttribute("UserRole") == null){
+            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                    %>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <% }
+    if(session.getAttribute("UserRole") == null){
+                        %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                     <% }
+                    
+    if(session.getAttribute("UserRole") != null){
                     %>
-                    <%
-if(session.getAttribute("UserRole") != null){
+                    <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
+                    <% }
+                    
+    if(session.getAttribute("UserRole") != null){
                     %>
-                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
                     <% }
                     %>
                 </div>
