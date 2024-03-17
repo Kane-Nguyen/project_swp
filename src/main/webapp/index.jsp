@@ -103,7 +103,7 @@
                     <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                     %>
-                    <li class="btn-danger btn white-space-nowrap no-mb border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
                         <% }
  if(session.getAttribute("UserRole") == null){
                         %>
