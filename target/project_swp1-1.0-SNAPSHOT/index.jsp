@@ -183,13 +183,15 @@ if(session.getAttribute("UserRole") != null){
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${noOfPages}" var="i">
+                                
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                    <a class="page-link bg-primary text-white" href="?page=${i}">${i}</a>
+                                    <a class="page-link bg-primary opacity-50 text-white" href="?page=${i}">${i}</a>
                                 </li>
                             </c:forEach>
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
-                                    <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                    <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}" aria-label="Next">
+                                        
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

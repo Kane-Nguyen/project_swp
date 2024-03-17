@@ -145,61 +145,7 @@ public class orderDAO {
         return orders;
     }
 
-   public List<Order> getOrdersByUserId(int userId) throws SQLException {
-      this.connection = DBConnection.getConnection();
-      List<Order> orders = new ArrayList();
-      String sql = "SELECT o.* FROM orders o INNER JOIN orderdetail od ON o.order_id = od.order_id INNER JOIN products p ON od.product_id = p.product_id WHERE p.user_id = ? GROUP BY o.order_id";
-
-      try {
-         Connection connection = DBConnection.getConnection();
-
-         try {
-PreparedStatement st = connection.prepareStatement(sql);
-
-            try {
-               st.setInt(1, userId);
-               ResultSet rs = st.executeQuery();
-
-               while(rs.next()) {
-                  Order order = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getInt("status_order_id"), rs.getDate("time_buy"));
-                  orders.add(order);
-               }
-            } catch (Throwable var10) {
-               if (st != null) {
-                  try {
-                     st.close();
-                  } catch (Throwable var9) {
-                     var10.addSuppressed(var9);
-                  }
-               }
-
-               throw var10;
-            }
-
-            if (st != null) {
-               st.close();
-            }
-         } catch (Throwable var11) {
-            if (connection != null) {
-               try {
-                  connection.close();
-               } catch (Throwable var8) {
-                  var11.addSuppressed(var8);
-               }
-            }
-
-            throw var11;
-         }
-
-         if (connection != null) {
-            connection.close();
-         }
-      } catch (SQLException var12) {
-         var12.printStackTrace();
-      }
-
-      return orders;
-   }
+  
 
    public List<orderStatus> getOrderStatus() {
       String sql = "select * from order_status";
@@ -511,56 +457,7 @@ if (st1 != null) {
       return list;
    }
 
-    public List<Product> getListProductsBySellerId(int SellerId) {
-        String sql = "SELECT * FROM products where user_id = ?";
-        List<Product> list = new ArrayList<>();
-        try {
-            connection = DBConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, SellerId);
-            rs = st.executeQuery();
-
-            while (rs.next()) {
-                Product p = new Product(rs.getInt("product_id"), rs.getInt("user_id"), rs.getString("product_name"), rs.getDouble("product_price"), rs.getString("image_url"), rs.getInt("stock_quantity"), rs.getInt("category_id"), rs.getString("product_branch"), rs.getDate("date_added"), rs.getInt("product_count"));
-                list.add(p);
-            }
-
-            connection.close();
-        } catch (SQLException e) {
-            try {
-                connection.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
-    public List<orderDetail> getListOrdersByProductId(int productId) {
-        String sql = "SELECT * FROM orderdetail where product_id = ?";
-        List<orderDetail> list = new ArrayList<>();
-        try {
-            connection = DBConnection.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, productId);
-            rs = st.executeQuery();
-            while (rs.next()) {
-                orderDetail o = new orderDetail(rs.getInt("record_id"),rs.getInt("quantity"),rs.getInt("order_id"),rs.getInt("product_id"));
-                list.add(o);
-            }
-            connection.close();
-        } catch (SQLException e) {
-            try {
-                connection.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        }
-        return list;
-    }
+   
     public static void main(String[] args) {
          orderDAO odDAO = new orderDAO();
         List<orderDetail> lo = odDAO.getListOrdersByProductId(4);

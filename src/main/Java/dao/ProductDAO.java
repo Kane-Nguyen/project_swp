@@ -263,30 +263,26 @@ public class ProductDAO {
         String deleteFromCartSql = "DELETE FROM cart WHERE product_id = ?";
         String deleteFromImagesSql = "DELETE FROM images WHERE product_id = ?";
         String deleteFromProductDescriptionSql = "DELETE FROM productdescription WHERE product_id = ?";
-        String deleteFromInventoryTransactionsSql = "DELETE FROM inventory_transactions WHERE product_id = ?";
         String deleteFromFeedbacksSql = "DELETE FROM feedbacks WHERE product_id = ?";
         String deleteFromProductsSql = "DELETE FROM products WHERE product_id = ?";
-
         try (Connection connection = DBConnection.getConnection()) {
-            // Disable auto-commit to start the transaction
+  
             connection.setAutoCommit(false);
 
-            // Delete from dependent tables first
             deleteFromTable(connection, deleteFromReplyCommentsSql, productId);
             deleteFromTable(connection, deleteFromCartSql, productId);
             deleteFromTable(connection, deleteFromImagesSql, productId);
             deleteFromTable(connection, deleteFromProductDescriptionSql, productId);
-            deleteFromTable(connection, deleteFromInventoryTransactionsSql, productId);
+
             deleteFromTable(connection, deleteFromFeedbacksSql, productId);
 
-            // Finally, delete the product itself
+
             deleteFromTable(connection, deleteFromProductsSql, productId);
 
-            // Commit the transaction
             connection.commit();
             return true;
         } catch (SQLException e) {
-            // If there is an exception, attempt to rollback the transaction
+     
             try {
                 if (connection != null) {
                     connection.rollback();

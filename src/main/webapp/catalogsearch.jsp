@@ -143,7 +143,7 @@ if(session.getAttribute("UserRole") != null){
                                         </c:if>
                                         <c:forEach begin="1" end="${noOfPages}" var="i">
                                             <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                                <a class="page-link bg-primary text-white" href="?search=${resutl}&page=${i}&catetory=${}">${i}</a>
+                                                <a class="page-link bg-primary text-white" href="?search=${resutl}&page=${i}&catetory=">${i}</a>
                                             </li>
                                         </c:forEach>
                                         <c:if test="${currentPage < noOfPages}">
