@@ -45,7 +45,7 @@ if(role == null || !role.trim().equals("admin")){
 
                 <h2>Danh sách người dùng</h2>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
-                    Add
+                    Thêm
                 </button>
 
 
@@ -53,7 +53,7 @@ if(role == null || !role.trim().equals("admin")){
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addUser">Add User</h5>
+                                <h5 class="modal-title" id="addUser">Thêm Người Dùng</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -64,31 +64,31 @@ if(role == null || !role.trim().equals("admin")){
                                         <input type="hidden" class="form-control" name="id" placeholder="Please Enter Full Name" value="" required />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="fullName" placeholder="Please Enter Full Name" value="" required />
+                                        <input type="text" class="form-control" name="fullName" placeholder="Vui Lòng Nhập Tên" value="" required />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="date" class="form-control" name="birthdate" id="datePicker" placeholder="Please Enter Birthdate" value=""  required />
+                                        <input type="date" class="form-control" name="birthdate" id="datePicker" placeholder="Vui Lòng Nhập Ngày Sinh" value=""  required />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="address" required placeholder="Please Enter Address" value="" />
+                                        <input type="text" class="form-control" name="address" required placeholder="Vui Lòng Nhập Địa Chỉ" value="" />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="number" class="form-control" name="phoneNumber" required placeholder="Please Enter Phone Number" value="}" />
+                                        <input type="number" class="form-control" name="phoneNumber" required placeholder="Vui Lòng Nhập Số Điện Thoại " value="}" />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="email" class="form-control" name="email" required placeholder="Please Enter Email" value="" />
+                                        <input type="email" class="form-control" name="email" required placeholder="Vui Lòng Nhập Email" value="" />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" name="password" required placeholder="Please Enter Password" value="" />
+                                        <input type="password" class="form-control" name="password" required placeholder="Vui Lòng Nhập Password" value="" />
                                     </div>
                                     <div class="mb-3">
-                                        <label>Role</label>
+                                        <label>Vai trò</label>
                                         <select class="form-select" name="role">
                                             <option value="customer">
-                                                Customer
+                                                Khách Hàng
                                             </option>
                                             <option value="seller">
-                                                Seller
+                                                Người Bán Hàng
                                             </option>
                                         </select>
                                     </div>
@@ -108,7 +108,7 @@ if(role == null || !role.trim().equals("admin")){
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Enter Otp</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Nhập Otp</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -133,14 +133,14 @@ if(role == null || !role.trim().equals("admin")){
                 <table class="table table-hover">
                     <tr>
 
-                        <th>Full Name</th>
-                        <th>Birth Date</th>
-                        <th>Phone Number</th>
+                        <th>Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Số Điện Thoại</th>
                         <th>Email</th>
-                        <th>Address</th>
+                        <th>Địa Chỉ</th>
 
-                        <th>User Role</th>
-                        <th>Action</th>
+                        <th>Vai Trò</th>
+                        <th></th>
                     </tr>
                     <c:forEach var="user" items="${listUsers}" varStatus="status">
                         <tr>
@@ -153,7 +153,7 @@ if(role == null || !role.trim().equals("admin")){
                             <td>${user.userRole}</td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal${user.userId}">
-                                    Edit
+                                    Sửa
                                 </button>
                                 <div class="modal fade" id="signupModal${user.userId}" tabindex="-1" aria-labelledby="signupModalLabel${user.userId}" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -192,7 +192,7 @@ if(role == null || !role.trim().equals("admin")){
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <input type="submit" class="btn btn-primary" value="SAVE" />
+                                                        <input type="submit" class="btn btn-primary" value="Lưu" />
                                                     </div>
                                                 </form>
                                             </div>
@@ -203,7 +203,7 @@ if(role == null || !role.trim().equals("admin")){
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal${user.userId}">
-                                    Delete
+                                    Xóa
                                 </button>
 
                                 <!-- Modal -->
@@ -215,7 +215,7 @@ if(role == null || !role.trim().equals("admin")){
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <h3>Are You Sure Delete This User</h3>
+                                                <h3>Bạn Có Chắc Xóa Người Dùng Này Không</h3>
                                                 <form  action="AddEditDeleteUser" method="POST">
                                                     <input type="hidden" value="${user.userId}" name="id"/>
                                                     <input type="hidden" value="delete" name="method"/>

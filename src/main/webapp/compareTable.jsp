@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2 mt-5">
-                    <h3 class="bg-light p-2 mb-3">Compare Product</h3>
+                    <h3 class="bg-light p-2 mb-3">So Sánh Sản Phẩm</h3>
                     <div class="table-responsive compare-packages">
                         <table class="table table-bordered">
                             <thead>

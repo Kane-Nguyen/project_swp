@@ -38,18 +38,18 @@ if(role == null || !role.trim().equals("admin")){
                 </ul>
             </div>
             <div class="right-content">
-                <h2 class="mb-3">Product List</h2>
-                <a href="createProduct" class="btn btn-primary mb-3">Add Product</a>
+                <h2 class="mb-3">Danh Sách Sản Phẩm</h2>
+                <a href="createProduct" class="btn btn-primary mb-3">Thêm Sản Phẩm</a>
 
                 <table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                            <th>Stock Quantity</th>
-                            <th>Category ID</th>
+                            <th>Mã Sản Phẩm</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Ảnh</th>
+                            <th>Tồn Kho</th>
+                            <th>Danh Mục</th>
 
 
 
@@ -71,10 +71,10 @@ if(role == null || !role.trim().equals("admin")){
 
 
                                 <td>
-                                    <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-success">Edit</a>
+                                    <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-success">Sửa</a>
                                     <form action="CrudProduct" method="post">
                                         <input type="hidden" name="product_id" value="${product.product_id}">
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Xóa</button>
                                     </form>
                                 </td>
                             </tr>

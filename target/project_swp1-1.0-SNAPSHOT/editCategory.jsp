@@ -11,30 +11,30 @@ if(role == null || !role.trim().equals("Admin")){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Category</title>
+    <title>Chỉnh Sửa Danh Mục</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Edit Category</h2>
+    <h2>Chỉnh Sửa Danh Mục</h2>
     <c:if test="${not empty category}">
         <form action="crudCategory" method="post">
             <input type="hidden" name="action" value="edit" />
             <input type="hidden" name="categoryId" value="${category.categoryId}" />
             
             <div class="form-group">
-                <label for="categoryName">Category Name</label>
+                <label for="categoryName">Tên Danh Mục</label>
                 <input type="text" class="form-control" id="categoryName" name="categoryName" value="${category.categoryName}" required>
             </div>
             
-            <button type="submit" class="btn btn-primary">Update Category</button>
-            <a href="crudCategory" class="btn btn-secondary ml-2">Back to Category List</a>
+            <button type="submit" class="btn btn-primary">Thay Đổi Danh Mục</button>
+            <a href="crudCategory" class="btn btn-secondary ml-2">Quay lại Danh Sách Danh Mục</a>
         </form>
     </c:if>
     <c:if test="${empty category}">
-        <p class="text-danger">Category not found.</p>
-        <a href="crudCategory" class="btn btn-secondary">Back to Category List</a>
+        <p class="text-danger">Danh Mục Không Tìm Thấy</p>
+        <a href="crudCategory" class="btn btn-secondary ml-2">Quay lại Danh Sách Danh Mục</a>
     </c:if>
 </div>
 

@@ -11,7 +11,7 @@ if(role == null || !role.trim().equals("admin")){
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Categories</title>
+    <title>Danh Mục</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -30,9 +30,9 @@ if(role == null || !role.trim().equals("admin")){
 </head>
 <body>
     <div class="container">
-        <h2>Category List</h2>
+        <h2>Danh Sách Danh Mục</h2>
         
-        <h3>Add New Category</h3>
+        <h3>Thêm Danh Mục</h3>
         <form action="crudCategory" method="post" class="form-inline">
             <input type="hidden" name="action" value="add" />
             <label for="categoryName" class="form-label">Category Name:</label>
@@ -43,8 +43,8 @@ if(role == null || !role.trim().equals("admin")){
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Category Name</th>
-                    <th>Actions</th>
+                    <th>Tên Danh Mục</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,12 +52,12 @@ if(role == null || !role.trim().equals("admin")){
                     <tr>
                         <td>${category.categoryName}</td>
                         <td>
-                            <a href="crudCategory?action=editForm&categoryId=${category.categoryId}" class="btn btn-sm btn-info">Edit</a>
+                            <a href="crudCategory?action=editForm&categoryId=${category.categoryId}" class="btn btn-sm btn-info">Sửa</a>
 
                             <form action="crudCategory" method="post" style="display:inline;" class="form-inline">
                                 <input type="hidden" name="action" value="delete" />
                                 <input type="hidden" name="categoryId" value="${category.categoryId}" />
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Xóa</button>
                             </form>
                         </td>
                     </tr>

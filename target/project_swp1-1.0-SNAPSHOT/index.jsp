@@ -12,7 +12,7 @@
 <html>
     <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>EnduretaleS</title>
+        <title>Trang Chủ</title>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
@@ -117,7 +117,7 @@ if(session.getAttribute("UserRole") != null){
                     
 if(session.getAttribute("UserRole") != null){
                     %>
-                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
                     <% }
                     %>
                 </div>

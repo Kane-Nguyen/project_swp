@@ -95,10 +95,10 @@ if(session.getAttribute("UserRole") == null){
                                         <th scope="col">Tên Sản Phẩm</th>
                                         <th scope="col">Ảnh Sản Phẩm</th>
                                         <th scope="col">Giá Sản Phẩm</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Update</th>
-                                        <th scope="col">Delete</th>
-                                        <th scope="col">Select to Buy</th>
+                                        <th scope="col">Số Lượng</th>
+                                        <th scope="col">Cập Nhật</th>
+                                        <th scope="col">Xóa</th>
+                                        <th scope="col">Chọn Để Mua</th>
                                     </tr>
                                 </thead>
                                 <tbody>
