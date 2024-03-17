@@ -40,7 +40,7 @@
                     </a>
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
-                         <ul class="dropdown-content">
+                        <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=${result}">Điện thoại smart phone</a></li>
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=${result}">Laptop</a></li>
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=${result}">Ipad</a></li>
@@ -136,19 +136,19 @@ if(session.getAttribute("UserRole") != null){
                                     <c:if test="${noOfPages > 1}">
                                         <c:if test="${currentPage > 1}">
                                             <li class="page-item">
-                                                <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
                                         </c:if>
                                         <c:forEach begin="1" end="${noOfPages}" var="i">
                                             <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                                <a class="page-link bg-primary text-white" href="?search=${resutl}&page=${i}&catetory=">${i}</a>
+                                                <a class="page-link bg-primary text-white" href="?page=${i}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}">${i}</a>
                                             </li>
                                         </c:forEach>
                                         <c:if test="${currentPage < noOfPages}">
                                             <li class="page-item">
-                                                <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>

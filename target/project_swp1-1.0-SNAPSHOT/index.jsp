@@ -45,10 +45,10 @@
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=a">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=a">Ipad</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=a">Laptop</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=a">PC</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                         </ul>
                     </div>
                     <div class="search">
@@ -194,14 +194,14 @@ if(session.getAttribute("UserRole") != null){
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${noOfPages}" var="i">
-                                
+                     
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
                                     <a class="page-link bg-primary opacity-50 text-white" href="?page=${i}">${i}</a>
                                 </li>
                             </c:forEach>
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
-                                    <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}" aria-label="Next">
+                                    <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}&price=&catetory=&search=&sort" aria-label="Next">
                                         
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>

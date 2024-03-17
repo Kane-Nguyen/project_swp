@@ -94,7 +94,6 @@ public class orderController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(orderController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        List<User> lu = ud.getAll();
         List<Order> lo = od.getOrderList();
         request.setAttribute("listOrder", lo);
         List<orderStatus> ls = od.getOrderStatus();
