@@ -74,7 +74,7 @@ public class dataToHomeFromDetail extends HttpServlet {
             // Lấy tên người dùng cho Feedback và Reply
             Map<Integer, String> feedbackNameMap = new HashMap<>();
             Map<Integer, String> replyNameMap = new HashMap<>();
-            for (Feedback feedback : feedbackList) {
+for (Feedback feedback : feedbackList) {
                 String userName = ud.getNameUserById(feedback.getUserId());
                 feedbackNameMap.put(feedback.getUserId(), userName);
             }
@@ -131,4 +131,3 @@ public class dataToHomeFromDetail extends HttpServlet {
         }
     }
 }
-

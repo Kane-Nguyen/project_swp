@@ -3,9 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 String role = (String) session.getAttribute("UserRole");
-if(role == null || !role.trim().equals("admin")){
-   response.sendRedirect("404-page.jsp");
-    return;}    
+
+if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")){
+    response.sendRedirect("404-page.jsp");
+    return;
+   }    
 %>
 <!DOCTYPE html>
 <html>
@@ -71,10 +73,10 @@ if(role == null || !role.trim().equals("admin")){
 
 
                                 <td>
-                                    <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-success">Sửa</a>
+                                    <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-primary">Sửa</a>
                                     <form action="CrudProduct" method="post">
                                         <input type="hidden" name="product_id" value="${product.product_id}">
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Xóa</button>
+                                        <button style="margin-top: 4px;" type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Xóa</button>
                                     </form>
                                 </td>
                             </tr>

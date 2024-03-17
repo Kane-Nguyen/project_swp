@@ -49,7 +49,8 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                 <%}else if(request.getParameter("d")!=null){%>
                 <h4 class="text-success">Xóa Đơn Hàng Thành Công</h4>
                 <%}%>
-                <table class="table table-responsive">
+                <table class="table table-responsive table-bordered">
+                    <thead class="thead-light">
                     <tr>
 
 
