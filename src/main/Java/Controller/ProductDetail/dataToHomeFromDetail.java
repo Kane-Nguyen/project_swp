@@ -1,4 +1,4 @@
-package controllerCompareProduct;
+package controller.ProductDetail;
 
 import dao.UserDAO;
 import dao.feedbackDAO;
