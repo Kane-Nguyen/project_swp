@@ -69,7 +69,7 @@ if(session.getAttribute("UserRole") == null){
                                 %>
                             </div>
                         </div>
-                        <div>
+                            <div style="min-height: 100vh;">
 
                             <table class="table">
                                 <thead>

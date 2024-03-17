@@ -83,8 +83,8 @@ public class orderController extends HttpServlet {
             listOrderSeller = od.getOrdersByUserId(sellerId);
             for (Order order : listOrderSeller) {
     List<Product> products = od.getProductsByOrderId(order.getOrderID());
-    order.setProducts(products); // Ensure Order class has this setter method
-}
+    
+}           
             request.setAttribute("listOrderSeller", listOrderSeller);
         } catch (SQLException ex) {
             Logger.getLogger(orderController.class.getName()).log(Level.SEVERE, null, ex);
