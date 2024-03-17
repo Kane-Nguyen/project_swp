@@ -6,7 +6,6 @@ package Controller.Image;
 
 import dao.imageDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,9 +16,6 @@ import jakarta.servlet.http.Part;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.image;
 
 /**

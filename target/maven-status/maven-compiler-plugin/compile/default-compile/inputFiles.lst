@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\User\editUser.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Order\createOrder.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Order\orderController.java
@@ -60,3 +61,67 @@ D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Order\orderHistory.ja
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\Reply.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\User\SendOtpServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\ProductDAO.java
+=======
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\ProductDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\DashboardDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\productDescriptionDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\orderHistory.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\orderStatusDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\index.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Comment\commentServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\editProduct.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Dashboard\dashboardController.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\CategoryDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Cart\addCart.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\VerifyOtpServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\imageDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Feedback\feedbackServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\AdminUser.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Category.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\logout.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\createOrder.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\SignUp.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Cart.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\deleteImage.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\controllerCompareProduct\compareProductServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Feedback.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\ProductImageDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\orderController.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\ForgotPassword.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\SendOtpServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\controllerCompareProduct\dataToHomeFromDetail.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\replyDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\orderDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\editLogoServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Cart\CRUDCart.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\editUser.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\DBConnection.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\editSliderServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\CrudProduct.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\orderDetailDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\ProductImage.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\orderDetail.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\feedbackDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\User.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Product.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\deleteSliderServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\controllerCompareProduct\catalogsearchServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\UploadServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Support\supportUser.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Reply.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Category\CrudCategory.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\createProduct.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\editOrder.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\UserDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\cartDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\Order.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\orderPayment.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\controllerCompareProduct\update.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\DeleteServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\image.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Image\addSliderServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\login.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\productDescription.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\orderStatus.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\CRUDOrderController.java
+>>>>>>> 945df52d6e6dab528e27eb480114941d3c687fc2
