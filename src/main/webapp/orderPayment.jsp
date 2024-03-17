@@ -117,6 +117,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${requestScope.method == 'buy'}">
+                                <input type="hidden" name="methodBuy" value="BUY"/>
                             <input type="hidden" name="productId" value="${product.product_id}"/>
                             <input type="hidden" name="quantity" value="${requestScope.quantity}"/>
                             <input type="hidden" name="price" name="price" value="${product.product_price}"/>

@@ -58,8 +58,8 @@ if(role == null || !role.trim().equals("admin")){
                             </div>
                             <div class="modal-body">
                                 <h5 id="errorMessages" class="text-danger"></h5>
-                                <form id="userInformationForm" action="SendOtpServlet" method="get" class="container mt-3">
-
+                                <form id="userInformationForm" action="AdminUser" method="post" class="container mt-3">
+                                    <input name="method" value="add" type="hidden" />
                                     <div class="mb-3">
                                         <input type="hidden" class="form-control" name="id" placeholder="Please Enter Full Name" value="" required />
                                     </div>
@@ -81,7 +81,18 @@ if(role == null || !role.trim().equals("admin")){
                                     <div class="mb-3">
                                         <input type="password" class="form-control" name="password" required placeholder="Please Enter Password" value="" />
                                     </div>
-                                    <input type="hidden" value="add" name="feature"/>
+                                    <div class="mb-3">
+                                        <label>Role</label>
+                                        <select class="form-select" name="role">
+                                            <option value="customer">
+                                                Customer
+                                            </option>
+                                            <option value="seller">
+                                                Seller
+                                            </option>
+                                        </select>
+                                    </div>
+                                    
 
 
                                     <div class="modal-footer">

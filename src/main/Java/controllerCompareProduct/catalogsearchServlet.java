@@ -4,6 +4,7 @@
  */
 package controllerCompareProduct;
 
+import dao.ProductDAO;
 import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;
@@ -28,16 +29,17 @@ public class catalogsearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         productDescriptionDAO pdModel = new productDescriptionDAO();
+        String caterory = request.getParameter("catetory");
         String resutl = request.getParameter("search");
         String pageString = request.getParameter("page");
         String sortString = request.getParameter("sort");
         String price = request.getParameter("price");
-     
+
         List<Product> p = new ArrayList<>();
+        List<Product> listCaterogy = new ArrayList<>();
         String sort = "";
-        
 
         if (sortString == null) {
             sort = "ASC";
@@ -45,7 +47,6 @@ public class catalogsearchServlet extends HttpServlet {
             sort = sortString;
         }
 
-      
         int page = 1;
         if (pageString != null) {
             page = Integer.parseInt(pageString);
@@ -53,27 +54,41 @@ public class catalogsearchServlet extends HttpServlet {
         int pageSize = 12;
         if (price == null) {
             p = pdModel.getTop12(resutl, page, pageSize, sort);
+            if (caterory == null) {
+                p = pdModel.getTop12(resutl, page, pageSize, sort);
+            } else {
+                p = pdModel.getTop12FromCategoryNoPrice(resutl, page, pageSize, sort, caterory);
+            }
         } else {
             String[] priceToFrom = price.split("-");
-            p = pdModel.getTop12FromPrice(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1]);
+            if (caterory == null) {
+                p = pdModel.getTop12FromPrice(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1]);
+            }
+            else{
+                p = pdModel.getTop12FromCategory(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1], caterory);
+            }
             request.setAttribute("price", price);
         }
-        int quantity = p.size();
+        // thieu sql count
+        int quantity = pdModel.coutSearch(resutl);
 
         int endPage = 0;
         endPage = (quantity / pageSize);
         if (quantity % pageSize != 0) {
             endPage++;
         }
-        
-         imageDAO im = new imageDAO();
+
+        imageDAO im = new imageDAO();
         image img = null;
         try {
             img = im.getImageByProductId(2);
         } catch (SQLException ex) {
 
         }
+        
+        request.setAttribute("caterory", caterory);
         request.setAttribute("logo", img);
+        request.setAttribute("listCaterogy", listCaterogy);
         request.setAttribute("page", page);
         request.setAttribute("result", resutl);
         request.setAttribute("noOfPages", endPage);
