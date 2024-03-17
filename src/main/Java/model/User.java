@@ -40,14 +40,14 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String address, String password) {
+    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String address, String userRole) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.password = password;
+        this.userRole = userRole;
     }
 
     public User(String fullName, Date birthDate, String phoneNumber, String address) {

@@ -318,6 +318,22 @@ public class orderDAO {
             return false;
         }
     }
+    public boolean updateOrderStatus(int orderId) throws SQLException {
+        boolean orderUpdated = false;
+        String sql = "Update orders set status_order_id =5 where order_id =?";
+        this.connection = DBConnection.getConnection();
+
+        try {
+            PreparedStatement st = this.connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            
+            orderUpdated = st.executeUpdate() > 0;
+            return orderUpdated;
+        } catch (SQLException var9) {
+            System.out.println("SQL Error: " + var9.getMessage());
+            return false;
+        }
+    }
 
     public boolean createOrder(int userId, String address, String phoneNumber, String receiver, String paymentMethod, Date createOrderDay) throws SQLException {
         boolean orderCreated = false;
