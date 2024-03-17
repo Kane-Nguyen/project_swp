@@ -221,6 +221,32 @@ public class UserDAO {
 
         return name;
     }
+    
+    public User getALLUserById(int User_id) {
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("full_name"),
+                        resultSet.getDate("birth_date"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getString("address"),
+                        resultSet.getDate("Date_Added"), // Use getTimestamp for DATETIME type
+                        resultSet.getString("user_role")
+                        
+                );
+                return user;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the getAll operation: " + e.getMessage());
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         UserDAO u = new UserDAO();

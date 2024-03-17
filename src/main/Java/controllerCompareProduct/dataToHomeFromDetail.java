@@ -30,6 +30,7 @@ import model.image;
 import model.Product;
 import model.Order;
 import model.Reply;
+import model.User;
 import model.productDescription;
 
 @WebServlet(name = "dataToHomeFromDetail", urlPatterns = {"/dataToHomeFromDetail"})
@@ -87,8 +88,9 @@ public class dataToHomeFromDetail extends HttpServlet {
             if (session.getAttribute("userId") != null) {
                 int userid = (int) session.getAttribute("userId");
                 List<Order> olist = oDAO.getOrdersByUserId(userid);
+                User user = ud.getALLUserById(userid);
                 System.out.println(olist.size());
-                if (!olist.isEmpty()) {
+                if (!olist.isEmpty() || user.getUserRole().equals("admin")) {
                     checkUserToFeedback = true;
                 }
             }

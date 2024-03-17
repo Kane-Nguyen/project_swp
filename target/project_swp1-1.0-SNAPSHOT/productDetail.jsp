@@ -32,16 +32,18 @@
             String imageUrl2 = (String) session.getAttribute("productUrl");
             
         %>
-
-        <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        
+        <!-- compareeeeeeeeeeeeeee -->
+        <!-- báo lỗi -->
+        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true" data-bs-dismiss="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Cảnh báo</h5>
+                        <h5 class="modal-title" id="feedbackModalLabel">Thông báo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Bạn phải chọn sản phẩm để so sánh!
+                        Bạn phải đăng nhập và mua sản phẩm mới feeback được.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
