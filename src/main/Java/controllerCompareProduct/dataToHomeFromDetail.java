@@ -6,6 +6,7 @@ import dao.feedbackDAO;
 import dao.orderDAO;
 import dao.productDescriptionDAO;
 import dao.replyDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
