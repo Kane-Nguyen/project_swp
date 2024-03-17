@@ -15,12 +15,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import model.User;
 import model.image;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -92,41 +95,22 @@ public class AdminUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String method = request.getParameter("method");
 
-        if (method.equals("add")) {
-            HttpSession session = request.getSession();
-            session.removeAttribute("otp");
-            String fullName = (String) session.getAttribute("fullName");
-            String birthdateRaw = (String) session.getAttribute("birthdate");
-            String address = (String) session.getAttribute("address");
-            String email1 = (String) session.getAttribute("email");
-            String phoneNumber = (String) session.getAttribute("phoneNumber");
-            String password = (String) session.getAttribute("password");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String role = request.getParameter("role");
-            Date birthdateUtil = null;
-            try {
+    }
 
-                birthdateUtil = dateFormat.parse(birthdateRaw);
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
-                response.sendRedirect("AdminUser?e=bd");
-                return; // Dừng việc xử lý nếu có lỗi
-            }
+    public String GenSHA256(String input) {
+        String hashedValue = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(input.getBytes());
 
-            java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
+            hashedValue = Hex.encodeHexString(digest);
+            System.out.println(hashedValue);
 
-            User u = new User(fullName, birthdateSql, phoneNumber, email1, password, address, role);
-            UserDAO ud = new UserDAO();
-            if (!ud.insertUser(u)) {
-                response.sendRedirect("AdminUser?e=Add");
+        } catch (NoSuchAlgorithmException e) {
 
-            } else {
-                response.sendRedirect("AdminUser");
-
-            }
         }
+        return hashedValue;
     }
 
     /**

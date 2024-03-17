@@ -36,9 +36,7 @@ public class CRUDCart extends HttpServlet {
             Product product = p.getProductById(item.getProduct_id());
             ProductList.add(product);
         }
-        for (int i = 0; i < ProductList.size(); i++) {
-            System.out.println(ProductList.get(i).getProduct_name());
-        }
+
         imageDAO im = new imageDAO();
         image img = null;
         try {

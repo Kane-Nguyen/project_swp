@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,30 +27,54 @@ import java.util.logging.Logger;
         maxRequestSize = 1024 * 1024 * 15 // 15 MB
 )
 public class CrudProduct extends HttpServlet {
-
+    
     private static final Logger LOGGER = Logger.getLogger(CrudProduct.class.getName());
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        imageDAO im = new imageDAO();
-        image img = null;
-        try {
-            img = im.getImageByProductId(2);
-        } catch (SQLException ex) {
-
+        HttpSession session = request.getSession(false);
+        Integer userId = (Integer) session.getAttribute("userId");
+        
+        if (userId == null) {
+            response.sendRedirect("login");
+            return;
         }
-        request.setAttribute("logo", img);
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> productList = productDAO.getAll();
-        request.setAttribute("productList", productList);
-        request.getRequestDispatcher("showProducts.jsp").forward(request, response);
+        String role = (String) session.getAttribute("UserRole");
+        if (role.trim().equals("admin")) {
+            imageDAO im = new imageDAO();
+            image img = null;
+            try {
+                img = im.getImageByProductId(2);
+            } catch (SQLException ex) {
+                
+            }
+            request.setAttribute("logo", img);
+            ProductDAO productDAO = new ProductDAO();
+            List<Product> productList = productDAO.getAll();
+            request.setAttribute("productList", productList);
+            request.getRequestDispatcher("showProducts.jsp").forward(request, response);
+        } else if (role.trim().equals("seller")) {
+            imageDAO im = new imageDAO();
+            image img = null;
+            try {
+                img = im.getImageByProductId(2);
+            } catch (SQLException ex) {
+                
+            }
+            request.setAttribute("logo", img);
+            ProductDAO productDAO = new ProductDAO();
+            List<Product> productList = productDAO.selectProductsByuserID(userId);
+            request.setAttribute("productList", productList);
+            request.getRequestDispatcher("showProducts.jsp").forward(request, response);
+        }        
+        
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         try {
             String productId = request.getParameter("product_id");
             ProductDAO productDAO = new ProductDAO();
@@ -65,7 +90,7 @@ public class CrudProduct extends HttpServlet {
             response.getWriter().println("An error occurred in deleteProduct: " + e.getMessage());
         }
     }
-
+    
     private String convertImageToBase64(Part imagePart) throws IOException {
         if (!isValidImageType(imagePart.getContentType())) {
             throw new IOException("Invalid image type.");
@@ -74,7 +99,7 @@ public class CrudProduct extends HttpServlet {
         byte[] bytes = inputStream.readAllBytes();
         return Base64.getEncoder().encodeToString(bytes);
     }
-
+    
     private boolean isValidImageType(String contentType) {
         return contentType.equals("image/jpeg") || contentType.equals("image/png");
     }

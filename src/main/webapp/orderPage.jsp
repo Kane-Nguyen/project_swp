@@ -71,16 +71,109 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                         <% if(session.getAttribute("UserRole").equals("seller")) { %>
                         <c:forEach items="${listOrderSeller}" var="listOrder" varStatus="status">
                             <tr>
-                                <td>${listOrder.deliveryAddress}</td>
-                                <td>${listOrder.phoneNumber}</td>
-                                <td>${listOrder.recipientName}</td>
-                                <td>${listOrder.paymentMethod}</td>
-                                <td>${listOrder.timeBuy}</td>
-                            </tr>
-                        </c:forEach>
-                        <% }else { %>
-                        <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
-                            <tr>
+                        <form action="CRUDOrderController" method="post">
+                            <input  name="method" type="hidden" value="edit"/>
+                            <input name="orderId" type="hidden" value="${listOrder.orderID}"/>
+                            <c:forEach items="${listUser}" var="listUser" varStatus="status">
+                                <c:if test="${listUser.userId == listOrder.userID}">
+                                    <td>
+                                        ${listUser.fullName}
+                                    </td>
+                                </c:if>
+                            </c:forEach>
+                            <td>
+                                <input class="border-0" type="text" name="receiver"  value="${listOrder.recipientName}"/> 
+                            </td>
+                            <td>
+                                <input  class="border-0" type="text" name="phoneNumber" value="${listOrder.phoneNumber}"/>
+                            </td>
+                            <td>
+                                <input  class="border-0" type="text" name="address"  value="${listOrder.deliveryAddress}"/>  
+                            </td>
+                            <td>
+                                ${listOrder.paymentMethod}
+                            </td>
+                            <td>
+                                <select name="status" class="form-select">
+                                    <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
+                                        <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
+                                            <option value="${listOrderStatus.status_order_id}" selected>${listOrderStatus.status_order_name}</option>
+                                        </c:if>
+                                        <c:if test="${listOrder.status_order_id != listOrderStatus.status_order_id}">
+                                            <option value="${listOrderStatus.status_order_id}">${listOrderStatus.status_order_name}</option>
+                                        </c:if>
+                                    </c:forEach>
+                                </select>
+
+                            </td>
+                            <td>
+                                ${listOrder.timeBuy}  
+                            </td>
+                            <td>
+                                <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
+                                    <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
+                                        <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
+                                            <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
+                                                <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
+                                                <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
+                                                <div class="d-flex">
+
+                                                    <div>
+                                                        <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
+                                                    </div>
+                                                    <div>
+                                                        ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
+                                                    </div>
+                                                </div> <br>
+                                            </c:if> 
+                                        </c:if> 
+                                    </c:forEach>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <fmt:formatNumber value="${total}" type="number"/> VNĐ
+                                <c:set var="total" value="${0}"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary " type="submit">Sửa</button>
+                        </form> 
+
+                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            Xóa
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createOrderModalLabel">Xác nhận Xóa</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form id="deleteForm" action="CRUDOrderController" method="post">
+                                            <input  name="method" type="hidden" value="delete"/>  
+                                            <input  name="orderId" type="hidden" value="${listOrder.orderID}"/>  
+                                            <h3 class="text-danger">Bạn Có Chắc Chắn Xóa Không?</h3>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" form="deleteForm" class="btn btn-primary">Xóa Đơn hàng</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </td>
+                        </tr>
+
+                    </c:forEach>
+                    <% }else { %>
+                    <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
+                        <tr>
                         <form action="CRUDOrderController" method="post">
                             <input  name="method" type="hidden" value="edit"/>
                             <input name="orderId" type="hidden" value="${listOrder.orderID}"/>

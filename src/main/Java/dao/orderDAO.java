@@ -20,8 +20,7 @@ public class orderDAO {
    private Statement statement;
    private ResultSet rs;
 
-   public orderDAO() {
-   }
+   
 
    public List<Order> getOrderList() {
       String sql = "select * from Orders";
@@ -458,11 +457,11 @@ if (st1 != null) {
    }
 
    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
          orderDAO odDAO = new orderDAO();
-        List<orderDetail> lo = odDAO.getListOrdersByProductId(4);
+        List<Order> lo = odDAO.getOrdersByUserId(2);
         for (int i = 0; i < lo.size(); i++) {
-            System.out.println(lo.get(i).getOrder_id());
+            System.out.println(lo.get(i).getUserID());
         }
 
     }

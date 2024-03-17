@@ -1,5 +1,6 @@
 package controllerCompareProduct;
 
+import dao.ProductDAO;
 import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;
@@ -38,6 +39,8 @@ public class dataToHomeFromDetail extends HttpServlet {
             throws ServletException, IOException {
 
         String id = request.getParameter("productId");
+        ProductDAO pc = new ProductDAO();
+        pc.incrementProductCount(Integer.parseInt(id));
         productDescriptionDAO pdModel = new productDescriptionDAO();
         List<Product> pWhereId = new ArrayList<>();
         List<Product> pOutid = new ArrayList<>();

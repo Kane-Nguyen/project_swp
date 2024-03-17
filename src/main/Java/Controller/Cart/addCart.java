@@ -52,7 +52,12 @@ public class addCart extends HttpServlet {
         cartDAO cart = new cartDAO();
 
         HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("userId");
+        int userId = 0;
+        if(session.getAttribute("userId") !=null){
+          userId = (int)session.getAttribute("userId"); 
+        }else{
+            response.sendRedirect("login");
+        }
         System.out.println(userId);
 
         Cart existingCart = cart.findCartByUserIdAndProductId(userId, Integer.parseInt(productId));
