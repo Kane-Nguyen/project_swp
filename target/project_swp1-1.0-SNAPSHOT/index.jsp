@@ -62,7 +62,7 @@
                         </form>
                     </div>
                 </div>
-                    <!-- Mobile -->
+                <!-- Mobile -->
                 <div class="dropdown list-menu">
                     <span class="btn dropdown-toggle btn-white">Menu</span>
                     <ul class="dropdown-content" style="padding: 0px;">
@@ -70,12 +70,12 @@
                             <%
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                             %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
 
                         <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                         %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                             <% }
 
                                  if(session.getAttribute("UserRole") == null){
@@ -89,10 +89,15 @@
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                             <% }
+ 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                            <% }
                             %>
                     </ul>
                 </div>
-                     <!-- Desktop -->
+                <!-- Desktop -->
                 <div class="right-content">
                     <!-- Example single danger button -->
 
@@ -100,11 +105,11 @@
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
-                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
                     <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                     %>
-                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                         <% }
  if(session.getAttribute("UserRole") == null){
                         %>
@@ -119,6 +124,10 @@ if(session.getAttribute("UserRole") != null){
 if(session.getAttribute("UserRole") != null){
                     %>
                     <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                    <% }
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                     <% }
                     %>
                 </div>
@@ -195,7 +204,7 @@ if(session.getAttribute("UserRole") != null){
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${noOfPages}" var="i">
-                     
+
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
                                     <a class="page-link bg-primary opacity-50 text-white" href="?page=${i}">${i}</a>
                                 </li>
@@ -203,7 +212,7 @@ if(session.getAttribute("UserRole") != null){
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
                                     <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}&price=&catetory=&search=&sort" aria-label="Next">
-                                        
+
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

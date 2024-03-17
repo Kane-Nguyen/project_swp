@@ -37,10 +37,20 @@ public class addCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        if (userId == null) {
+            // Xử lý trường hợp không có userId (chưa đăng nhập)
+            response.sendRedirect("login");
+            return;
+        }
+  
 
         String productId = request.getParameter("productId");
 
         int quantity = 1;
+
         try {
             String quantityStr = request.getParameter("quantity");
             quantity = Integer.parseInt(quantityStr);
@@ -51,18 +61,15 @@ public class addCart extends HttpServlet {
 
         cartDAO cart = new cartDAO();
 
-        HttpSession session = request.getSession();
-        int userId = 0;
-        if(session.getAttribute("userId") !=null){
-          userId = (int)session.getAttribute("userId"); 
-        }else{
-            response.sendRedirect("login");
-        }
+      
+
+
         System.out.println(userId);
 
         Cart existingCart = cart.findCartByUserIdAndProductId(userId, Integer.parseInt(productId));
 
-        if (existingCart != null) {
+        if (existingCart
+                != null) {
 
             int newQuantity = existingCart.getQuantity() + quantity;
             existingCart.setQuantity(newQuantity);
@@ -86,7 +93,7 @@ public class addCart extends HttpServlet {
                     response.sendRedirect("cart?ss");
                 } else {
                     System.out.println("errorr");
-                    response.sendRedirect("cart?e=erorr");
+                    response.sendRedirect("cart?error=erorr");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(addCart.class.getName()).log(Level.SEVERE, null, ex);

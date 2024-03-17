@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller.ProductDetails;
 
 import dao.UserDAO;
 import dao.feedbackDAO;
 import dao.imageDAO;
 import dao.orderDAO;
+import dao.ProductDAO;
 import dao.productDescriptionDAO;
 import dao.replyDAO;
 import java.io.IOException;
@@ -69,7 +69,8 @@ public class dataToHomeFromDetail extends HttpServlet {
             String price = "";
             boolean checkUserToFeedback = false;
             orderDAO oDAO = new orderDAO();
-
+            ProductDAO pc = new ProductDAO();
+            pc.incrementProductCount(Integer.parseInt(id));
             replyDAO rd = new replyDAO();
             feedbackDAO fd = new feedbackDAO();
             UserDAO ud = new UserDAO();
@@ -120,6 +121,16 @@ public class dataToHomeFromDetail extends HttpServlet {
                     pOutid.add(object);
                 }
             }
+            imageDAO im = new imageDAO();
+            List<image> la = im.getImgList(1);
+            image img1 = null;
+            try {
+                img1 = im.getImageByProductId(2);
+            } catch (SQLException ex) {
+
+            }
+
+            request.setAttribute("logo", img1);
 
             System.out.println(checkUserToFeedback);
             request.setAttribute("feedbackList", feedbackList);

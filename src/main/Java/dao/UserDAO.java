@@ -94,14 +94,14 @@ public class UserDAO {
     }
 
     public boolean updateUser(User user) {
-        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? , password=? WHERE user_id = ?;";
+        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? , user_role=? WHERE user_role = ?;";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
             statement.setString(1, user.getFullName());
             statement.setDate(2, user.getBirthDate());
             statement.setString(3, user.getPhoneNumber());
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getAddress());
-            statement.setString(6, user.getPassword());
+            statement.setString(6, user.getUserRole());
             statement.setInt(7, user.getUserId());
             statement.executeUpdate();
             return true;

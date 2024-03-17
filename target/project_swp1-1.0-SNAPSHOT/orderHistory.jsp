@@ -51,10 +51,10 @@
                         <div class="dropdown no-mb">
                             <span class="btn dropdown-toggle btn-white">Danh mục </span>
                             <ul class="dropdown-content">
-                                <li><a class="dropdown-item" href="#">Điện thoại smart phone</a></li>
-                                <li><a class="dropdown-item" href="#">Ipad</a></li>
-                                <li><a class="dropdown-item" href="#">Laptop</a></li>
-                                <li><a class="dropdown-item" href="#">PC</a></li>
+                                <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
+                                <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
+                                <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                                <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                             </ul>
                         </div>
                         <div class="search">
@@ -67,209 +67,271 @@
                             </form>
                         </div>
                     </div>
+                    <!-- Mobile -->
+                    <div class="dropdown list-menu">
+                        <span class="btn dropdown-toggle btn-white">Menu</span>
+                        <ul class="dropdown-content" style="padding: 0px;">
+                            <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom">  <a href="/orderHistory" class="text-decoration-none text-decoration-none text-dark">Tra cứu đơn hàng</a></li>
+                                <%
+               if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
+                                %>
+                            <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+
+                            <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                            %>
+                            <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+                                <% }
+
+                                     if(session.getAttribute("UserRole") == null){
+                                %>
+                            <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/login" class="text-decoration-none text-decoration-none text-dark">Đăng nhập</a></li>
+                                <% }
+                                %>
+                            <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/cart" class="text-decoration-none text-decoration-none text-dark">Giỏ hàng</a></li>
+                                <% 
+                                if(session.getAttribute("UserRole") != null){
+                                %>
+                            <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
+                                <% }
+ 
+                                if(session.getAttribute("UserRole") != null){
+                                %>
+                            <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                                <% }
+                                %>
+                        </ul>
+                    </div>
+                    <!-- Desktop -->
                     <div class="right-content">
-                        <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                        <!-- Example single danger button -->
+
+                        <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                         <%
                 if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                         %>
-                        <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
-                        <% }
-    if(session.getAttribute("UserRole") == null){
+                        <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
+                        <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
                         %>
+                        <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+                            <% }
+     if(session.getAttribute("UserRole") == null){
+                            %>
                         <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                         <% }
                     
     if(session.getAttribute("UserRole") != null){
                         %>
-                        <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                        <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
+                        <% }
+                    
+    if(session.getAttribute("UserRole") != null){
+                        %>
+                        <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                        <% }
+    if(session.getAttribute("UserRole") != null){
+                        %>
+                        <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                         <% }
                         %>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Status Modal -->
-        <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="statusModalLabel">Thông Báo</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+            <!-- Status Modal -->
+            <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="statusModalLabel">Thông Báo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-                        <h5>Đã Đặt Hàng Thành Công</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <h5>Đã Đặt Hàng Thành Công</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container-fluid mt-5" style="width: 80%; margin: auto;">
-            <table class="table table-striped">
-                <tr>
-                    <th>
-                        Tên 
-                    </th>
-                    <th>
-                        Số Điện Thoại 
-                    </th>
-                    <th>
-                        Địa Chỉ
-                    </th>
-                    <th>
-                        Thanh Toán
-                    </th>
-                    <th>
-                        Trạng Thái
-                    </th>
-                    <th>
-                        Thời Gian Mua
-                    </th>
-                    <th>
-                        Sản Phẩm
-                    </th>
-                    <th>
-                        Tổng Tiền
-                    </th>
-                </tr>
-                <c:if test="${empty listOrder}">
+            <div class="container-fluid mt-5" style="width: 80%; margin: auto;">
+                <table class="table table-striped">
                     <tr>
-                        <td colspan="8" style="text-align:center;">Hiện tại không có order</td>
+                        <th>
+                            Tên 
+                        </th>
+                        <th>
+                            Số Điện Thoại 
+                        </th>
+                        <th>
+                            Địa Chỉ
+                        </th>
+                        <th>
+                            Thanh Toán
+                        </th>
+                        <th>
+                            Trạng Thái
+                        </th>
+                        <th>
+                            Thời Gian Mua
+                        </th>
+                        <th>
+                            Sản Phẩm
+                        </th>
+                        <th>
+                            Tổng Tiền
+                        </th>
                     </tr>
-                </c:if>
-                <c:if test="${not empty listOrder}">
-                    <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
-
+                    <c:if test="${empty listOrder}">
                         <tr>
-                            <td>
-                                ${listOrder.recipientName}  
-                            </td>
-                            <td>
-                                ${listOrder.phoneNumber}  
-                            </td>
-                            <td>
-                                ${listOrder.deliveryAddress}  
-                            </td>
-                            <td>
-                                ${listOrder.paymentMethod}  
-                            </td>
-                            <td>
-                                <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
-                                    <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
-                                        ${listOrderStatus.status_order_name}
-                                    </c:if> 
-                                </c:forEach>
-                            </td>
-                            <td>
-                                ${listOrder.timeBuy}  
-                            </td>
-                            <td>
-                                <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
-                                    <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
-                                        <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
-                                            <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
-                                                <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
-                                                <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
-                                                <div class="d-flex">
-
-                                                    <div>
-                                                        <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
-                                                    </div>
-                                                    <div>
-                                                        ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
-                                                    </div>
-                                                </div> <br>
-                                            </c:if> 
-                                        </c:if> 
-                                    </c:forEach>
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <fmt:formatNumber value="${total}" type="number"/> VNĐ
-                                <c:set var="total" value="${0}"/>
-                            </td>
-
+                            <td colspan="8" style="text-align:center;">Hiện tại không có order</td>
                         </tr>
-                    </c:forEach>
-                </c:if>
+                    </c:if>
+                    <c:if test="${not empty listOrder}">
+                        <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
+                            <c:if test="${listOrder.status_order_id <= 4}">
+                                <tr>
+                                    <td>
+                                        ${listOrder.recipientName}  
+                                    </td>
+                                    <td>
+                                        ${listOrder.phoneNumber}  
+                                    </td>
+                                    <td>
+                                        ${listOrder.deliveryAddress}  
+                                    </td>
+                                    <td>
+                                        ${listOrder.paymentMethod}  
+                                    </td>
+                                    <td>
+                                        <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
+                                            <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id && listOrder.status_order_id != 5 }">
+                                                ${listOrderStatus.status_order_name}
+                                            </c:if> 
+                                        </c:forEach>
+                                    </td>
+                                    <td>
+                                        ${listOrder.timeBuy}  
+                                    </td>
+                                    <td>
+                                        <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
+                                            <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
+                                                <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
+                                                    <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
+                                                        <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
+                                                        <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
+                                                        <div class="d-flex">
 
-            </table> 
-        </div>
+                                                            <div>
+                                                                <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
+                                                            </div>
+                                                            <div>
+                                                                ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
+                                                            </div>
+                                                        </div> <br>
+                                                    </c:if> 
+                                                </c:if> 
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </td>
+                                    <td>
+                                        <fmt:formatNumber value="${total}" type="number"/> VNĐ
+                                        <c:set var="total" value="${0}"/>
+                                    </td>
 
-        <div>
-            <div class=" mt-5 py-3 footer">
-                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                    <p class="text-white">Mã số thuế : 92828823</p>
-                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                    <h5 class="text-white">Kết nối với chúng tôi</h5>
-                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                                    <c:if test="${listOrder.status_order_id <= 2}">
+                                        <td>
+                                            <form action="CRUDOrderController" method="post">
+                                                <input type="hidden" name="method" value="cancel"/>
+                                                <input type="hidden" name="order_id" value ="${listOrder.orderID}" />
+                                                <button type="submit" class="btn btn-danger">Hủy</button>
+                                            </form>
+                                        </td> 
+                                    </c:if>
 
-                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                        <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                        <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                        <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                </div>
 
-                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                    <div>
-                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                        <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                        <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                        <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
+                </table> 
+            </div>
+
+            <div>
+                <div class=" mt-5 py-3 footer">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
+                    </div>
+
+                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                        <div>
+                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                    </div>
                 </div>
             </div>
+
+
+
+
+
         </div>
+        <script>
+            $(document).ready(function () {
+                // Function to get the value of a query parameter by name
+                function getQueryParamByName(name, url = window.location.href) {
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                            results = regex.exec(url);
+                    if (!results)
+                        return null;
+                    if (!results[2])
+                        return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
 
-
-
-
-
-    </div>
-    <script>
-        $(document).ready(function () {
-            // Function to get the value of a query parameter by name
-            function getQueryParamByName(name, url = window.location.href) {
-                name = name.replace(/[\[\]]/g, '\\$&');
-                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                        results = regex.exec(url);
-                if (!results)
-                    return null;
-                if (!results[2])
-                    return '';
-                return decodeURIComponent(results[2].replace(/\+/g, ' '));
-            }
-
-            // Check the 'status' query parameter and set modal content
-            var status = getQueryParamByName('status');
-            if (status === 'ok') {
-                $('#statusModal .modal-body').html('<h5>Đã Đặt Hàng Thành Công</h5>');
-                var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
-                    keyboard: false
-                });
-                statusModal.show();
-            } else if (status === 'e') {
-                $('#statusModal .modal-body').html('<h5>Lỗi Hệ Thống, Vui Lòng Thử Lại</h5>');
-                var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
-                    keyboard: false
-                });
-                statusModal.show();
-            }
-        });
-    </script>
-</body>
+                // Check the 'status' query parameter and set modal content
+                var status = getQueryParamByName('status');
+                if (status === 'ok') {
+                    $('#statusModal .modal-body').html('<h5>Đã Đặt Hàng Thành Công</h5>');
+                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                        keyboard: false
+                    });
+                    statusModal.show();
+                } else if (status === 'e') {
+                    $('#statusModal .modal-body').html('<h5>Lỗi Hệ Thống, Vui Lòng Thử Lại</h5>');
+                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                        keyboard: false
+                    });
+                    statusModal.show();
+                }
+            });
+        </script>
+    </body>
 </html>

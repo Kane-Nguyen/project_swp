@@ -21,21 +21,38 @@ if(session.getAttribute("UserRole") == null){
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <style>
+                    .list-menu{
+                        display: none;
+                    }
+                    @media (max-width: 992px) {
+                        .right-content{
+                            display: none;
+                        }
+                        .wrap-header{
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        .list-menu{
+                            display: block;
+                        }
+                    }
+                </style>
                 </head>
-                <body class=" d-flex flex-column justify-content-between min-vh-100">
+                <body>
                     <div class="wrap-content">
-                        <div class="container content" style="height:60px;">
+                        <div class="container content wrap-header" style="height:60px;">
                             <div class="left-content">
                                 <a href="/" class="logo-link"> 
                                     <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                                 </a>
                                 <div class="dropdown no-mb">
-                                    <span class="btn dropdown-toggle " style="background-color: #fff;">Danh mục </span>
+                                    <span class="btn dropdown-toggle btn-white">Danh mục </span>
                                     <ul class="dropdown-content">
-                                        <li><a class="dropdown-item" href="#">Điện thoại smart phone</a></li>
-                                        <li><a class="dropdown-item" href="#">Ipad</a></li>
-                                        <li><a class="dropdown-item" href="#">Laptop</a></li>
-                                        <li><a class="dropdown-item" href="#">PC</a></li>
+                                        <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
+                                        <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
+                                        <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                                        <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                                     </ul>
                                 </div>
                                 <div class="search">
@@ -48,26 +65,72 @@ if(session.getAttribute("UserRole") == null){
                                     </form>
                                 </div>
                             </div>
+                            <!-- Mobile -->
+                            <div class="dropdown list-menu">
+                                <span class="btn dropdown-toggle btn-white">Menu</span>
+                                <ul class="dropdown-content" style="padding: 0px;">
+                                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom">  <a href="/orderHistory" class="text-decoration-none text-decoration-none text-dark">Tra cứu đơn hàng</a></li>
+                                        <%
+                       if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
+                                        %>
+                                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+
+                                    <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
+                                    %>
+                                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+                                        <% }
+
+                                             if(session.getAttribute("UserRole") == null){
+                                        %>
+                                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/login" class="text-decoration-none text-decoration-none text-dark">Đăng nhập</a></li>
+                                        <% }
+                                        %>
+                                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"> <a href="/cart" class="text-decoration-none text-decoration-none text-dark">Giỏ hàng</a></li>
+                                        <% 
+                                        if(session.getAttribute("UserRole") != null){
+                                        %>
+                                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
+                                        <% }
+ 
+                                        if(session.getAttribute("UserRole") != null){
+                                        %>
+                                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                                        <% }
+                                        %>
+                                </ul>
+                            </div>
+                            <!-- Desktop -->
                             <div class="right-content">
-                                <a href="/orderHistory" style="background-color: #fff;" class="btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
+                                <!-- Example single danger button -->
+
+                                <a href="/orderHistory" class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</a>
                                 <%
                         if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                                 %>
-                                <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
-                                <% }
-            if(session.getAttribute("UserRole") == null){
+                                <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
+                                <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
+                            
                                 %>
-                                <a href="/login"><button style="background-color: #fff;" class=" btn white-space-nowrap">Đăng nhập</button></a>
+                                <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
+                                    <% }
+             if(session.getAttribute("UserRole") == null){
+                                    %>
+                                <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                                 <% }
                     
             if(session.getAttribute("UserRole") != null){
                                 %>
-                                <a href="/cart"><button style="background-color: #fff;" class=" btn white-space-nowrap">Giỏ hàng</button></a>
+                                <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
                                 <% }
                     
             if(session.getAttribute("UserRole") != null){
                                 %>
-                                <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                                <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                                <% }
+            if(session.getAttribute("UserRole") != null){
+                                %>
+                                <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                                 <% }
                                 %>
                             </div>
@@ -240,12 +303,19 @@ if(session.getAttribute("UserRole") == null){
 
                                                                                                                                                 // Check the 'status' query parameter and set modal content
                                                                                                                                                 var status = getQueryParamByName('error');
-                                                                                                                                                if (status === 'noProductSelected') {
-                                                                                                                                                    console.log(status);
+                                                                                                                                                if (status === 'stock') {
+                                                                                                                                                    $('#statusModal .modal-body').html('<h5>Không Đủ Số Lượng</h5>');
                                                                                                                                                     var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
                                                                                                                                                         keyboard: false
                                                                                                                                                     });
                                                                                                                                                     statusModal.show();
+                                                                                                                                                } else if (status === 'noProductSelected') {
+                                                                                                                                                    $('#statusModal .modal-body').html('<h5>Vui Lòng Chọn Sản Phẩm Để Thanh Toán</h5>');
+                                                                                                                                                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                                                                                                                                                        keyboard: false
+                                                                                                                                                    });
+                                                                                                                                                    statusModal.show();
+
                                                                                                                                                 }
                                                                                                                                             });
                                                                                                                                         </script>
