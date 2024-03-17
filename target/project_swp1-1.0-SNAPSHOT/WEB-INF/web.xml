@@ -24,6 +24,7 @@
         <servlet-name>sortPriceServlet</servlet-name>
         <servlet-class>controllerCompareProduct.sortPriceServlet</servlet-class>
     </servlet>
+ 
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
@@ -34,7 +35,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>deleteSliderServlet</servlet-name>
-         <url-pattern>/admin-setting</url-pattern>
+        <url-pattern>/admin-setting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editSliderServlet</servlet-name>
@@ -48,6 +49,7 @@
         <servlet-name>sortPriceServlet</servlet-name>
         <url-pattern>/sortPriceServlet</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30
