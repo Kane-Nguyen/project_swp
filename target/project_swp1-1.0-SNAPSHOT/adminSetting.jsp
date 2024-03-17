@@ -190,7 +190,7 @@ if(role == null || !role.trim().equals("admin")){
                                                 <form id="addForm" action="addSliderServlet" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name="action" value="add">
                                                     <input type="hidden" id="product_id" name="product_id" value="1"><br>
-                                                    <label for="images">Select images:</label>
+                                                    <label for="images">Chọn hình ảnh :</label>
                                                     <input type="file" id="images" name="images[]" multiple accept=".jpg, .jpeg, .png"><br>
 
                                                 </form>

@@ -11,7 +11,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
         <title>404 Error Page</title>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -19,7 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
-       
+
     </head>
     <body>
         <div class="wrap-content">
@@ -81,22 +81,22 @@ if(session.getAttribute("UserRole") != null){
                     <a href="/" class="btn btn-primary">Trở về trang chủ</a>
                 </div>
             </div>
-             <div>
-                          <div class=" mt-5 py-3 footer">
-                              <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                                  <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                                  <p class="text-white">Mã số thuế : 92828823</p>
-                                  <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                                  <h5 class="text-white">Kết nối với chúng tôi</h5>
-                                  <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+            <div>
+                <div class=" mt-5 py-3 footer">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
                                                                      border: none;
                                                                      outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
-                              <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                                  <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
-                              </div>
-                          </div>
-                      </div>
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 

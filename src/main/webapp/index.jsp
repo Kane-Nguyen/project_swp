@@ -44,7 +44,7 @@
                         <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                     </a>
                     <div class="dropdown no-mb">
-                        <span class="btn dropdown-toggle btn-white">Danh mục </span>
+                        <span class="btn dropdown-toggle btn-white">Danh mục</span>
                         <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
@@ -65,7 +65,7 @@
                 <!-- Mobile -->
                 <div class="dropdown list-menu">
                     <span class="btn dropdown-toggle btn-white">Menu</span>
-                    <ul class="dropdown-content" style="padding: 0px;">
+                    <ul class="dropdown-content" style="padding: 0px; left: -80px">
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom">  <a href="/orderHistory" class="text-decoration-none text-decoration-none text-dark">Tra cứu đơn hàng</a></li>
                             <%
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
@@ -172,7 +172,7 @@ if(session.getAttribute("UserRole") != null){
                                 <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                                 %>
-                                <h5 class="card-title">Views: ${product.product_count}</h5>
+                                <h5 class="card-title" style="margin-left: 8px;margin-top: 4px;">Lượt xem: ${product.product_count}</h5>
                                 <% }%>
 
                                 <img

@@ -14,7 +14,7 @@
 %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Đăng Ký</title>
+        <title>Đăng ký</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="container">
-            <h2 class="title-sign-up">Sign Up</h2>
+            <h2 class="title-sign-up">Đăng ký</h2>
 
             <% String method = request.getParameter("method");
                String email = (String) session.getAttribute("email");
@@ -75,13 +75,13 @@
             <% if (!"infomation".equals(method) && !"enter".equals(method)) { %>
             <form action="SendOtpServlet" method="get">
                 <div class="wrap-input-email">
-                    <input type="text" name="email" required placeholder="Enter your email" class="input-email"/>
+                    <input type="text" name="email" required placeholder="Nhập email của bạn" class="input-email"/>
                     
                 </div>
 
                 <input type="hidden" name="feature" value="SignUp"/>
                 <div class="wrap-submit-btn">
-                    <input type="submit" value="Verify OTP" class="btn-submit"/>
+                    <input type="submit" value="Lấy Mã Code OTP" class="btn-submit"/>
                 </div>
                 <div class="wrap-link-sign-up">
                     <a href="/login" class="sign-up-link">Quay lại đăng nhập</a>
@@ -90,35 +90,32 @@
             </form>
             <% } %>
 
-            <%-- Form to enter OTP --%>
             <% if ("enter".equals(method)) { %>
             <form action="VerifyOtpServlet" method="post">
                 <div class="wrap-input-email">
-                    <input type="text" name="otp" required class="input-email" placeholder="Enter OTP Code"/>
+                    <input type="text" name="otp" required class="input-email" placeholder="Nhập mã code OTP của bạn"/>
                 </div>
                 <input type="hidden" name="email" value="<%= email %>" />
                 <input type="hidden" name="feature" value="SignUp"/>
                 <div class="wrap-btn">
-                    <input type="submit" value="Verify OTP" class="btn-primary btn"/>
+                    <input type="submit" value="Xác nhận" class="btn-primary btn" style="min-width: 200px"/>
                 </div>
             </form>
             <form action="SendOtpServlet" method="get">
                 <input type="hidden" name="email" value="<%= email %>" />
                 <input type="hidden" name="feature" value="SignUp"/>
                 <div class="wrap-btn">
-                    <input type="submit" value="Resend OTP" class="btn-primary btn"/>
+                    <input type="submit" value="Gửi lại mã OTP" class="btn-primary btn" style="min-width: 200px"/>
                 </div>
             </form>
             <% } %>
 
-            <%-- Display error messages --%>
             <% if ("exited".equals(error)) { %>
-            <h3 class="text-danger">Email Exited</h3>
+            <h3 class="text-danger">Email đã tồn tại trong hệ thống</h3>
             <% } else if ("invalidOTP".equals(error)) { %>
-            <h3 class="text-danger">OTP invalid or expiry time</h3>
+            <h3 class="text-danger">Mã OTP không tồn tại hoặc đã hết hạng, Vui lòng thử lại</h3>
             <% } %>
 
-            <%-- Form to enter user information --%>
             <% if ("infomation".equals(method)) { %>
             <form action="signUp" method="post" class="container mt-10" id="userInformationForm">
                 <div class="wrap-input-email">
@@ -143,7 +140,7 @@
                     <input  type="hidden" name="userRole" value="customer" />
                 </div>
                 <div class="wrap-submit-btn">
-                    <input class="btn-submit" type="submit" value="Sign Up" />
+                    <input class="btn-submit" type="submit" value="Đăng ký" />
                 </div>
                 <div class="wrap-link-sign-up">
                     <a href="/login" class="sign-up-link">Quay lại đăng nhập</a>
@@ -161,11 +158,11 @@
                     var errorMessage = '';
 
                     if (!phoneNumberRegex.test(phoneNumber)) {
-                        errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                        errorMessage += "Số điện thoại phải là 10 kí tự <br>";
                     }
 
                     if (!passwordRegex.test(password)) {
-                        errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                        errorMessage += "Mật khẩu nên ít nhất 8 kí tự trở lên, bao gồm chử in hoa, chử thường và số";
                     }
 
                     if (errorMessage.length > 0) {
