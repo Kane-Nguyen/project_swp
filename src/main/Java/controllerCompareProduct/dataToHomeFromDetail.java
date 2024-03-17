@@ -1,5 +1,6 @@
 package controllerCompareProduct;
 
+import dao.ProductDAO;
 import dao.UserDAO;
 import dao.feedbackDAO;
 import dao.orderDAO;
