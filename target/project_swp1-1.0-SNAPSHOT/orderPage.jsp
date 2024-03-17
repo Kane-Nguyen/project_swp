@@ -97,16 +97,24 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 ${listOrder.paymentMethod}
                             </td>
                             <td>
-                                <select name="status" class="form-select">
-                                    <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
-                                        <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
-                                            <option value="${listOrderStatus.status_order_id}" selected>${listOrderStatus.status_order_name}</option>
-                                        </c:if>
-                                        <c:if test="${listOrder.status_order_id != listOrderStatus.status_order_id}">
-                                            <option value="${listOrderStatus.status_order_id}">${listOrderStatus.status_order_name}</option>
-                                        </c:if>
-                                    </c:forEach>
-                                </select>
+                                <c:if test="${listOrder.status_order_id == 5}">
+                                    Đã Hủy
+                                </c:if>
+                                <c:if test="${listOrder.status_order_id <= 4}">
+                                    <select name="status" class="form-select">
+                                        <c:forEach items="${listOrderStatus}" var="statusItem">
+                                            <c:choose>
+                                                <c:when test="${listOrder.status_order_id == statusItem.status_order_id}">
+                                                    <option value="${statusItem.status_order_id}" selected>${statusItem.status_order_name}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${statusItem.status_order_id}">${statusItem.status_order_name}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </c:if>
+
 
                             </td>
                             <td>
@@ -200,16 +208,23 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 ${listOrder.paymentMethod}
                             </td>
                             <td>
-                                <select name="status" class="form-select">
-                                    <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
-                                        <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
-                                            <option value="${listOrderStatus.status_order_id}" selected>${listOrderStatus.status_order_name}</option>
-                                        </c:if>
-                                        <c:if test="${listOrder.status_order_id != listOrderStatus.status_order_id}">
-                                            <option value="${listOrderStatus.status_order_id}">${listOrderStatus.status_order_name}</option>
-                                        </c:if>
-                                    </c:forEach>
-                                </select>
+                                <c:if test="${listOrder.status_order_id == 5}">
+                                    Đã Hủy
+                                </c:if>
+                                <c:if test="${listOrder.status_order_id <= 4}">
+                                    <select name="status" class="form-select">
+                                        <c:forEach items="${listOrderStatus}" var="statusItem">
+                                            <c:choose>
+                                                <c:when test="${listOrder.status_order_id == statusItem.status_order_id}">
+                                                    <option value="${statusItem.status_order_id}" selected>${statusItem.status_order_name}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${statusItem.status_order_id}">${statusItem.status_order_name}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                </c:if>
 
                             </td>
                             <td>

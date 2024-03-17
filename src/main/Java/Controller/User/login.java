@@ -56,7 +56,7 @@ public class login extends HttpServlet {
 
         }
         request.setAttribute("logo", img);
-        request.getRequestDispatcher("/loginPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     public static boolean verifySHA256(String input, String hashedValueToCompare) {
