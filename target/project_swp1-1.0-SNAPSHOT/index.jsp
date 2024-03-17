@@ -61,7 +61,7 @@
                         </form>
                     </div>
                 </div>
-                    <!-- Mobile -->
+                <!-- Mobile -->
                 <div class="dropdown list-menu">
                     <span class="btn dropdown-toggle btn-white">Menu</span>
                     <ul class="dropdown-content" style="padding: 0px;">
@@ -91,7 +91,7 @@
                             %>
                     </ul>
                 </div>
-                     <!-- Desktop -->
+                <!-- Desktop -->
                 <div class="right-content">
                     <!-- Example single danger button -->
 
@@ -194,7 +194,7 @@ if(session.getAttribute("UserRole") != null){
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${noOfPages}" var="i">
-                     
+
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
                                     <a class="page-link bg-primary opacity-50 text-white" href="?page=${i}">${i}</a>
                                 </li>
@@ -202,7 +202,7 @@ if(session.getAttribute("UserRole") != null){
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
                                     <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}&price=&catetory=&search=&sort" aria-label="Next">
-                                        
+
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

@@ -20,8 +20,8 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
         <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
     </head>
     <body>
-        <div class="wrap-content">
-
+        <div class="wrap-content">    
+            <!--hedelllll-->
             <div class="left-content">
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
@@ -68,10 +68,6 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 <td>${product.stock_quantity}</td>
                                 <td>${product.category_id}</td>
 
-
-
-
-
                                 <td>
                                     <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-primary">Sửa</a>
                                     <form action="CrudProduct" method="post">
@@ -84,6 +80,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                     </tbody>
                 </table>
             </div>
+
         </div>
         <!-- Bootstrap JS and Popper.js (Optional, for components like modals, dropdowns, etc.) -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

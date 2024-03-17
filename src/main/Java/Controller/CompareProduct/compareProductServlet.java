@@ -4,6 +4,7 @@
  */
 package Controller.CompareProduct;
 
+import dao.ProductDAO;
 import dao.imageDAO;
 import dao.productDescriptionDAO;
 import java.io.IOException;
@@ -34,11 +35,12 @@ public class compareProductServlet extends HttpServlet {
         double price2 = 0;
         productDescriptionDAO pdModel = null;
         pdModel = new productDescriptionDAO();
+        ProductDAO pD = new ProductDAO();
         List<productDescription> pd1 = new ArrayList<>();
         List<productDescription> pd2 = new ArrayList<>();
         List<productDescription> pd = pdModel.getProductDescription();
 
-        List<Product> p = pdModel.getProduct();
+        List<Product> p = pD.getAll();
         for (productDescription description : pd) {
             if (description.getProductId() == Integer.parseInt(productId)) {
                 pd1.add(description);
@@ -52,11 +54,13 @@ public class compareProductServlet extends HttpServlet {
                 url1 = p.get(i).getImage_url();
                 name1 = p.get(i).getProduct_name();
                 price1 = p.get(i).getProduct_price();
+                System.out.println(price1);
             }
             else if (p.get(i).getProduct_id() == Integer.parseInt(productId2)) {
                 url2 = p.get(i).getImage_url();
                 name2 = p.get(i).getProduct_name();
                 price2 = p.get(i).getProduct_price();
+                System.out.println(p.get(i).getProduct_price());
             }
 
         }
