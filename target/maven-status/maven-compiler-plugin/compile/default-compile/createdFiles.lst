@@ -34,7 +34,6 @@ Controller\Image\editSliderServlet.class
 Controller\Feedback\feedbackServlet.class
 dao\feedbackDAO.class
 Controller\Image\DeleteServlet.class
-Controller\ProductDetail\dataToHomeFromDetail.class
 Controller\User\logout.class
 dao\ProductDAO.class
 Controller\Image\deleteSliderServlet.class
@@ -43,7 +42,6 @@ dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 Controller\index.class
 Controller\Cart\addCart.class
-Controller\ProductDetail\update.class
 Controller\User\editUser.class
 model\Cart.class
 Controller\User\AdminUser.class
@@ -53,6 +51,8 @@ Controller\User\SignUp.class
 Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
 Controller\CatalogsearchServlet\catalogsearchServlet.class
+Controller\ProductDetails\dataToHomeFromDetail.class
+Controller\ProductDetails\update.class
 Controller\Order\orderPayment.class
 dao\DashboardDAO.class
 model\Feedback.class

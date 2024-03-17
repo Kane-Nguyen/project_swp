@@ -145,7 +145,9 @@
                             </c:if>
                             <input name="search" type="hidden" value="${result}"/>
                             <input name="page" value="${page}" type="hidden"/>
-                            <input name="catetory" value="${caterory}" type="hidden"/>
+                            <c:if test="${caterory != null}">
+                                <input name="catetory" value="${caterory}" type="hidden"/>
+                            </c:if>
                         </div>
                         <div class="wrap-choose-price">
                             <div style="margin-right: 10px; margin-top:  5px " class="choose-price">Chọn giá:</div>
@@ -192,22 +194,22 @@
                         <div class="mt-5">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center gap-3">
-                                    <c:if test="${noOfPages > 1}">
+                                    <c:if test="${quantity > 12}">
                                         <c:if test="${currentPage > 1}">
                                             <li class="page-item">
-                                                <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}" aria-label="Previous">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
                                         </c:if>
                                         <c:forEach begin="1" end="${noOfPages}" var="i">
                                             <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                                <a class="page-link bg-primary text-white" href="?page=${i}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}">${i}</a>
+                                                <a class="page-link bg-primary text-white" href="?page=${i}&search=${result}<c:if test="${caterory != null}">&${caterory}</c:if><c:if test="${price != null}">&${price}</c:if>">${i}</a>
                                             </li>
                                         </c:forEach>
                                         <c:if test="${currentPage < noOfPages}">
                                             <li class="page-item">
-                                                <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}&search=${resutl}&catetory=${caterory}&price=${price}&sort=${sort}" aria-label="Next">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>

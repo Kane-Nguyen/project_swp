@@ -39,7 +39,8 @@ public class catalogsearchServlet extends HttpServlet {
         List<Product> p = new ArrayList<>();
         List<Product> listCaterogy = new ArrayList<>();
         String sort = "";
-
+        String[] priceToFrom;
+        int quantity = 0;
         if (sortString == null) {
             sort = "ASC";
         } else {
@@ -53,22 +54,23 @@ public class catalogsearchServlet extends HttpServlet {
         int pageSize = 12;
         if (price == null) {
             if (caterory == null) {
+                quantity = pdModel.coutSearch(resutl);
                 p = pdModel.getTop12(resutl, page, pageSize, sort);
             } else {
+                quantity = pdModel.countProductsInCategoryNoprice(resutl, caterory);
                 p = pdModel.getTop12FromCategoryNoPrice(resutl, page, pageSize, sort, caterory);
             }
         } else {
-            String[] priceToFrom = price.split("-");
+            priceToFrom = price.split("-");
             if (caterory == null) {
+                quantity = pdModel.countProductsInCategoryNoCategory(resutl, priceToFrom[0], priceToFrom[1]);
                 p = pdModel.getTop12FromPrice(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1]);
-            }
-            else{
+            } else {
+                quantity = pdModel.countProductsInCategory(resutl, priceToFrom[0], priceToFrom[1], caterory);
                 p = pdModel.getTop12FromCategory(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1], caterory);
             }
             request.setAttribute("price", price);
         }
-        // thieu sql count
-        int quantity = p.size();
         System.out.println(quantity);
         int endPage = 0;
         endPage = (quantity / pageSize);
@@ -83,7 +85,7 @@ public class catalogsearchServlet extends HttpServlet {
         } catch (SQLException ex) {
 
         }
-        
+
         request.setAttribute("caterory", caterory);
         request.setAttribute("price", price);
         request.setAttribute("sort", sortString);

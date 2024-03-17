@@ -233,7 +233,8 @@ public class productDescriptionDAO {
         }
         return listU;
     }
-     public List<Product> getTop12FromCategoryNoPrice(String result, int index, int size, String sort, String category_id) {
+
+    public List<Product> getTop12FromCategoryNoPrice(String result, int index, int size, String sort, String category_id) {
         List<Product> listU = new ArrayList<>();
         String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY product_price " + sort + ") as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%" + result + "%' AND category_id = " + category_id + ") select * from x where rowNumber between " + (index * size - (size - 1)) + " and " + (index * size) + "";
         try {
@@ -257,6 +258,69 @@ public class productDescriptionDAO {
         } catch (SQLException e) {
         }
         return listU;
+    }
+
+    public int countProductsInCategoryNoprice(String result, String category_id) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS total_count "
+                + "FROM products "
+                + "WHERE product_name LIKE '%" + result + "%' "
+                + "AND category_id = " + category_id;
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement sta = connection.prepareStatement(sql);
+            ResultSet rs = sta.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("total_count");
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+        }
+
+        return count;
+    }
+    
+    public int countProductsInCategory(String result, String priceBegin, String priceEnd, String category_id) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS total_count "
+                + "FROM products "
+                + "WHERE product_name LIKE '%" + result + "%' "
+                + "AND product_price BETWEEN " + priceBegin + " AND " + priceEnd + " "
+                + "AND category_id = " + category_id;
+
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement sta = connection.prepareStatement(sql);
+            ResultSet rs = sta.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("total_count");
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+        }
+
+        return count;
+    }
+    
+     public int countProductsInCategoryNoCategory(String result, String priceBegin, String priceEnd) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS total_count "
+                + "FROM products "
+                + "WHERE product_name LIKE '%" + result + "%' "
+                + "AND product_price BETWEEN " + priceBegin + " AND " + priceEnd + " ";
+
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement sta = connection.prepareStatement(sql);
+            ResultSet rs = sta.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("total_count");
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+        }
+
+        return count;
     }
 
     public static void main(String[] args) throws SQLException {

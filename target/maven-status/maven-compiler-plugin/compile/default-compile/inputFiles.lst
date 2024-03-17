@@ -26,13 +26,12 @@ D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Product\deleteImage.j
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\User.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Comment\commentServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Image\editSliderServlet.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\ProductDetail\update.java
-D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\ProductDetail\dataToHomeFromDetail.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\Feedback.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\orderDAO.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\Product.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Product\CrudProduct.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\Cart.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\ProductDetails\update.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\User\login.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\productDescriptionDAO.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Cart\addCart.java
@@ -43,6 +42,7 @@ D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\orderDetailDAO.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\ProductImage.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\imageDAO.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\orderStatus.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\ProductDetails\dataToHomeFromDetail.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Image\addSliderServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Image\deleteSliderServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\orderDetail.java
