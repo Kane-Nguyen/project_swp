@@ -11,6 +11,7 @@ dao\cartDAO.class
 Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
 Controller\Product\editProduct.class
+Controller\User\AddEditDeleteUser.class
 Controller\User\SendOtpServlet.class
 model\Product.class
 dao\orderStatusDAO.class

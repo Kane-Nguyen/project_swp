@@ -14,6 +14,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>JSP Page</title>
+                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -58,10 +60,10 @@
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=${result}">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=${result}">Ipad</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=${result}">Laptop</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=${result}">PC</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                         </ul>
                     </div>
                     <div class="search">
@@ -82,12 +84,12 @@
                             <%
            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                             %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
 
                         <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                         %>
-                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                        <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                             <% }
 
                                  if(session.getAttribute("UserRole") == null){
@@ -101,6 +103,11 @@
                             %>
                         <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                             <% }
+ 
+                            if(session.getAttribute("UserRole") != null){
+                            %>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                            <% }
                             %>
                     </ul>
                 </div>
@@ -112,25 +119,29 @@
                     <%
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
-                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
                     <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                     %>
-                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
                         <% }
-    if(session.getAttribute("UserRole") == null){
+ if(session.getAttribute("UserRole") == null){
                         %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                     <% }
                     
-    if(session.getAttribute("UserRole") != null){
+if(session.getAttribute("UserRole") != null){
                     %>
                     <a href="/cart"><button class="btn-white btn white-space-nowrap">Giỏ hàng</button></a>
                     <% }
                     
-    if(session.getAttribute("UserRole") != null){
+if(session.getAttribute("UserRole") != null){
                     %>
                     <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                    <% }
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                     <% }
                     %>
                 </div>
@@ -205,7 +216,7 @@
                                         <c:forEach begin="1" end="${noOfPages}" var="i">
                                             <li class="page-item ${i == currentPage ? 'active' : ''}">
                                                 <a class="page-link bg-primary text-white" href="?page=${i}&search=${result}<c:if test="${caterory != null}">&${caterory}</c:if><c:if test="${price != null}">&${price}</c:if>">${i}</a>
-                                            </li>
+                                                </li>
                                         </c:forEach>
                                         <c:if test="${currentPage < noOfPages}">
                                             <li class="page-item">
@@ -225,37 +236,18 @@
                 </c:otherwise>
             </c:choose>
             <div <c:if test="${quantity == 0}">style="bottom: 0; position: absolute; width: 100%"</c:if>>
-                <div class=" mt-5 py-3 footer">
+                 <div class=" mt-5 py-3 footer">
                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                         <p class="text-white">Mã số thuế : 92828823</p>
                         <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
                         <h5 class="text-white">Kết nối với chúng tôi</h5>
-                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                        <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+                                                                     border: none;
+                                                                     outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
                     <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                    </div>
-
-                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                        <div>
-                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                        <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
                     </div>
                 </div>
             </div>

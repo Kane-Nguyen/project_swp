@@ -12,10 +12,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
         <link rel="stylesheet" href="./styles/supportUser.css"/>
     </head>
     <body>
         <div class="container">
+            <a href="/" class="btn btn-primary text-white">Về trang chủ</a>
             <div class="box">
                 <span style="width: 90px;" class="u-icon u-icon-circle u-text-palette-1-base u-icon-1"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" id="svg-077e" style="enable-background:new 0 0 52 52;"><path style="fill:#29b7dd;" d="M38.853,5.324L38.853,5.324c-7.098-7.098-18.607-7.098-25.706,0h0
                                                                                                                                                                                                         C6.751,11.72,6.031,23.763,11.459,31L26,52l14.541-21C45.969,23.763,45.249,11.72,38.853,5.324z M26.177,24c-3.314,0-6-2.686-6-6
@@ -29,7 +32,7 @@
                 <p>234-9876-5400888-0123-4567 (Toll Free)</p>
             </div>
             <div class="box">
-<span style="margin-top: -50%; width: 90px;" class="u-icon u-icon-circle u-text-palette-1-base u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-d01e"><path d="m201 12.714v184.286h267v-184.286c0-7.022-5.692-12.714-12.714-12.714h-241.572c-7.022 0-12.714 5.692-12.714 12.714zm63.89 33.131h70.271c8.284 0 15 6.716 15 15s-6.716 15-15 15h-70.271c-8.284 0-15-6.716-15-15s6.715-15 15-15zm0 75.142h139.22c8.284 0 15 6.716 15 15s-6.716 15-15 15h-139.22c-8.284 0-15-6.716-15-15s6.715-15 15-15z"></path><path d="m472 227h-275c-22.091 0-40 17.909-40 40v205c0 22.091 17.909 40 40 40h275c22.091 0 40-17.909 40-40v-205c0-22.091-17.909-40-40-40zm-207.5 217.5h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm80 120h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm80 120h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15z"></path><path d="m87 227h-47c-22.091 0-40 17.909-40 40v205c0 22.091 17.909 40 40 40h47c22.091 0 40-17.909 40-40v-205c0-22.091-17.909-40-40-40z"></path></svg></span>                
+                <span style="margin-top: -50%; width: 90px;" class="u-icon u-icon-circle u-text-palette-1-base u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-d01e"><path d="m201 12.714v184.286h267v-184.286c0-7.022-5.692-12.714-12.714-12.714h-241.572c-7.022 0-12.714 5.692-12.714 12.714zm63.89 33.131h70.271c8.284 0 15 6.716 15 15s-6.716 15-15 15h-70.271c-8.284 0-15-6.716-15-15s6.715-15 15-15zm0 75.142h139.22c8.284 0 15 6.716 15 15s-6.716 15-15 15h-139.22c-8.284 0-15-6.716-15-15s6.715-15 15-15z"></path><path d="m472 227h-275c-22.091 0-40 17.909-40 40v205c0 22.091 17.909 40 40 40h275c22.091 0 40-17.909 40-40v-205c0-22.091-17.909-40-40-40zm-207.5 217.5h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm80 120h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm80 120h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15zm0-60h-20c-8.284 0-15-6.716-15-15s6.716-15 15-15h20c8.284 0 15 6.716 15 15s-6.716 15-15 15z"></path><path d="m87 227h-47c-22.091 0-40 17.909-40 40v205c0 22.091 17.909 40 40 40h47c22.091 0 40-17.909 40-40v-205c0-22.091-17.909-40-40-40z"></path></svg></span>                
                 <h5 style="font-size: 20px;">FAX</h5>
                 <p>SoHo 94 Broadway St New York, NY 1001</p>
             </div>
@@ -40,54 +43,54 @@
                     </g>
                     </g><g><g><path d="M4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721z"></path>
                     </g>
-</g><g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49    C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path>
+                    </g><g><g><path d="M331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49    C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></path>
                     </g>
                     </g></svg></span>    
-            <h5 style="font-size: 20px;">EMAIL</h5>
-            <p>SoHo 94 Broadway St New York, NY 1001</p>
-        </div>
-    </div>
-
-    <div class="container" style="padding-top:0px;">
-        <div class="left">
-            <div style="color: white;">
-                <h3 style="font-size: 40px; margin-top: 0px;">Contact info</h3>
-                <p style="font-size: 21px; text-spacing: 10px;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <img style="width: 250px;border-radius: 46%;" src="https://hanoispiritofplace.com/wp-content/uploads/2018/01/top-hinh-nen-thien-nhien-14.jpg" alt="alt">
-                </p>
+                <h5 style="font-size: 20px;">EMAIL</h5>
+                <p>SoHo 94 Broadway St New York, NY 1001</p>
             </div>
         </div>
-        <div style="color: white; margin-left: 70px;" class="right">
-            <div class="u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-2">
-                <div class="u-container-layout u-valign-top u-container-layout-6">
-                    <div class="u-form u-form-1">
-                        <form action="https://nicepage.com/editor/Forms/Process" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
-                            <input type="hidden" id="siteId" name="siteId" value="283075">
-                            <input type="hidden" id="pageId" name="pageId" value="288748">
-                            <div class="u-form-email u-form-group u-form-partition-factor-2 u-form-group-1">
-                                <label for="email-319a" class="u-label u-text-body-alt-color u-label-1">Email</label>
-                                <div class="in-form"><input style="height: 35px; font-size: 18px; width: 100%;" type="email" placeholder="Enter a valid email address" id="email-319a" name="email" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required="" fdprocessedid="9pijie">
+
+        <div class="container" style="padding-top:0px;">
+            <div class="left">
+                <div style="color: white;">
+                    <h3 style="font-size: 40px; margin-top: 0px;">Contact info</h3>
+                    <p style="font-size: 21px; text-spacing: 10px;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <img style="width: 250px;border-radius: 46%;" src="https://hanoispiritofplace.com/wp-content/uploads/2018/01/top-hinh-nen-thien-nhien-14.jpg" alt="alt">
+                    </p>
+                </div>
+            </div>
+            <div style="color: white; margin-left: 70px;" class="right">
+                <div class="u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-top u-container-layout-6">
+                        <div class="u-form u-form-1">
+                            <form action="https://nicepage.com/editor/Forms/Process" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+                                <input type="hidden" id="siteId" name="siteId" value="283075">
+                                <input type="hidden" id="pageId" name="pageId" value="288748">
+                                <div class="u-form-email u-form-group u-form-partition-factor-2 u-form-group-1">
+                                    <label for="email-319a" class="u-label u-text-body-alt-color u-label-1">Email</label>
+                                    <div class="in-form"><input style="height: 35px; font-size: 18px; width: 100%;" type="email" placeholder="Enter a valid email address" id="email-319a" name="email" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required="" fdprocessedid="9pijie">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="u-form-group u-form-name u-form-partition-factor-2 u-form-group-2">
-                                <label for="name-319a" class="u-label u-text-body-alt-color u-label-2">Name</label>
-                                <div class="in-form">
-<input style="height: 35px; font-size: 18px; width: 100%;" type="text" placeholder="Enter your Name" id="name-319a" name="name" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required="" fdprocessedid="jdubk">
+                                <div class="u-form-group u-form-name u-form-partition-factor-2 u-form-group-2">
+                                    <label for="name-319a" class="u-label u-text-body-alt-color u-label-2">Name</label>
+                                    <div class="in-form">
+                                        <input style="height: 35px; font-size: 18px; width: 100%;" type="text" placeholder="Enter your Name" id="name-319a" name="name" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required="" fdprocessedid="jdubk">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="u-form-group u-form-message u-form-group-3">
-                                <label for="message-319a" class="u-label u-text-body-alt-color u-label-3">Message</label>
-                                <div class="in-form"><textarea style="font-size: 19px;" placeholder="Enter your message" rows="4" cols="50" id="message-319a" name="message" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required=""></textarea>
+                                <div class="u-form-group u-form-message u-form-group-3">
+                                    <label for="message-319a" class="u-label u-text-body-alt-color u-label-3">Message</label>
+                                    <div class="in-form"><textarea style="font-size: 19px;" placeholder="Enter your message" rows="4" cols="50" id="message-319a" name="message" class="u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-white u-input u-input-rectangle" required=""></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="u-align-left u-form-group u-form-submit u-form-group-4">
-                                <input style="font-size: 19px; background-color: white; border: none; width: 100%; height: 40px; margin-top: 10px;" type="submit" value="SUBMIT" class="u-form-control-hidden">
-                            </div>
-                        </form>
+                                <div class="u-align-left u-form-group u-form-submit u-form-group-4">
+                                    <input style="font-size: 19px; background-color: white; border: none; width: 100%; height: 40px; margin-top: 10px;" type="submit" value="SUBMIT" class="u-form-control-hidden">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

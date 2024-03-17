@@ -14,6 +14,8 @@
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/productDetailCSS.css" rel="stylesheet"/>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
+                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -170,12 +172,12 @@
                         <%
        if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                         %>
-                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/dashboard" class="text-decoration-none text-decoration-none text-dark">Quản Lý</a></li>
 
                     <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                     %>
-                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Management</a></li>
+                    <li class="btn-danger btn white-space-nowrap no-mb w-100 border-bottom"><a href="/order" class="text-decoration-none text-decoration-none text-dark">Quán Lý</a></li>
                         <% }
 
                              if(session.getAttribute("UserRole") == null){
@@ -189,6 +191,11 @@
                         %>
                     <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                         <% }
+ 
+                        if(session.getAttribute("UserRole") != null){
+                        %>
+                    <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/editUser" class="text-decoration-none text-decoration-none text-dark">Hồ Sơ</a></li>
+                        <% }
                         %>
                 </ul>
             </div>
@@ -200,7 +207,7 @@
                 <%
         if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                 %>
-                <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Quản Lý</button></a>
                 <% } else if (session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")) {  
                             
                 %>
@@ -219,6 +226,10 @@ if(session.getAttribute("UserRole") != null){
 if(session.getAttribute("UserRole") != null){
                 %>
                 <a href="/logout"><button class="btn-danger btn white-space-nowrap">Đăng Xuất</button></a>
+                <% }
+if(session.getAttribute("UserRole") != null){
+                %>
+                <a href="/editUser"><button class="btn-white btn white-space-nowrap">Hồ Sơ</button></a>
                 <% }
                 %>
             </div>
@@ -429,40 +440,22 @@ if(session.getAttribute("UserRole") != null){
                     </div>                      
                 </div>
             </div>
-            <div>
-                <div class=" mt-5 py-3 footer">
-                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                        <p class="text-white">Mã số thuế : 92828823</p>
-                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                        <h5 class="text-white">Kết nối với chúng tôi</h5>
-                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                      <div>
+                          <div class=" mt-5 py-3 footer">
+                              <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                                  <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                                  <p class="text-white">Mã số thuế : 92828823</p>
+                                  <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                                  <h5 class="text-white">Kết nối với chúng tôi</h5>
+                                  <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+                                                                     border: none;
+                                                                     outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
-                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                    </div>
-
-                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                        <div>
-                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
-                    </div>
-                </div>
+                              <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                                  <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
+                              </div>
+                          </div>
+                      </div>
 
                 <!-- End block content -->
         </main>

@@ -67,8 +67,10 @@ public class CRUDCart extends HttpServlet {
                 result = cDAO.updateCartQuantity(cartIdNumber, newQuantityNumber);
 
                 if (result) {
+                     response.sendRedirect("cart");
                     request.setAttribute("resultUpdate", "Cập nhật số lượng thành công");
                 } else {
+                     response.sendRedirect("cart?error=stock");
                     request.setAttribute("resultUpdate", "Không thể cập nhật số lượng vượt quá số lượng tồn kho");
                 }
             } catch (Exception ex) {
@@ -76,8 +78,8 @@ public class CRUDCart extends HttpServlet {
                 request.setAttribute("resultUpdate", "Lỗi khi cập nhật số lượng");
             }
 
-            // Reload the cart page after update
-            response.sendRedirect("cart");
+            
+           
         }
 
         if ("delete".equals(method)) {
