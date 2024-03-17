@@ -18,6 +18,7 @@ if(session.getAttribute("UserRole") == null){
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 </head>
                 <body class=" d-flex flex-column justify-content-between min-vh-100">
                     <div class="wrap-content">
@@ -69,8 +70,24 @@ if(session.getAttribute("UserRole") == null){
                                 %>
                             </div>
                         </div>
-                            <div style="min-height: 100vh;">
+                        <div style="min-height: 100vh;">
+                            <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="statusModalLabel">Thông Báo</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
 
+                                            <h5>Vui Lòng Chọn Sản Phẩm Để Thanh Toán</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -205,7 +222,30 @@ if(session.getAttribute("UserRole") == null){
                                                                                                                                                 var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
                                                                                                                                                 selectAllCheckbox.indeterminate = anyChecked && !allChecked;
                                                                                                                                             }
-                                                                                                                                        </script>
 
+                                                                                                                                            $(document).ready(function () {
+                                                                                                                                                // Function to get the value of a query parameter by name
+                                                                                                                                                function getQueryParamByName(name, url = window.location.href) {
+                                                                                                                                                    name = name.replace(/[\[\]]/g, '\\$&');
+                                                                                                                                                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                                                                                                                                                            results = regex.exec(url);
+                                                                                                                                                    if (!results)
+                                                                                                                                                        return null;
+                                                                                                                                                    if (!results[2])
+                                                                                                                                                        return '';
+                                                                                                                                                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                                                                                                                                                }
+
+                                                                                                                                                // Check the 'status' query parameter and set modal content
+                                                                                                                                                var status = getQueryParamByName('error');
+                                                                                                                                                if (status === 'noProductSelected') {
+                                                                                                                                                    console.log(status);
+                                                                                                                                                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                                                                                                                                                        keyboard: false
+                                                                                                                                                    });
+                                                                                                                                                    statusModal.show();
+                                                                                                                                                }
+                                                                                                                                            });
+                                                                                                                                        </script>
                                                                                                                                         </body>
                                                                                                                                         </html>

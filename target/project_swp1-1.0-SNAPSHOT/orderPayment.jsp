@@ -26,6 +26,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home2.css" rel="stylesheet"/>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -122,6 +123,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${requestScope.method == 'buy'}">
+                                <input type="hidden" name="methodBuy" value="BUY"/>
                             <input type="hidden" name="productId" value="${product.product_id}"/>
                             <input type="hidden" name="quantity" value="${requestScope.quantity}"/>
                             <input type="hidden" name="price" name="price" value="${product.product_price}"/>
@@ -221,7 +223,7 @@
 
                 </div>
             </div>
-            <div class=" mt-5 py-3 footerr">
+            <div class=" mt-5 py-3 footer">
                 <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                     <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                     <p class="text-white">Mã số thuế : 92828823</p>

@@ -12,7 +12,7 @@
 <html>
     <head>        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>JSP Page</title>
+        <title>EnduretaleS</title>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/home.css" rel="stylesheet"/>
@@ -45,10 +45,10 @@
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
                         <ul class="dropdown-content">
-                            <li><a class="dropdown-item" href="#">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="#">Ipad</a></li>
-                            <li><a class="dropdown-item" href="#">Laptop</a></li>
-                            <li><a class="dropdown-item" href="#">PC</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=a">Điện thoại smart phone</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=a">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=a">Laptop</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=a">PC</a></li>
                         </ul>
                     </div>
                     <div class="search">
@@ -86,7 +86,7 @@
                             <% 
                             if(session.getAttribute("UserRole") != null){
                             %>
-                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">LogOut</a></li>
+                        <li class="btn-white btn white-space-nowrap no-mb w-100 border-bottom"><a href="/logout" class="text-decoration-none text-decoration-none text-dark">Đăng Xuất</a></li>
                             <% }
                             %>
                     </ul>
@@ -194,13 +194,15 @@ if(session.getAttribute("UserRole") != null){
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${noOfPages}" var="i">
+                                
                                 <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                    <a class="page-link bg-primary text-white" href="?page=${i}">${i}</a>
+                                    <a class="page-link bg-primary opacity-50 text-white" href="?page=${i}">${i}</a>
                                 </li>
                             </c:forEach>
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
-                                    <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                    <a class="page-link bg-primary opacity-50 text-white " href="?page=${currentPage + 1}" aria-label="Next">
+                                        
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

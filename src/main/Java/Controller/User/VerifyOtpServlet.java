@@ -69,7 +69,6 @@ public class VerifyOtpServlet extends HttpServlet {
         processRequest(request, response);
 
     }
-    
 
     public String GenSHA256(String input) {
         String hashedValue = null;
@@ -120,6 +119,7 @@ public class VerifyOtpServlet extends HttpServlet {
                 String email1 = (String) session.getAttribute("email");
                 String phoneNumber = (String) session.getAttribute("phoneNumber");
                 String password = (String) session.getAttribute("password");
+                String role = (String) session.getAttribute("role");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date birthdateUtil = null;
                 try {
@@ -133,8 +133,7 @@ public class VerifyOtpServlet extends HttpServlet {
 
                 java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
 
-                String Role = "Customer";
-                User u = new User(fullName, birthdateSql, phoneNumber, email1, password, address, Role);
+                User u = new User(fullName, birthdateSql, phoneNumber, email1, password, address, role);
                 UserDAO ud = new UserDAO();
                 if (!ud.insertUser(u)) {
                     response.sendRedirect("AdminUser?e=Add");

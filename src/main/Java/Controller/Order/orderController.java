@@ -6,6 +6,7 @@ package Controller.Order;
 
 import dao.ProductDAO;
 import dao.UserDAO;
+import dao.imageDAO;
 import dao.orderDAO;
 import dao.orderDetailDAO;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
 import model.Order;
 import model.Product;
 import model.User;
+import model.image;
 import model.orderDetail;
 import model.orderStatus;
 
@@ -73,36 +75,45 @@ public class orderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Integer sellerId = (Integer) session.getAttribute("userId");
+          HttpSession session = request.getSession();
+        String role = (String) session.getAttribute("UserRole");
+        int sellerId= (int) session.getAttribute("userId");
         UserDAO ud = new UserDAO();
         orderDAO od = new orderDAO();
+        List<User> lu = ud.getAll();
+        
         List<Order> listOrderSeller;
         try {
 
             listOrderSeller = od.getOrdersByUserId(sellerId);
             for (Order order : listOrderSeller) {
                 List<Product> products = od.getProductsByOrderId(order.getOrderID());
-
+                
             }
             request.setAttribute("listOrderSeller", listOrderSeller);
         } catch (SQLException ex) {
             Logger.getLogger(orderController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         List<User> lu = ud.getAll();
         List<Order> lo = od.getOrderList();
         request.setAttribute("listOrder", lo);
         List<orderStatus> ls = od.getOrderStatus();
         request.setAttribute("listOrderStatus", ls);
-        orderDetailDAO odd = new orderDetailDAO();
-        List<orderDetail> lod = odd.getOrderDetailListBy();
-        request.setAttribute("ListOrderDetail", lod);
+        
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
         request.setAttribute("ListProduct", lp);
         request.setAttribute("listUser", lu);
-
+        if (role.trim().equals("admin")) {
+            orderDetailDAO odd = new orderDetailDAO();
+            List<orderDetail> lod = odd.getOrderDetailListBy();
+            request.setAttribute("ListOrderDetail", lod);
+        } else if (role.trim().equals("seller")) {
+            orderDetailDAO odd = new orderDetailDAO();
+            List<orderDetail> lod = odd.getOrderDetailListByUserId(sellerId);
+            request.setAttribute("ListOrderDetail", lod);
+        }
+        
         request.getRequestDispatcher("/orderPage.jsp").forward(request, response);
     }
 

@@ -52,7 +52,7 @@ public class editLogoServlet extends HttpServlet {
 
         try {
             dao.updateLogo(img);
-            response.sendRedirect("/admin-setting");
+            response.sendRedirect("/admin-setting?s=ss");
         } catch (SQLException e) {
             throw new ServletException("SQL error occurred: " + e.getMessage(), e);
         }

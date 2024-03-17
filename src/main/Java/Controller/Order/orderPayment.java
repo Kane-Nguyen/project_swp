@@ -117,7 +117,7 @@ public class orderPayment extends HttpServlet {
                 request.getRequestDispatcher("/orderPayment.jsp").forward(request, response);
             } else {
                 // Không có sản phẩm nào được chọn, chuyển hướng trở lại trang giỏ hàng với thông báo lỗi hoặc thông tin
-                response.sendRedirect("cart.jsp?error=noProductSelected");
+                response.sendRedirect("cart?error=noProductSelected");
             }
         } else {
             String productIdStr = request.getParameter("productId");

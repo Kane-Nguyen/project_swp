@@ -170,6 +170,7 @@
     background: #eee;
     padding: 3em;
     line-height: 1.5em;
+    margin-bottom: 10px;
 }
 
 @media screen and (min-width: 997px) {
@@ -249,7 +250,6 @@
 
 .add-to-cart,
 .like {
-   
     padding: 1.2em 1.5em;
     border: none;
     text-transform: UPPERCASE;
@@ -261,7 +261,7 @@
 
 .add-to-cart:hover,
 .like:hover {
-    background: #e8f7ff;
+    background: #b36800;
     color: #fff;
 }
 
@@ -322,3 +322,59 @@
 .action {
     margin-top: 30px;
 }
+
+.form-group{
+    display: flex;
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+.user-comment{
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-box {
+
+    padding: 20px; /* Khoảng cách giữa văn bản và viền của box */
+    border: 2px solid #ccc; /* Đường viền của box */
+    border-radius: 10px; /* Độ cong của các góc */
+    background-color: #f8f8f8; /* Màu nền của box */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho box */
+    margin: 0 auto; /* Canh giữa box trong trang */
+    position: relative;
+}
+
+.text-box p {
+    margin: 0; /* Loại bỏ khoảng cách ở dưới cùng của văn bản */
+    color: #333; /* Màu của văn bản */
+}
+.text-box a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: red;
+    text-decoration: none;
+}
+.admin-commnet{
+    margin: 10px 0 0 20px;
+     display: flex;
+    justify-content: space-between;
+}
+.box-info_tag{
+    align-items: center;
+    background: #d70018;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    font-size: 10px;
+    font-weight: 700;
+    height: 18px;
+    line-height: 1;
+    margin: 0 0 0 5px;
+    padding: 2px 6px
+}
+.comment-feedback{
+    margin: 10px 0 0 20px;
+}
+
+

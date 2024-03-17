@@ -43,7 +43,7 @@ public class ProductDAO {
                         rs.getInt("category_id"),
                         rs.getString("product_branch"), // Corrected column name
                         rs.getDate("date_added"),
-                 rs.getInt("product_count")); // Corrected column name
+                        rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class ProductDAO {
                         rs.getInt("category_id"),
                         rs.getString("product_branch"), // Corrected column name
                         rs.getTimestamp("date_added"),
-                 rs.getInt("product_count")); // Corrected column name
+                        rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -125,7 +125,7 @@ public class ProductDAO {
         return totalProducts;
     }
 
-    public int createProduct(String productName,int userId, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+    public int createProduct(String productName, int userId, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         String sql = "INSERT INTO products (product_name,user_id, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?,?, ?, ?, ?, ?, ?)";
         int productId = -1;
         System.out.println(userId);
@@ -159,7 +159,7 @@ public class ProductDAO {
 
         // SQL statement for updating the product
         String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
-try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productName);
             st.setDouble(2, productPrice);
             st.setString(3, imageUrl);
@@ -227,40 +227,95 @@ try (Connection connection = DBConnection.getConnection(); PreparedStatement st 
         return product;
     }
 
-    // Delete a product
+    public List<Product> selectProductsByCategoryId(int categoryId) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE category_id = ?";
+
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, categoryId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProduct_id(resultSet.getInt("product_id"));
+                product.setProduct_name(resultSet.getString("product_name"));
+                product.setProduct_price(resultSet.getDouble("product_price"));
+                product.setImage_url(resultSet.getString("image_url"));
+                product.setStock_quantity(resultSet.getInt("stock_quantity"));
+                product.setCategory_id(resultSet.getInt("category_id"));
+                product.setProduct_branch(resultSet.getString("product_branch"));
+                // Assuming you have a date_added field in your table
+                product.setDateAdded(resultSet.getDate("date_added"));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+    public List<Product> selectProductsByuserID(int userID) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE user_id = ?";
+
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, userID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProduct_id(resultSet.getInt("product_id"));
+                product.setProduct_name(resultSet.getString("product_name"));
+                product.setProduct_price(resultSet.getDouble("product_price"));
+                product.setImage_url(resultSet.getString("image_url"));
+                product.setStock_quantity(resultSet.getInt("stock_quantity"));
+                product.setCategory_id(resultSet.getInt("category_id"));
+                product.setProduct_branch(resultSet.getString("product_branch"));
+                // Assuming you have a date_added field in your table
+                product.setDateAdded(resultSet.getDate("date_added"));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
     public boolean deleteProduct(String productId) {
-        // These tables have foreign key references to the products table
-String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
+        // SQL statements to delete from dependent tables and the products table
+        String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
         String deleteFromCartSql = "DELETE FROM cart WHERE product_id = ?";
         String deleteFromImagesSql = "DELETE FROM images WHERE product_id = ?";
         String deleteFromProductDescriptionSql = "DELETE FROM productdescription WHERE product_id = ?";
-        String deleteFromInventoryTransactionsSql = "DELETE FROM inventory_transactions WHERE product_id = ?";
         String deleteFromFeedbacksSql = "DELETE FROM feedbacks WHERE product_id = ?";
         String deleteFromProductsSql = "DELETE FROM products WHERE product_id = ?";
-
         try (Connection connection = DBConnection.getConnection()) {
-            // Disable auto-commit to start the transaction
+
             connection.setAutoCommit(false);
 
-            // Delete from dependent tables first, starting with the ones that have a foreign key reference
-            deleteFromTable(connection, deleteFromReplyCommentsSql, productId);  // Delete any related reply comments
+            deleteFromTable(connection, deleteFromReplyCommentsSql, productId);
             deleteFromTable(connection, deleteFromCartSql, productId);
             deleteFromTable(connection, deleteFromImagesSql, productId);
             deleteFromTable(connection, deleteFromProductDescriptionSql, productId);
-            deleteFromTable(connection, deleteFromInventoryTransactionsSql, productId);
+
             deleteFromTable(connection, deleteFromFeedbacksSql, productId);
 
-            // Finally, delete from the products table
             deleteFromTable(connection, deleteFromProductsSql, productId);
 
-            // Commit the transaction
             connection.commit();
-
             return true;
         } catch (SQLException e) {
-            // If there is an exception, try to rollback the transaction
+
             try {
-                connection.rollback();
+                if (connection != null) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -270,9 +325,9 @@ String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id
     }
 
     private void deleteFromTable(Connection connection, String sql, String productId) throws SQLException {
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, productId);
-            st.executeUpdate();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, productId);
+            statement.executeUpdate();
         }
     }
 
@@ -296,7 +351,7 @@ String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id
                         rs.getInt("category_id"),
                         rs.getString("product_branch"), // Corrected column name
                         rs.getDate("date_added"),
-                 rs.getInt("product_count")); // Corrected column name
+                        rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -319,6 +374,7 @@ String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id
         }
         return false;
     }
+
     public void incrementProductCount(int productId) {
         String sql = "UPDATE products SET product_count = product_count + 1 WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
@@ -328,13 +384,12 @@ String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id
             e.printStackTrace();
         }
     }
-    
-    
+
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();
-        List<Product> lp = p.getAll();
-        System.out.println(lp.get(1).getProduct_branch());
-       
+        List<Product> lp = p.selectProductsByCategoryId(2);
+        System.out.println(lp.get(1).getProduct_name());
+
     }
 
 }
