@@ -69,8 +69,8 @@ public class catalogsearchServlet extends HttpServlet {
             request.setAttribute("price", price);
         }
         // thieu sql count
-        int quantity = pdModel.coutSearch(resutl);
-
+        int quantity = p.size();
+        System.out.println(quantity);
         int endPage = 0;
         endPage = (quantity / pageSize);
         if (quantity % pageSize != 0) {

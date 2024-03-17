@@ -368,169 +368,170 @@ if(session.getAttribute("UserRole") != null){
 
                 </div>                      
             </div>
-            <div>
-                <div class=" mt-5 py-3 footer">
-                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                        <p class="text-white">Mã số thuế : 92828823</p>
-                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                        <h5 class="text-white">Kết nối với chúng tôi</h5>
-                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+        </div>
+        <div>
+            <div class=" mt-5 py-3 footer">
+                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                    <p class="text-white">Mã số thuế : 92828823</p>
+                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                    <h5 class="text-white">Kết nối với chúng tôi</h5>
+                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                    </div>
-
-                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                        <div>
-                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
-                    </div>
+                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                        <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
                 </div>
 
-                <!-- End block content -->
-                </main>
-                </body>                                     
+                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                    <div>
+                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                        <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                </div>
+            </div>
+
+            <!-- End block content -->
+    </main>
+</body>                                     
 
 
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-                <script type="text/javascript">
-    console.log(<%= productId2 %>);
-    var checkFeedback = ${checkFeedback}; // Giả sử checkFeedback là một biến từ JSP
-    function updateProductInfo(productId2) {
-        $.ajax({
-            type: "POST",
-            url: "update", // Đảm bảo đường dẫn này đúng
-            data: {productId2: productId2},
-            dataType: 'json', // Thêm dòng này để chỉ định kiểu dữ liệu trả về
-            success: function (products) {
-                // Giả sử server trả về một mảng các sản phẩm và bạn muốn xử lý sản phẩm đầu tiên
-                if (products.length > 0) {
-                    var product = products[0]; // Lấy sản phẩm đầu tiên từ mảng
-                    $("#productImage").attr("src", "data:image/png;base64," + product.image_url);
-                    $("#productName").text(product.product_name);
-                    $("#productId2").val(product.product_id);
+<script type="text/javascript">
+                    console.log(<%= productId2 %>);
+                    var checkFeedback = ${checkFeedback}; // Giả sử checkFeedback là một biến từ JSP
+                    function updateProductInfo(productId2) {
+                        $.ajax({
+                            type: "POST",
+                            url: "update", // Đảm bảo đường dẫn này đúng
+                            data: {productId2: productId2},
+                            dataType: 'json', // Thêm dòng này để chỉ định kiểu dữ liệu trả về
+                            success: function (products) {
+                                // Giả sử server trả về một mảng các sản phẩm và bạn muốn xử lý sản phẩm đầu tiên
+                                if (products.length > 0) {
+                                    var product = products[0]; // Lấy sản phẩm đầu tiên từ mảng
+                                    $("#productImage").attr("src", "data:image/png;base64," + product.image_url);
+                                    $("#productName").text(product.product_name);
+                                    $("#productId2").val(product.product_id);
 
-                    console.log(product.product_id);
-                }
-            },
-            error: function () {
-                alert("Có lỗi xảy ra khi lấy thông tin sản phẩm");
-            }
-        });
-    }
-
-    // Sử dụng phương thức này để gắn vào sự kiện click của nút chọn sản phẩm
-    $(".selectProductButton").click(function () {
-        var productId2 = $(this).attr("id");
-        updateProductInfo(productId2);
-    });
-
-
-    document.getElementById('open-modal').addEventListener('click', function () {
-        document.getElementById('compare-modal').classList.add('active');
-        // Ẩn nút open-modal khi modal được mở
-        this.style.display = 'non   e';
-    });
-
-    document.getElementById('close-modal').addEventListener('click', function () {
-        document.getElementById('compare-modal').classList.remove('active');
-        // Hiển thị lại nút open-modal khi modal được đóng
-        document.getElementById('open-modal').style.display = 'inline-block'; // Hoặc 'block', tùy vào layout của bạn
-    });
-
-    document.getElementById('compareForm').addEventListener('submit', function (event) {
-        var productId2 = document.getElementById('productId2').value;
-        if (!productId2) {
-            event.preventDefault(); // Ngăn chặn việc submit form
-            var warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
-            warningModal.show(); // Hiển thị modal
-        }
-    });
-
-    // ẩm hiện reply
-                    <c:forEach var="f" items="${feedbackList}" varStatus="loop">
-    var noFeedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-
-    document.querySelectorAll('[id^="showReplyBtn_${loop.index}"], [id^="showReplyBtn1_${loop.index}"]').forEach(function (button) {
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            var feedbacksExist = checkFeedback;
-            if (!feedbacksExist) {
-                noFeedbackModal.show();
-            } else {
-                var replyBox = document.getElementById('reply_${loop.index}');
-                if (replyBox) {
-                    if (replyBox.style.display === "none" || replyBox.style.display === "") {
-                        replyBox.style.display = "block";
-                    } else {
-                        replyBox.style.display = "none";
+                                    console.log(product.product_id);
+                                }
+                            },
+                            error: function () {
+                                alert("Có lỗi xảy ra khi lấy thông tin sản phẩm");
+                            }
+                        });
                     }
-                }
-            }
-        });
-    });
-                    </c:forEach>
-    // thực hiện check Feedback
-    document.getElementById('sendFeedbackButton').addEventListener('click', function (event) {
-        if (checkFeedback === false) {
-            console.log(checkFeedback);
-            // Ngăn chặn hành động mặc định của nút submit nếu checkFeedback là false
-            event.preventDefault();
-            // Hiển thị modal thông báo
-            var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-            feedbackModal.show();
-        }
 
-    });
+                    // Sử dụng phương thức này để gắn vào sự kiện click của nút chọn sản phẩm
+                    $(".selectProductButton").click(function () {
+                        var productId2 = $(this).attr("id");
+                        updateProductInfo(productId2);
+                    });
 
-    document.getElementById("sendFeedbackButton").addEventListener("click", function (event) {
-        var comment = document.getElementById("exampleFormControlTextarea1").value;
 
-        // Kiểm tra độ dài của chuỗi nhập vào
-        if (comment.length < 8) {
-            // Hiện modal nếu độ dài chuỗi ít hơn 8 kí tự
-            noFeedbackModal.show();
-            // Ngăn chặn hành động mặc định của nút gửi
-            event.preventDefault();
-        }
-    });
+                    document.getElementById('open-modal').addEventListener('click', function () {
+                        document.getElementById('compare-modal').classList.add('active');
+                        // Ẩn nút open-modal khi modal được mở
+                        this.style.display = 'non   e';
+                    });
 
-    // Lặp qua mỗi form để thêm sự kiện submit
-    document.querySelectorAll('.comment-feedback form').forEach(form => {
-        form.addEventListener('submit', function (event) {
-            var replyTextarea = this.querySelector('textarea[name="reply"]');
-            var replyValue = replyTextarea.value;
+                    document.getElementById('close-modal').addEventListener('click', function () {
+                        document.getElementById('compare-modal').classList.remove('active');
+                        // Hiển thị lại nút open-modal khi modal được đóng
+                        document.getElementById('open-modal').style.display = 'inline-block'; // Hoặc 'block', tùy vào layout của bạn
+                    });
 
-            // Kiểm tra độ dài của chuỗi nhập vào
-            if (replyValue.length < 8) {
-                // Hiển thị thông báo hoặc thực hiện hành động tùy ý (ví dụ: hiện modal)
-                alert('Nội dung phản hồi phải có ít nhất 8 kí tự.');
-                // Ngăn chặn hành động mặc định của form (tức là gửi dữ liệu đến máy chủ)
-                event.preventDefault();
-            }
-        });
-    });
+                    document.getElementById('compareForm').addEventListener('submit', function (event) {
+                        var productId2 = document.getElementById('productId2').value;
+                        if (!productId2) {
+                            event.preventDefault(); // Ngăn chặn việc submit form
+                            var warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+                            warningModal.show(); // Hiển thị modal
+                        }
+                    });
 
-                </script>
-                </html>
+                    // ẩm hiện reply
+    <c:forEach var="f" items="${feedbackList}" varStatus="loop">
+                    var noFeedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+
+                    document.querySelectorAll('[id^="showReplyBtn_${loop.index}"], [id^="showReplyBtn1_${loop.index}"]').forEach(function (button) {
+                        button.addEventListener('click', function (event) {
+                            event.preventDefault();
+
+                            var feedbacksExist = checkFeedback;
+                            if (!feedbacksExist) {
+                                noFeedbackModal.show();
+                            } else {
+                                var replyBox = document.getElementById('reply_${loop.index}');
+                                if (replyBox) {
+                                    if (replyBox.style.display === "none" || replyBox.style.display === "") {
+                                        replyBox.style.display = "block";
+                                    } else {
+                                        replyBox.style.display = "none";
+                                    }
+                                }
+                            }
+                        });
+                    });
+    </c:forEach>
+                    // thực hiện check Feedback
+                    document.getElementById('sendFeedbackButton').addEventListener('click', function (event) {
+                        if (checkFeedback === false) {
+                            console.log(checkFeedback);
+                            // Ngăn chặn hành động mặc định của nút submit nếu checkFeedback là false
+                            event.preventDefault();
+                            // Hiển thị modal thông báo
+                            var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+                            feedbackModal.show();
+                        }
+
+                    });
+
+                    document.getElementById("sendFeedbackButton").addEventListener("click", function (event) {
+                        var comment = document.getElementById("exampleFormControlTextarea1").value;
+
+                        // Kiểm tra độ dài của chuỗi nhập vào
+                        if (comment.length < 8) {
+                            // Hiện modal nếu độ dài chuỗi ít hơn 8 kí tự
+                            noFeedbackModal.show();
+                            // Ngăn chặn hành động mặc định của nút gửi
+                            event.preventDefault();
+                        }
+                    });
+
+                    // Lặp qua mỗi form để thêm sự kiện submit
+                    document.querySelectorAll('.comment-feedback form').forEach(form => {
+                        form.addEventListener('submit', function (event) {
+                            var replyTextarea = this.querySelector('textarea[name="reply"]');
+                            var replyValue = replyTextarea.value;
+
+                            // Kiểm tra độ dài của chuỗi nhập vào
+                            if (replyValue.length < 8) {
+                                // Hiển thị thông báo hoặc thực hiện hành động tùy ý (ví dụ: hiện modal)
+                                alert('Nội dung phản hồi phải có ít nhất 8 kí tự.');
+                                // Ngăn chặn hành động mặc định của form (tức là gửi dữ liệu đến máy chủ)
+                                event.preventDefault();
+                            }
+                        });
+                    });
+
+</script>
+</html>

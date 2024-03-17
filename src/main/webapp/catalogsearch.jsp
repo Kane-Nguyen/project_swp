@@ -160,7 +160,7 @@ if(session.getAttribute("UserRole") != null){
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <h4 style="text-align: center;">Không tìm thấy sản phẩm có kí tự '${result}'</h4>
+                    <h4 style="text-align: center;">Không tìm thấy sản phẩm</h4>
                 </c:otherwise>
             </c:choose>
             <div <c:if test="${quantity == 0}">style="bottom: 0; position: absolute; width: 100%"</c:if>>

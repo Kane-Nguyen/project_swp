@@ -53,14 +53,14 @@ public class compareProductServlet extends HttpServlet {
                 name1 = p.get(i).getProduct_name();
                 price1 = p.get(i).getProduct_price();
             }
-            if (p.get(i).getProduct_id() == Integer.parseInt(productId2)) {
+            else if (p.get(i).getProduct_id() == Integer.parseInt(productId2)) {
                 url2 = p.get(i).getImage_url();
                 name2 = p.get(i).getProduct_name();
                 price2 = p.get(i).getProduct_price();
             }
 
         }
- imageDAO im = new imageDAO();
+        imageDAO im = new imageDAO();
         image img = null;
         try {
             img = im.getImageByProductId(2);
