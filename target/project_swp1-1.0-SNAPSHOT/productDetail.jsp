@@ -14,6 +14,8 @@
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/productDetailCSS.css" rel="stylesheet"/>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
+                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

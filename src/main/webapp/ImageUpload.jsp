@@ -10,6 +10,8 @@ if(role == null || !role.trim().equals("Admin")){
 <html>
     <head>
         <title>Image Upload</title>
+                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <style>
     .img-container {

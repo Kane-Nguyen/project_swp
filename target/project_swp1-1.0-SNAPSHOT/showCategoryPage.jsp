@@ -13,6 +13,8 @@ if(role == null || !role.trim().equals("admin")){
 <head>
     <title>Danh Mục</title>
     <!-- Bootstrap CSS -->
+            <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {

@@ -7,6 +7,7 @@ package Controller.ProductDetails;
 
 import dao.UserDAO;
 import dao.feedbackDAO;
+import dao.imageDAO;
 import dao.orderDAO;
 import dao.productDescriptionDAO;
 import dao.replyDAO;
@@ -121,7 +122,6 @@ public class dataToHomeFromDetail extends HttpServlet {
             }
 
             System.out.println(checkUserToFeedback);
-
             request.setAttribute("feedbackList", feedbackList);
             request.setAttribute("feedbackNameMap", feedbackNameMap);
             request.setAttribute("replyNameMap", replyNameMap);
