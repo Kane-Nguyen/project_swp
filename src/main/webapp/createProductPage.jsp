@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="model.Category" %>
-<%@ page import="java.util.List" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%> <%@ page import="java.util.List" %> <%@ page
+import="model.Category" %> <%@ page import="dao.CategoryDAO" %> <%@ taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <% String role = (String)
+session.getAttribute("UserRole"); if(role == null &&
+!role.trim().equals("admin") && !role.trim().equals("seller")){
+response.sendRedirect("404-page.jsp"); return; } %> %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Create New Product</title>
+        <title>Tạo Sản Phẩm</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             /* CSS for image previews */
@@ -100,111 +104,115 @@
             </form>
         </div>
 
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-        <!-- Custom JavaScript -->
-        <script>
-            $(document).ready(function () {
-                $('#productPrice').on('input', function () {
-                    // Check if the input value is a valid number
-                    var price = $(this).val();
-                    if (isNaN(price)) {
-                        $('#priceError').text('Please enter a valid number');
-                        $(this).val(''); // Clear non-numeric value
-                        return;
-                    }
+    <!-- Custom JavaScript -->
+    <script>
+      $(document).ready(function () {
+        $("#productPrice").on("input", function () {
+          // Check if the input value is a valid number
+          var price = $(this).val();
+          if (isNaN(price)) {
+            $("#priceError").text("Please enter a valid number");
+            $(this).val(""); // Clear non-numeric value
+            return;
+          }
 
-                    // Check if the input value exceeds the maximum limit (e.g., 100000000)
-                    var maxPrice = 100000000;
-                    if (parseFloat(price) > maxPrice) {
-                        $('#priceError').text('Please enter a price less than ' + maxPrice);
-                        $(this).val('');
-                        return;
-                    }
+          // Check if the input value exceeds the maximum limit (e.g., 100000000)
+          var maxPrice = 100000000;
+          if (parseFloat(price) > maxPrice) {
+            $("#priceError").text("Please enter a price less than " + maxPrice);
+            $(this).val("");
+            return;
+          }
 
-                    // Clear error message if no errors
-                    $('#priceError').text('');
-                });
+          // Clear error message if no errors
+          $("#priceError").text("");
+        });
 
-                $('#stockQuantity').on('input', function () {
-                    // Check if the input value is a valid number
-                    var quantity = $(this).val();
-                    if (isNaN(quantity)) {
-                        $('#quantityError').text('Please enter a valid number');
-                        $(this).val(''); // Clear non-numeric value
-                        return;
-                    }
+        $("#stockQuantity").on("input", function () {
+          // Check if the input value is a valid number
+          var quantity = $(this).val();
+          if (isNaN(quantity)) {
+            $("#quantityError").text("Please enter a valid number");
+            $(this).val(""); // Clear non-numeric value
+            return;
+          }
 
-                    // Check if the input value exceeds the maximum limit (e.g., 10000)
-                    var maxQ = 10000;
-                    if (parseFloat(quantity) > maxQ) {
-                        $('#quantityError').text('Please enter a quantity less than ' + maxQ);
-                        $(this).val('');
-                        return;
-                    }
+          // Check if the input value exceeds the maximum limit (e.g., 10000)
+          var maxQ = 10000;
+          if (parseFloat(quantity) > maxQ) {
+            $("#quantityError").text(
+              "Please enter a quantity less than " + maxQ
+            );
+            $(this).val("");
+            return;
+          }
 
-                    // Clear error message if no errors
-                    $('#quantityError').text('');
-                });
+          // Clear error message if no errors
+          $("#quantityError").text("");
+        });
 
-                $('#additionalImages').change(function () {
-                    previewImages();
-                });
+        $("#additionalImages").change(function () {
+          previewImages();
+        });
 
-                function previewImages() {
-                    var imageInput = document.getElementById('additionalImages');
-                    var imagePreview = document.getElementById('additionalImagesPreview');
-                    imagePreview.innerHTML = '';
+        function previewImages() {
+          var imageInput = document.getElementById("additionalImages");
+          var imagePreview = document.getElementById("additionalImagesPreview");
+          imagePreview.innerHTML = "";
 
-                    $('#createProductForm').submit(function (e) {
-                        // Check the number of additional images
-                        var additionalImagesCount = $('#additionalImages')[0].files.length;
+          $("#createProductForm").submit(function (e) {
+            // Check the number of additional images
+            var additionalImagesCount = $("#additionalImages")[0].files.length;
 
-                        // If there are more than 5 additional images, prevent form submission
-                        if (additionalImagesCount > 5) {
-                            e.preventDefault(); // Prevent form submission
-                            $('#imageLimitMessage').text('You can only add up to 5 images.').show();
-                        } else {
-                            $('#imageLimitMessage').hide(); // Hide the error message if within the limit
-                        }
-                    });
+            // If there are more than 5 additional images, prevent form submission
+            if (additionalImagesCount > 5) {
+              e.preventDefault(); // Prevent form submission
+              $("#imageLimitMessage")
+                .text("You can only add up to 5 images.")
+                .show();
+            } else {
+              $("#imageLimitMessage").hide(); // Hide the error message if within the limit
+            }
+          });
 
-                    Array.from(imageInput.files).forEach(file => {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            var imgContainer = document.createElement('div');
-                            imgContainer.classList.add('img-preview');
+          Array.from(imageInput.files).forEach((file) => {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var imgContainer = document.createElement("div");
+              imgContainer.classList.add("img-preview");
 
-                            var img = new Image();
-                            img.src = e.target.result;
-                            imgContainer.appendChild(img);
+              var img = new Image();
+              img.src = e.target.result;
+              imgContainer.appendChild(img);
 
-                            var deleteBtn = document.createElement('button');
-                            deleteBtn.innerText = 'X';
-                            deleteBtn.classList.add('delete-btn');
-                            deleteBtn.onclick = function () {
-                                imgContainer.remove();
-                                removeFile(file, imageInput);
-                            };
-                            imgContainer.appendChild(deleteBtn);
+              var deleteBtn = document.createElement("button");
+              deleteBtn.innerText = "X";
+              deleteBtn.classList.add("delete-btn");
+              deleteBtn.onclick = function () {
+                imgContainer.remove();
+                removeFile(file, imageInput);
+              };
+              imgContainer.appendChild(deleteBtn);
 
-                            imagePreview.appendChild(imgContainer);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                }
+              imagePreview.appendChild(imgContainer);
+            };
+            reader.readAsDataURL(file);
+          });
+        }
 
-                function removeFile(fileToRemove, imageInput) {
-                    var dt = new DataTransfer();
-                    Array.from(imageInput.files).forEach(file => {
-                        if (file !== fileToRemove) {
-                            dt.items.add(file);
-                        }
-                    });
-                    imageInput.files = dt.files;
-                }
-            });
-        </script>
-    </body>
+        function removeFile(fileToRemove, imageInput) {
+          var dt = new DataTransfer();
+          Array.from(imageInput.files).forEach((file) => {
+            if (file !== fileToRemove) {
+              dt.items.add(file);
+            }
+          });
+          imageInput.files = dt.files;
+        }
+      });
+    </script>
+  </body>
 </html>

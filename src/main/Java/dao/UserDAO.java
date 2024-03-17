@@ -223,7 +223,7 @@ public class UserDAO {
     }
     
     public User getALLUserById(int User_id) {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users where user_id = "+User_id+"";
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
@@ -250,6 +250,9 @@ public class UserDAO {
 
     public static void main(String[] args) {
         UserDAO u = new UserDAO();
+        User user = u.getALLUserById(5);
+        System.out.println(user.getUserRole());
+         System.out.println(user.getFullName());
         List<User> t = u.getAll();
         for (int i = 0; i < t.size(); i++) {
             System.out.println(t.get(i).getUserId());

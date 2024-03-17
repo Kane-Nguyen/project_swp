@@ -4,7 +4,7 @@
 String role = (String) session.getAttribute("UserRole");
 if(role == null || !role.trim().equals("Admin")){
      
-    response.sendRedirect("login");
+    response.sendRedirect("404-page.jsp");
     return;}
 %>
 <html>

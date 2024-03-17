@@ -9,7 +9,7 @@
 <%@page import="dao.orderDAO"%>
 <%
 if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("login");
+    response.sendRedirect("404-page.jsp");
     return; 
 }
 %>
