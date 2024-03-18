@@ -47,8 +47,8 @@
                         <span class="btn dropdown-toggle btn-white">Danh mục</span>
                         <ul class="dropdown-content">
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=1&search=">Điện thoại smart phone</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Ipad</a></li>
-                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Laptop</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=3&search=">Ipad</a></li>
+                            <li><a class="dropdown-item" href="catalogsearchServlet?catetory=2&search=">Laptop</a></li>
                             <li><a class="dropdown-item" href="catalogsearchServlet?catetory=4&search=">PC</a></li>
                         </ul>
                     </div>
