@@ -59,7 +59,12 @@ public class dataToHomeFromDetail extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             String id = request.getParameter("productId");
+            String loi = request.getParameter("loi");
+            String productId2 = (String) session.getAttribute("productId2");
+
+            String logo = request.getParameter("logo");
             productDescriptionDAO pdModel = new productDescriptionDAO();
+            ProductDAO productdao = new ProductDAO();
             List<Product> pWhereId = new ArrayList<>();
             List<Product> pOutid = new ArrayList<>();
             List<Product> p = pdModel.getProduct();
@@ -113,12 +118,16 @@ public class dataToHomeFromDetail extends HttpServlet {
                     pd1.add(description);
                 }
             }
+            Product pid = productdao.getProductById(Integer.parseInt(id));
+
             for (Product object : p) {
-                if (object.getProduct_id() == Integer.parseInt(id)) {
-                    price = changeMoney(object.getProduct_price());
-                    pWhereId.add(object);
-                } else {
-                    pOutid.add(object);
+                if (object.getCategory_id() == pid.getCategory_id()) {
+                    if (object.getProduct_id() == pid.getProduct_id()) {
+                        price = changeMoney(object.getProduct_price());
+                        pWhereId.add(object);
+                    } else {
+                        pOutid.add(object);
+                    }
                 }
             }
             imageDAO im = new imageDAO();
@@ -133,6 +142,15 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.setAttribute("logo", img1);
 
             System.out.println(checkUserToFeedback);
+            if (productId2 != null) {
+                request.setAttribute("productId2", productId2);
+            }
+            if (loi != null) {
+               request.setAttribute("loi", loi);
+            }
+
+            request.setAttribute("replyRoleMap", replyRoleMap);
+            request.setAttribute("feedbackList", feedbackList);
             request.setAttribute("feedbackList", feedbackList);
             request.setAttribute("feedbackNameMap", feedbackNameMap);
             request.setAttribute("replyNameMap", replyNameMap);
@@ -144,6 +162,7 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.setAttribute("listPout", pOutid);
             request.setAttribute("productId", id);
             request.setAttribute("priceId", price);
+            request.setAttribute("logo", logo);
             request.getRequestDispatcher("productDetail.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(dataToHomeFromDetail.class.getName()).log(Level.SEVERE, null, ex);
