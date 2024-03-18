@@ -59,7 +59,6 @@ public class dataToHomeFromDetail extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             String id = request.getParameter("productId");
-            String logo = request.getParameter("logo");
             productDescriptionDAO pdModel = new productDescriptionDAO();
             List<Product> pWhereId = new ArrayList<>();
             List<Product> pOutid = new ArrayList<>();
@@ -145,7 +144,6 @@ public class dataToHomeFromDetail extends HttpServlet {
             request.setAttribute("listPout", pOutid);
             request.setAttribute("productId", id);
             request.setAttribute("priceId", price);
-            request.setAttribute("logo", logo);    
             request.getRequestDispatcher("productDetail.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(dataToHomeFromDetail.class.getName()).log(Level.SEVERE, null, ex);
