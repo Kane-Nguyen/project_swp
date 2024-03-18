@@ -30,6 +30,7 @@ Controller\Image\addSliderServlet.class
 Controller\User\VerifyOtpServlet.class
 dao\DBConnection.class
 model\productDescription.class
+Controller\Support\page505.class
 model\Category.class
 Controller\Image\editSliderServlet.class
 Controller\Feedback\feedbackServlet.class
@@ -51,6 +52,7 @@ Controller\Product\CrudProduct.class
 Controller\User\SignUp.class
 Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
+Controller\Support\page404.class
 Controller\CatalogsearchServlet\catalogsearchServlet.class
 Controller\ProductDetails\dataToHomeFromDetail.class
 Controller\ProductDetails\update.class

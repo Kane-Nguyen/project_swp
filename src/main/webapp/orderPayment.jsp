@@ -9,7 +9,7 @@
 <%@ page import="java.lang.Boolean" %>
 <%@ page import="java.time.LocalDate" %>
 <%if(session.getAttribute("UserRole") == null){
-   response.sendRedirect("404-page.jsp");
+   response.sendRedirect("/page404");
     return; 
 }
 %>
@@ -151,6 +151,23 @@ if(session.getAttribute("UserRole") != null){
                     %>
                 </div>
             </div>
+            <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="statusModalLabel">Thông Báo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <h5>Đã Đặt Hàng Thành Công</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="mt-5 container-fluid d-flex justify-content-around" style="min-height: 100vh">
                 <div style="width: 40%">
                     <form id="paymentForm" action="CRUDOrderController" class="row g-3" method="post">
@@ -172,6 +189,7 @@ if(session.getAttribute("UserRole") != null){
                         <div class="col-12">
                             <input type="hidden" class="form-control" name="createOrderDay" id="createOrderDay" value="<%= LocalDate.now() %>">
                         </div>
+
                         <div>
                             <h3 class="text-danger" id="errorMessages"></h3>
                         </div>
@@ -316,7 +334,7 @@ if(session.getAttribute("UserRole") != null){
                         var errorMessage = '';
 
                         if (!phoneNumberRegex.test(phoneNumber)) {
-                            errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                            errorMessage += "Số Điện Thoại Phải Là 10 Số Và Bắt Đầu Từ Số 0.<br>";
                         }
 
 
@@ -379,7 +397,30 @@ if(session.getAttribute("UserRole") != null){
                         document.querySelector('#paymentForm').submit(); // Gửi form
                     });
                 });
+                $(document).ready(function () {
+                    // Function to get the value of a query parameter by name
+                    function getQueryParamByName(name, url = window.location.href) {
+                        name = name.replace(/[\[\]]/g, '\\$&');
+                        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                                results = regex.exec(url);
+                        if (!results)
+                            return null;
+                        if (!results[2])
+                            return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                    }
 
+                    // Check the 'status' query parameter and set modal content
+                    var status = getQueryParamByName('status');
+
+                    if (status === 'InvalidData') {
+                        $('#statusModal .modal-body').html('<h5>Vui Lòng Nhập Đầy Đủ Thông Tin</h5>');
+                        var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                            keyboard: false
+                        });
+                        statusModal.show();
+                    }
+                });
             </script>
 
     </body>

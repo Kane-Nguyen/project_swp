@@ -9,7 +9,7 @@
 String role = (String) session.getAttribute("UserRole");
 
 if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")){
-    response.sendRedirect("404-page.jsp");
+    response.sendRedirect("/page404");
     return;
    }    
 %>
@@ -20,7 +20,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đơn Hàng</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-               <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
 
         <link href="./styles/orderPageCSS.css" rel="stylesheet"/>
         <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
@@ -44,7 +44,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                     <a href="/" class="none-decoration"> <li class="item-controller">Quay về trang chủ</li></a>
                 </ul>
             </div>
-
+                    
             <div class="right-content">
                 <%if(request.getParameter("s")!=null){%>
                 <h4 class="text-success">Cập Nhật Đơn Hàng Thành Công</h4>
@@ -149,35 +149,32 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 <button class="btn btn-primary " type="submit">Sửa</button>
                         </form> 
 
-                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#DeleteModal${listOrder.orderID}">
                             Xóa
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="DeleteModal${listOrder.orderID}" tabindex="-1" aria-labelledby="DeleteModalLabel${listOrder.orderID}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createOrderModalLabel">Xác nhận Xóa</h5>
+                                        <h5 class="modal-title" id="DeleteModalLabel${listOrder.orderID}">Xác nhận Xóa</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-
-                                        <form id="deleteForm" action="CRUDOrderController" method="post">
+                                        <form id="deleteForm${listOrder.orderID}" action="CRUDOrderController" method="post">
                                             <input  name="method" type="hidden" value="delete"/>  
                                             <input  name="orderId" type="hidden" value="${listOrder.orderID}"/>  
                                             <h3 class="text-danger">Bạn Có Chắc Chắn Xóa Không?</h3>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button type="submit" form="deleteForm" class="btn btn-primary">Xóa Đơn hàng</button>
+                                        <button type="submit" form="deleteForm${listOrder.orderID}" class="btn btn-primary">Xóa Đơn hàng</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         </td>
                         </tr>
 
@@ -255,39 +252,39 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 <fmt:formatNumber value="${total}" type="number"/> VNĐ
                                 <c:set var="total" value="${0}"/>
                             </td>
+
                             <td>
-                                <button class="btn btn-primary " type="submit">Sửa</button>
+                                <c:if test="${listOrder.status_order_id <= 4}">
+                                    <button class="btn btn-primary " type="submit">Sửa</button>
+                                </c:if>
                         </form> 
 
-                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#DeleteModal${listOrder.orderID}">
                             Xóa
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="DeleteModal${listOrder.orderID}" tabindex="-1" aria-labelledby="DeleteModalLabel${listOrder.orderID}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createOrderModalLabel">Xác nhận Xóa</h5>
+                                        <h5 class="modal-title" id="DeleteModalLabel${listOrder.orderID}">Xác nhận Xóa</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-
-                                        <form id="deleteForm" action="CRUDOrderController" method="post">
+                                        <form id="deleteForm${listOrder.orderID}" action="CRUDOrderController" method="post">
                                             <input  name="method" type="hidden" value="delete"/>  
                                             <input  name="orderId" type="hidden" value="${listOrder.orderID}"/>  
                                             <h3 class="text-danger">Bạn Có Chắc Chắn Xóa Không?</h3>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button type="submit" form="deleteForm" class="btn btn-primary">Xóa Đơn hàng</button>
+                                        <button type="submit" form="deleteForm${listOrder.orderID}" class="btn btn-primary">Xóa Đơn hàng</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         </td>
                         </tr>
 

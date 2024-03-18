@@ -5,7 +5,7 @@
 String role = (String) session.getAttribute("UserRole");
 
 if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")){
-    response.sendRedirect("404-page.jsp");
+    response.sendRedirect("/page404");
     return;
    }    
 %>
@@ -15,7 +15,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
         <meta charset="UTF-8">
         <title>Product List</title>
         <!-- Bootstrap CSS -->
-                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link href="./styles/adminCSSProducts.css" rel="stylesheet"/>

@@ -10,7 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
     <%if(session.getAttribute("UserRole") == null){
-       response.sendRedirect("404-page.jsp");
+       response.sendRedirect("/page404");
         return; 
 }
     %>

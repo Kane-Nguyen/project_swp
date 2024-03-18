@@ -3,6 +3,12 @@
     Created on : Mar 7, 2024, 8:01:34 AM
     Author     : tranq
 --%>
+<%
+if(session.getAttribute("UserRole") == null){
+    response.sendRedirect("/page404");
+    return; 
+}
+%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

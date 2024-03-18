@@ -134,6 +134,18 @@ public class CRUDOrderController extends HttpServlet {
                     phoneNumber = request.getParameter("phoneNumber");
                     recipientName = request.getParameter("receiver");
                     String paymentMethod = request.getParameter("paymentMethod");
+
+                    if (deliveryAddress.equals("") || phoneNumber.equals("") || recipientName.equals("")) {
+
+                        request.getRequestDispatcher("page505").forward(request, response);
+                        return;
+                    }
+                    if (!phoneNumber.matches("^0\\d{9}$")) {
+
+                        request.getRequestDispatcher("page505").forward(request, response);
+                        return;
+                    }
+
                     Date utilDate = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                     orderDAO od = new orderDAO();

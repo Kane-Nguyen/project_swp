@@ -5,7 +5,7 @@
 <%
 String role = (String) session.getAttribute("UserRole");
 if(role == null || !role.trim().equals("admin")){
-    response.sendRedirect("loginPage.jsp");
+    response.sendRedirect("/loginPage.jsp");
     return;}    
 %>
 <html>
@@ -151,10 +151,23 @@ if(role == null || !role.trim().equals("admin")){
                             <td>${user.phoneNumber}</td>
                             <td>${user.email}</td>
                             <td>${user.address}</td>
-
-                            <td>${user.userRole}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal${user.userId}">
+                            <c:if test="${user.userRole == 'seller'}">
+                                <td>
+                                 Người Bán Hàng   
+                                </td>
+                                </c:if>
+                                 <c:if test="${user.userRole == 'customer'}">
+                                     <td>
+                                        Khách Hàng 
+                                     </td>
+                                </c:if>
+                                <c:if test="${user.userRole == 'admin'}">
+                                    <td>
+                                        Quản Lý
+                                    </td>
+                                </c:if>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal${user.userId}">
                                     Sửa
                                 </button>
                                 <div class="modal fade" id="signupModal${user.userId}" tabindex="-1" aria-labelledby="signupModalLabel${user.userId}" aria-hidden="true">
@@ -187,8 +200,17 @@ if(role == null || !role.trim().equals("admin")){
                                                         <input type="email" class="form-control" name="email" required placeholder="Please Enter email" value="${user.email}" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <input type="password" class="form-control" id="password1" name="password" required placeholder="Please Enter Password" value="${user.password}" />
+                                                        <label>Vai trò</label>
+                                                        <select class="form-select" name="role">
+                                                            <option value="customer">
+                                                                Khách Hàng
+                                                            </option>
+                                                            <option value="seller">
+                                                                Người Bán Hàng
+                                                            </option>
+                                                        </select>
                                                     </div>
+
                                                     <input type="hidden" value="edit" name="method"/>
 
 
