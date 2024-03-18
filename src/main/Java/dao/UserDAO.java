@@ -94,7 +94,7 @@ public class UserDAO {
     }
 
     public boolean updateUser(User user) {
-        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? , user_role=? WHERE user_role = ?;";
+        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? , user_role=? WHERE user_id = ?;";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
             statement.setString(1, user.getFullName());
             statement.setDate(2, user.getBirthDate());

@@ -159,15 +159,15 @@ if(session.getAttribute("UserRole") != null){
                         <input type="hidden" name="method" value="buy">
                         <div class="col-md-6">
                             <label name="receiver"" class="form-label">họ và tên</label>
-                            <input type="text" class="form-control" name="receiver" id="inputEmail4">
+                            <input type="text" class="form-control" name="receiver"  required id="inputEmail4">
                         </div>
                         <div class="col-md-6">
                             <label name="phoneNumber" class="form-label">số điện thoại</label>
-                            <input type="number" class="form-control" name="phoneNumber" id="inputPassword4">
+                            <input type="number" class="form-control"  required name="phoneNumber" id="inputPassword4">
                         </div>
                         <div class="col-12">
                             <label name="address" class="form-label">địa chỉ</label>
-                            <input type="text" class="form-control" name="address" id="inputAddress" placeholder="1234 Main St">
+                            <input type="text" class="form-control" required name="address" id="inputAddress" placeholder="1234 Main St">
                         </div>
                         <div class="col-12">
                             <input type="hidden" class="form-control" name="createOrderDay" id="createOrderDay" value="<%= LocalDate.now() %>">
@@ -219,7 +219,7 @@ if(session.getAttribute("UserRole") != null){
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Thanh Toán</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="container">
@@ -310,75 +310,83 @@ if(session.getAttribute("UserRole") != null){
 
             <script>
                 $(document).ready(function () {
-                    $("#paymentForm").submit(function (event) {
+                    function validateForm() {
                         var phoneNumber = $("input[name='phoneNumber']").val();
                         var phoneNumberRegex = /^\d{10}$/;
                         var errorMessage = '';
 
                         if (!phoneNumberRegex.test(phoneNumber)) {
-                            errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                            errorMessage += "Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.<br>";
                         }
 
-
+                        // Thêm các kiểm tra khác nếu cần
 
                         if (errorMessage.length > 0) {
                             $("#errorMessages").html(errorMessage);
-                            event.preventDefault(); // Prevent form submission
+                            return false; // Có lỗi, không cho gửi form
                         } else {
-                            $("#errorMessages").html(''); // Clear error message
+                            $("#errorMessages").html(''); // Không có lỗi
+                            return true; // Không có lỗi, cho gửi form
+                        }
+                    }
+
+                    $('#exampleModal #submitForm').click(function (e) {
+                        e.preventDefault(); // Ngăn chặn form tự động gửi
+
+                        if (validateForm()) { // Kiểm tra form
+                            $('#paymentForm').submit(); // Nếu không có lỗi, gửi form
+                            $('#exampleModal').modal('hide');
+                        }
+                    });
+
+                    // Đặt sự kiện submit form chính để kiểm tra khi không sử dụng modal
+                    $("#paymentForm").submit(function (event) {
+                        if (!validateForm()) { // Kiểm tra form
+                            event.preventDefault(); // Ngăn chặn gửi form nếu có lỗi
                         }
                     });
                 });
 
                 $(document).ready(function () {
-                    // Function to update button visibility based on the payment method
-                    function updateButtonVisibility() {
-                        var paymentMethod = $('#inputState').val();
+                // Function to update button visibility based on the payment method
+                function updateButtonVisibility() {
+                var paymentMethod = $('#inputState').val();
                         if (paymentMethod === 'Credit Card') {
-                            // Hide the "Sign in" submit button and show only the modal button for "Credit Card"
-                            $('form button[id="pay"]').hide();
-                            $('form button[id="modal"]').show();
-                        } else {
-                            // Show the "Sign in" submit button and hide the modal button for other payment methods
-                            $('form button[id="pay"]').show();
-                            $('form button[id="modal"]').hide();
-                        }
-                    }
+                // Hide the "Sign in" submit button and show only the modal button for "Credit Card"
+                $('form button[id="pay"]').hide();
+                        $('form button[id="modal"]').show();
+                } else {
+                // Show the "Sign in" submit button and hide the modal button for other payment methods
+                $('form button[id="pay"]').show();
+                        $('form button[id="modal"]').hide();
+                }
+                }
 
-                    // Call updateButtonVisibility on page load to set the correct button visibility
-                    updateButtonVisibility();
-
-                    // Event when the payment method selection changes
-                    $('#inputState').change(function () {
-                        updateButtonVisibility();
-                    });
-
-                    // Event when submitting the form
-                    $('form').on('submit', function (e) {
-                        var paymentMethod = $('#inputState').val();
+                // Call updateButtonVisibility on page load to set the correct button visibility
+                updateButtonVisibility();
+                        // Event when the payment method selection changes
+                        $('#inputState').change(function () {
+                updateButtonVisibility();
+                });
+                        // Event when submitting the form
+                        $('form').on('submit', function (e) {
+                var paymentMethod = $('#inputState').val();
                         if (paymentMethod !== 'Credit Card') {
-                            // Submit the form if the payment method is not "Credit Card"
+                // Submit the form if the payment method is not "Credit Card"
 
-                        } else {
-                            // Show the modal if the payment method is "Credit Card"
-                            e.preventDefault(); // Prevent the form from auto-submitting
-                            $('#exampleModal').modal('show');
-                        }
-                    });
-
-                    // Event when clicking the submit button inside the modal
-                    $('#exampleModal #submitForm').click(function () {
-                        // Submit the form after clicking submit in the modal
-                        $('#buy').submit();
-                        $('#exampleModal').modal('hide');
-                    });
+                } else {
+                // Show the modal if the payment method is "Credit Card"
+                e.preventDefault(); // Prevent the form from auto-submitting
+                        $('#exampleModal').modal('show');
+                }
                 });
-                document.addEventListener('DOMContentLoaded', function () {
-                    document.querySelector('#exampleModal .btn-primary').addEventListener('click', function (e) {
+                        document.addEventListener('DOMContentLoaded', function () {
+                        document.querySelector('#exampleModal .btn-primary').addEventListener('click', function (e) {
                         e.preventDefault(); // Ngăn chặn form tự động submit khi nhấp vào nút
-                        document.querySelector('#paymentForm').submit(); // Gửi form
-                    });
-                });
+                                document.querySelector('#paymentForm').submit(); // Gửi form
+                        });
+                        })
+                ;
 
             </script>
 
