@@ -137,12 +137,12 @@ public class CRUDOrderController extends HttpServlet {
 
                     if (deliveryAddress.equals("") || phoneNumber.equals("") || recipientName.equals("")) {
 
-                        request.getRequestDispatcher("page505").forward(request, response);
+                        response.sendRedirect("page505");
                         return;
                     }
                     if (!phoneNumber.matches("^0\\d{9}$")) {
 
-                        request.getRequestDispatcher("page505").forward(request, response);
+                        response.sendRedirect("page505");
                         return;
                     }
 
