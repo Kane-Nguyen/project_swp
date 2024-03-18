@@ -1,11 +1,8 @@
 /*
 
 
-*/
-
-
-
-/*
+ */
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
@@ -40,8 +37,6 @@ public class update extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String productId2 = request.getParameter("productId2");
           
-           
-            
             productDescriptionDAO dao = new productDescriptionDAO();
             List<Product> p = dao.getIMG(productId2, null); // Thay đổi phương thức để nó phù hợp
 
@@ -54,5 +49,6 @@ public class update extends HttpServlet {
             out.print(productJson);
             out.flush();
 
-        }    }
+        }
+    }
 }

@@ -90,144 +90,153 @@ if(session.getAttribute("UserRole") == null){
                                     </div>
                                 </div>
                             </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên Sản Phẩm</th>
-                                        <th scope="col">Ảnh Sản Phẩm</th>
-                                        <th scope="col">Giá Sản Phẩm</th>
-                                        <th scope="col">Số Lượng</th>
-                                        <th scope="col">Cập Nhật</th>
-                                        <th scope="col">Xóa</th>
-                                        <th scope="col">Chọn Để Mua</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="cart" items="${cartList}" varStatus="i">
-                                        <tr>
-
-                                            <td>${i.count}</td>
-                                            <td>
-                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                    <c:if test="${cart.product_id == product.product_id}">
-                                                        ${product.product_name}
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                    <c:if test="${cart.product_id == product.product_id}">
-                                                        <img src="data:image/png;base64,${product.image_url}" style="width:100px; height:auto;"/>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                <c:forEach var="product" items="${ProductList}" varStatus="status">
-                                                    <c:if test="${cart.product_id == product.product_id}">
-                                                        <span><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </td>
-                                            <td>${cart.quantity}</td>
-
-                                            <td>
-                                                <form action="cart" method="post">
-                                                    <input type="hidden" name="method" value="updateQuantity"/>
-                                                    <input type="hidden" name="id" value="${cart.cart_id}"/>
-                                                    <input type="number" name="newQuantity" value="" required=""/>
-                                                    <button type="submit" class="btn btn-danger">Cập Nhật Số Lượng</button>
-                                                </form>
-                                            </td>
+                            <c:choose>
+                                <c:when test="${not empty cartList}">
 
 
-                                            <td>
-                                                <form action="cart" method="post">
-                                                    <input type="hidden" name="method" value="delete"/>
-                                                    <input type="hidden" name="id" value="${cart.cart_id}"/>
-                                                    <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <input  form="purchaseForm" style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}" onclick="checkAllSelected()">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Tên Sản Phẩm</th>
+                                                <th scope="col">Ảnh Sản Phẩm</th>
+                                                <th scope="col">Giá Sản Phẩm</th>
+                                                <th scope="col">Số Lượng</th>
+                                                <th scope="col">Cập Nhật</th>
+                                                <th scope="col">Xóa</th>
+                                                <th scope="col">Chọn Để Mua</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="cart" items="${cartList}" varStatus="i">
+                                                <tr>
 
-                                            </td>
-                                        </tr>
+                                                    <td>${i.count}</td>
+                                                    <td>
+                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                            <c:if test="${cart.product_id == product.product_id}">
+                                                                ${product.product_name}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                            <c:if test="${cart.product_id == product.product_id}">
+                                                                <img src="data:image/png;base64,${product.image_url}" style="width:100px; height:auto;"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="product" items="${ProductList}" varStatus="status">
+                                                            <c:if test="${cart.product_id == product.product_id}">
+                                                                <span><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>${cart.quantity}</td>
 
-                                    </c:forEach>
+                                                    <td>
+                                                        <form action="cart" method="post">
+                                                            <input type="hidden" name="method" value="updateQuantity"/>
+                                                            <input type="hidden" name="id" value="${cart.cart_id}"/>
+                                                            <input type="number" name="newQuantity" value="" required=""/>
+                                                            <button type="submit" class="btn btn-danger">Cập Nhật Số Lượng</button>
+                                                        </form>
+                                                    </td>
 
 
-                                </tbody>
+                                                    <td>
+                                                        <form action="cart" method="post">
+                                                            <input type="hidden" name="method" value="delete"/>
+                                                            <input type="hidden" name="id" value="${cart.cart_id}"/>
+                                                            <button type="submit" class="btn btn-danger">Xóa sản phẩm</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <input  form="purchaseForm" style="height: 20px;width: 20px;border-radius: 50%;" type="checkbox" name="selectedProducts" value="${cart.product_id}" onclick="checkAllSelected()">
 
-                            </table>
-                            <form id="purchaseForm" action="orderPayment" method="post">  
-                                <input type="hidden" name="method" value="cart">
-                                    <span> <input type="checkbox" id="selectAll" style="height: 20px;width: 20px;border-radius: 50%;" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span><br>
-                                        <button type="submit" class="btn btn-primary">Mua sản phẩm</button>
-                                        </form>
-                                        </div>
-                                        <div>
-                                            <div class=" mt-5 py-3 footer">
-                                                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                                                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                                                    <p class="text-white">Mã số thuế : 92828823</p>
-                                                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                                                    <h5 class="text-white">Kết nối với chúng tôi</h5>
-                                                    <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
-                                                                                                 border: none;
-                                                                                                 outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
+                                                    </td>
+                                                </tr>
 
-                                                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                                                    <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <script>
-                                            // This function is triggered when the "Select All" checkbox changes state.
-                                            function toggleSelectAll(source) {
-                                                var checkboxes = document.getElementsByName('selectedProducts');
-                                                for (var i = 0, n = checkboxes.length; i < n; i++) {
-                                                    checkboxes[i].checked = source.checked;
-                                                }
-                                            }
+                                            </c:forEach>
 
-                                            // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
-                                            function checkAllSelected() {
-                                                var allCheckboxes = document.getElementsByName('selectedProducts');
-                                                var selectAllCheckbox = document.getElementById('selectAll');
-                                                // Check if the number of checked boxes is equal to the total number of checkboxes.
-                                                var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
-                                                selectAllCheckbox.checked = allChecked;
 
-                                                // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
-                                                var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
-                                                selectAllCheckbox.indeterminate = anyChecked && !allChecked;
-                                            }
+                                        </tbody>
 
-                                            $(document).ready(function () {
-                                                // Function to get the value of a query parameter by name
-                                                function getQueryParamByName(name, url = window.location.href) {
-                                                    name = name.replace(/[\[\]]/g, '\\$&');
-                                                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                                                            results = regex.exec(url);
-                                                    if (!results)
-                                                        return null;
-                                                    if (!results[2])
-                                                        return '';
-                                                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                                                }
+                                    </table>
+                                    <form id="purchaseForm" action="orderPayment" method="post">  
+                                        <input type="hidden" name="method" value="cart">
+                                            <span> <input type="checkbox" id="selectAll" style="height: 20px;width: 20px;border-radius: 50%;" onclick="toggleSelectAll(this)"> Chọn Tất Cả </span>
+                                            <button type="submit" class="btn btn-primary">Mua sản phẩm</button>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3 style="display: flex; justify-content: space-evenly">Không có sản phẩm trong giỏ hàng</h3>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div>
+                            <div class=" mt-5 py-3 footer">
+                                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                                    <p class="text-white">Mã số thuế : 92828823</p>
+                                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                                    <h5 class="text-white">Kết nối với chúng tôi</h5>
+                                    <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+                                                                                 border: none;
+                                                                                 outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
-                                                // Check the 'status' query parameter and set modal content
-                                                var status = getQueryParamByName('error');
-                                                if (status === 'noProductSelected') {
-                                                    console.log(status);
-                                                    var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
-                                                        keyboard: false
-                                                    });
-                                                    statusModal.show();
-                                                }
-                                            });
-                                        </script>
-                                        </body>
-                                        </html>
+                                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                                    <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        // This function is triggered when the "Select All" checkbox changes state.
+                        function toggleSelectAll(source) {
+                            var checkboxes = document.getElementsByName('selectedProducts');
+                            for (var i = 0, n = checkboxes.length; i < n; i++) {
+                                checkboxes[i].checked = source.checked;
+                            }
+                        }
+
+                        // This function checks if all individual checkboxes are checked and updates the "Select All" checkbox.
+                        function checkAllSelected() {
+                            var allCheckboxes = document.getElementsByName('selectedProducts');
+                            var selectAllCheckbox = document.getElementById('selectAll');
+                            // Check if the number of checked boxes is equal to the total number of checkboxes.
+                            var allChecked = Array.from(allCheckboxes).every(checkbox => checkbox.checked);
+                            selectAllCheckbox.checked = allChecked;
+
+                            // If not all boxes are checked, also ensure the selectAllCheckbox is not in an indeterminate state
+                            var anyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+                            selectAllCheckbox.indeterminate = anyChecked && !allChecked;
+                        }
+
+                        $(document).ready(function () {
+                            // Function to get the value of a query parameter by name
+                            function getQueryParamByName(name, url = window.location.href) {
+                                name = name.replace(/[\[\]]/g, '\\$&');
+                                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                                        results = regex.exec(url);
+                                if (!results)
+                                    return null;
+                                if (!results[2])
+                                    return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                            }
+
+                            // Check the 'status' query parameter and set modal content
+                            var status = getQueryParamByName('error');
+                            if (status === 'noProductSelected') {
+                                console.log(status);
+                                var statusModal = new bootstrap.Modal(document.getElementById('statusModal'), {
+                                    keyboard: false
+                                });
+                                statusModal.show();
+                            }
+                        });
+                    </script>
+                </body>
+                </html>

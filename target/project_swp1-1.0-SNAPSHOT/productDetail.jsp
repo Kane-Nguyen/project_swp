@@ -14,7 +14,7 @@
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
         <link href="./styles/productDetailCSS.css" rel="stylesheet"/>
         <link href="./styles/footerCSS.css" rel="stylesheet"/>
-                <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img-module/logo.png" type="image/x-icon" />
 
 
 
@@ -45,10 +45,32 @@
             String productId2= (String) session.getAttribute("productId2");
             String productName2 = (String) session.getAttribute("productName");
             String imageUrl2 = (String) session.getAttribute("productUrl");
-            
+            String id = request.getParameter("productId");
         %>
 
         <!-- compareeeeeeeeeeeeeee -->
+        <!-- báo lỗi -->
+        <%String loi = request.getParameter("loi");
+        if(loi != null & productId2 == null) { 
+        %>
+
+        <div class="modal fade" id="compareLoi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-show="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="feedbackModalLabel">Thông báo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn phải chọn sản phẩm mới so sánh được
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
         <!-- báo lỗi -->
         <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true" data-bs-dismiss="modal">
             <div class="modal-dialog">
@@ -109,41 +131,44 @@
                                     <p class="card-title">${i.product_name}</p>
                                 </div>
                             </c:forEach>
-                            <% if (productId2 != null) {%>
-                            <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
-                                <img class="mg-fluid" src="data:image/png;base64,<%= imageUrl2 %>" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover">                               
-                                <p id="productName" lass="card-title"><%= productName2 %></p>
-                            </div>
-                            <% } else { %>
-                            <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
-                                <img class="img-fluid" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover"/>
-                                <p id="productName" lass="card-title">Chọn Sản Phẩm 2</p>
-                            </div>
-                            <% }%>
+                            <c:choose>
+                                <c:when test="${productId2 != null && productId2 != productId}">
+                                    <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
+                                        <img class="mg-fluid" src="data:image/png;base64,<%= imageUrl2 %>" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover">                               
+                                        <p id="productName" lass="card-title"><%= productName2 %></p>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
+                                        <img class="img-fluid" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover"/>
+                                        <p id="productName" lass="card-title">Chọn Sản Phẩm 2</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
 
                             <div class="col-4" id="placeholderForProduct2">
                                 <form id="compareForm" action="compareProductServlet" >
                                     <input type="hidden"  name="productId" value="${productId}">
-                                    <input type="hidden"  name="productId2" id="productId2" value="<%= productId2 %>">
-                                    <button type="submit" class="btn btn-primary"  >
-                                        So sánh sản phẩm
-                                    </button>
-                                </form>
+                                    <input type="hidden"  name="productId2" id="productId2" value="<c:if test="${productId2 != productId}"><%= productId2 %></c:if>">
+                                        <button type="submit" class="btn btn-primary"  >
+                                            So sánh sản phẩm
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
+            <!-- kết thúc accdi -->
         </div>
-        <!-- kết thúc accdi -->
-    </div>
-    <!-- header -->
-    <div class="wrap-content">
-        <div class="container content wrap-header" style="height:60px;">
-            <div class="left-content">
-                <a href="/" class="logo-link"> 
-                    <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
+        <!-- header -->
+        <div class="wrap-content">
+            <div class="container content wrap-header" style="height:60px;">
+                <div class="left-content">
+                    <a href="/" class="logo-link"> 
+                        <img src="data:image/png;base64,${logo.image_url}" alt="logo" class="logo-image"/>
                 </a>
                 <div class="dropdown no-mb">
                     <span class="btn dropdown-toggle btn-white">Danh mục </span>
@@ -440,24 +465,24 @@ if(session.getAttribute("UserRole") != null){
                     </div>                      
                 </div>
             </div>
-                      <div>
-                          <div class=" mt-5 py-3 footer">
-                              <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                                  <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                                  <p class="text-white">Mã số thuế : 92828823</p>
-                                  <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                                  <h5 class="text-white">Kết nối với chúng tôi</h5>
-                                  <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
+            <div>
+                <div class=" mt-5 py-3 footer">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex" style="gap:10px;"><input type="mail" placeholder="Nhập email của bạn..." style="    border-radius: 4px; height: 32px;
                                                                      border: none;
                                                                      outline: none;"> <button class="btn-primary btn">Xac Nhan</button></div></div>
 
-                              <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                                  <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
-                              </div>
-                          </div>
-                      </div>
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <a href="/supportUser" class="btn btn-success text-white">Lấy thông tin hổ trợ người dùng</a>
+                    </div>
+                </div>
+            </div>
 
-                <!-- End block content -->
+            <!-- End block content -->
         </main>
 </body>                                     
 
@@ -469,8 +494,18 @@ if(session.getAttribute("UserRole") != null){
 
 <script type="text/javascript">
     console.log(<%= productId2 %>);
+    
+    <% if(loi != null) { 
+        %>
+    $(document).ready(function () {
+        $('#compareLoi').modal('show');
+    });
+    <%}%>
+
+
     var checkFeedback = ${checkFeedback}; // Giả sử checkFeedback là một biến từ JSP
     function updateProductInfo(productId2) {
+
         $.ajax({
             type: "POST",
             url: "update", // Đảm bảo đường dẫn này đúng
@@ -483,7 +518,6 @@ if(session.getAttribute("UserRole") != null){
                     $("#productImage").attr("src", "data:image/png;base64," + product.image_url);
                     $("#productName").text(product.product_name);
                     $("#productId2").val(product.product_id);
-
                     console.log(product.product_id);
                 }
             },
@@ -498,20 +532,16 @@ if(session.getAttribute("UserRole") != null){
         var productId2 = $(this).attr("id");
         updateProductInfo(productId2);
     });
-
-
     document.getElementById('open-modal').addEventListener('click', function () {
         document.getElementById('compare-modal').classList.add('active');
         // Ẩn nút open-modal khi modal được mở
         this.style.display = 'non   e';
     });
-
     document.getElementById('close-modal').addEventListener('click', function () {
         document.getElementById('compare-modal').classList.remove('active');
         // Hiển thị lại nút open-modal khi modal được đóng
         document.getElementById('open-modal').style.display = 'inline-block'; // Hoặc 'block', tùy vào layout của bạn
     });
-
     document.getElementById('compareForm').addEventListener('submit', function (event) {
         var productId2 = document.getElementById('productId2').value;
         if (!productId2) {
@@ -520,15 +550,12 @@ if(session.getAttribute("UserRole") != null){
             warningModal.show(); // Hiển thị modal
         }
     });
-
     // ẩm hiện reply
     <c:forEach var="f" items="${feedbackList}" varStatus="loop">
     var noFeedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
-
     document.querySelectorAll('[id^="showReplyBtn_${loop.index}"], [id^="showReplyBtn1_${loop.index}"]').forEach(function (button) {
         button.addEventListener('click', function (event) {
             event.preventDefault();
-
             var feedbacksExist = checkFeedback;
             if (!feedbacksExist) {
                 noFeedbackModal.show();
@@ -557,10 +584,8 @@ if(session.getAttribute("UserRole") != null){
         }
 
     });
-
     document.getElementById("sendFeedbackButton").addEventListener("click", function (event) {
         var comment = document.getElementById("exampleFormControlTextarea1").value;
-
         // Kiểm tra độ dài của chuỗi nhập vào
         if (comment.length < 8) {
             // Hiện modal nếu độ dài chuỗi ít hơn 8 kí tự
@@ -569,13 +594,11 @@ if(session.getAttribute("UserRole") != null){
             event.preventDefault();
         }
     });
-
     // Lặp qua mỗi form để thêm sự kiện submit
     document.querySelectorAll('.comment-feedback form').forEach(form => {
         form.addEventListener('submit', function (event) {
             var replyTextarea = this.querySelector('textarea[name="reply"]');
             var replyValue = replyTextarea.value;
-
             // Kiểm tra độ dài của chuỗi nhập vào
             if (replyValue.length < 8) {
                 // Hiển thị thông báo hoặc thực hiện hành động tùy ý (ví dụ: hiện modal)
@@ -585,6 +608,7 @@ if(session.getAttribute("UserRole") != null){
             }
         });
     });
+
 
 </script>
 </html>
