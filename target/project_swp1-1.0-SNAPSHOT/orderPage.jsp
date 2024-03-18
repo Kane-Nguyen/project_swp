@@ -76,7 +76,7 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                             <tr>
                         <form action="CRUDOrderController" method="post">
                             <input  name="method" type="hidden" value="edit"/>
-                            <input name="orderId" type="hidden" value="${listOrder.orderID}"/>
+                            <input name="orderId" type="text" value="${listOrder.orderID}"/>
                             <c:forEach items="${listUser}" var="listUser" varStatus="status">
                                 <c:if test="${listUser.userId == listOrder.userID}">
                                     <td>
@@ -256,7 +256,11 @@ if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")
                                 <c:set var="total" value="${0}"/>
                             </td>
                             <td>
+                                <c:if test="${listOrder.status_order_id != 5}">
+                                   
+                                
                                 <button class="btn btn-primary " type="submit">Sửa</button>
+                                </c:if>
                         </form> 
 
                         <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteModal">

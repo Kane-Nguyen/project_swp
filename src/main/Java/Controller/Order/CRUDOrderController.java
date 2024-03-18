@@ -59,9 +59,11 @@ public class CRUDOrderController extends HttpServlet {
 
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String method = request.getParameter("method");
         orderDAO oDAO = new orderDAO();
@@ -72,14 +74,15 @@ public class CRUDOrderController extends HttpServlet {
         String phoneNumber;
         String recipientName;
         if (method.equals("edit")) {
-            methodBuy = request.getParameter("orderId");
+            String orderId = request.getParameter("orderId");
             String address = request.getParameter("address");
-            deliveryAddress = request.getParameter("phoneNumber");
-            phoneNumber = request.getParameter("receiver");
-            recipientName = request.getParameter("status");
-
+            phoneNumber = request.getParameter("phoneNumber");
+            recipientName = request.getParameter("receiver");
+            String status = request.getParameter("status");
+            System.out.println(status);
+            System.out.println(orderId);
             try {
-                result = oDAO.updateOrder(Integer.parseInt(methodBuy), address, deliveryAddress, phoneNumber, Integer.parseInt(recipientName));
+                result = oDAO.updateOrder(Integer.parseInt(orderId), address, phoneNumber, recipientName, Integer.parseInt(status));
                 System.out.println(result);
             } catch (SQLException var29) {
                 System.out.println("Error :" + var29.toString());
