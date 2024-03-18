@@ -52,7 +52,7 @@ public class catalogsearchServlet extends HttpServlet {
             page = Integer.parseInt(pageString);
         }
         int pageSize = 12;
-        if (price == null) {
+        if (price == null || price.equals("Null")) {
             if (caterory == null) {
                 quantity = pdModel.coutSearch(resutl);
                 p = pdModel.getTop12(resutl, page, pageSize, sort);
