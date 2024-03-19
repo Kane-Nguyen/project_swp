@@ -158,7 +158,6 @@ if(session.getAttribute("UserRole") != null){
                                 <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
                             </c:if>
                             <input name="search" type="hidden" value="${result}"/>
-                            <input name="page" value="${page}" type="hidden"/>
                             <c:if test="${caterory != null}">
                                 <input name="catetory" value="${caterory}" type="hidden"/>
                             </c:if>
